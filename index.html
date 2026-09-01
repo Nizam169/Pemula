@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NIZAM // LEVEL 1 : Journey to Code Master</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='4' fill='%2316a34a' stroke='%230f3d1f' stroke-width='3'/%3E%3Crect x='6' y='6' width='20' height='20' rx='2' fill='none' stroke='%23a3e635' stroke-width='1.5'/%3E%3Ctext x='16' y='21' text-anchor='middle' font-family='monospace' font-size='16' font-weight='900' fill='white'%3EN%3C/text%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%2316a34a'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-size='18'%3E🎮%3C/text%3E%3C/svg%3E">
+<meta name="theme-color" content="#16a34a">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Rajdhani:wght@600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--green:#16a34a;--green2:#22c55e;--dark:#0f3d1f;--lime:#a3e635;--yellow:#facc15;--bg:#ffffff;--card:#f0fdf4;--ink:#0f172a}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:'Rajdhani',sans-serif}
+body::before{content:"";position:fixed;inset:0;background:repeating-linear-gradient(0deg,rgba(22,163,74,.04) 0 1px,transparent 1px 3px),radial-gradient(ellipse at 50% 0%,rgba(34,197,94,.10),transparent 60%);pointer-events:none;z-index:-1}
+.pixel-btn{background:var(--green);color:#fff;font-family:'Press Start 2P';font-size:9px;padding:12px 16px;border:3px solid var(--dark);box-shadow:4px 4px 0 var(--dark);cursor:pointer;transition:.12s;display:inline-flex;align-items:center;gap:6px;justify-content:center;text-decoration:none;line-height:1}
+.pixel-btn:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--dark)}
+.pixel-btn.yellow{background:var(--yellow);color:var(--dark)}
+.pixel-btn.tele{background:#2AABEE;color:#fff}
+.wrap{max-width:1120px;margin:auto;padding:0 20px}
+nav{position:sticky;top:0;z-index:99;background:var(--dark);border-bottom:4px solid var(--green2)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 20px;max-width:1120px;margin:auto;flex-wrap:wrap}
+.logo{font-family:'Press Start 2P';font-size:11px;color:var(--lime)}
+.logo span{color:#fff}
+.hud{display:flex;gap:8px;align-items:center;font-family:'JetBrains Mono';font-size:9px;color:#fff;background:rgba(255,255,255,.08);padding:6px 10px;border:1px solid rgba(255,255,255,.15)}
+.bar{width:72px;height:10px;background:#000;border:2px solid #fff;overflow:hidden}
+.bar-fill{height:100%;background:var(--lime)}
+.bar-fill.hp{background:linear-gradient(90deg,#16a34a,#a3e635)}
+.nav-links{display:flex;gap:6px;flex-wrap:wrap}
+.nav-links a{font-family:'JetBrains Mono';font-size:10px;color:#fff;text-decoration:none;border:2px solid transparent;padding:6px 10px;background:rgba(255,255,255,.08)}
+.nav-links a:hover{border-color:var(--lime)}
+.hero{display:grid;grid-template-columns:1.15fr .85fr;gap:24px;align-items:stretch;padding:36px 20px;max-width:1120px;margin:auto}
+@media(max-width:860px){.hero{grid-template-columns:1fr}}
+.hero-left{display:flex;flex-direction:column;justify-content:center}
+.badge{display:inline-flex;background:var(--dark);color:var(--lime);font-family:'Press Start 2P';font-size:7px;padding:7px 10px;border:2px solid var(--green2);align-self:flex-start}
+h1{font-family:'Press Start 2P';font-size:clamp(18px,3.2vw,28px);line-height:1.5;color:var(--dark);margin-top:12px;text-shadow:2px 2px 0 var(--lime)}
+h1 em{color:var(--green);font-style:normal}
+.hero p{color:#334155;margin:12px 0;font-size:16px;line-height:1.6}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:14px 0}
+.stat{background:var(--card);border:2px solid var(--dark);padding:8px 10px;display:flex;justify-content:space-between;font-family:'JetBrains Mono';font-size:11px}
+.stat b{color:var(--green)}
+.links{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.links .pixel-btn{flex:1;min-width:120px}
+.tip{margin-top:10px;font-family:'JetBrains Mono';font-size:10px;color:#64748b;background:#f8fafc;border-left:3px solid var(--green);padding:8px 10px}
+.char-card{background:var(--card);border:4px solid var(--dark);box-shadow:6px 6px 0 var(--dark);padding:18px;text-align:center;display:flex;flex-direction:column;justify-content:center}
+.char-sprite{width:120px;height:120px;margin:8px auto;background:linear-gradient(180deg,#dcfce7,#fff);border:4px solid var(--dark);display:grid;place-items:center;font-size:52px;box-shadow:0 0 0 4px var(--lime)}
+.type{font-family:'Press Start 2P';font-size:7px;color:var(--green);margin:6px 0}
+.lvl{font-family:'Press Start 2P';font-size:9px;background:var(--dark);border:2px solid var(--lime);padding:7px 10px;color:var(--lime);display:inline-block}
+.char-info{text-align:left;font-family:'JetBrains Mono';font-size:10px;line-height:1.7;color:#334155;background:#fff;border:2px solid var(--dark);padding:10px;margin-top:12px}
+section{padding:32px 20px;max-width:1120px;margin:auto}
+.sec-title{font-family:'Press Start 2P';font-size:12px;color:var(--dark);display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.sec-title::before{content:"▶";color:var(--green);font-size:10px}
+.sec-title::after{content:"";flex:1;height:3px;background:linear-gradient(90deg,var(--green),transparent)}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:800px){.grid3{grid-template-columns:1fr}}
+.card{background:#fff;border:3px solid var(--dark);padding:16px;box-shadow:4px 4px 0 var(--dark);display:flex;flex-direction:column;gap:8px}
+.card h3{font-family:'Press Start 2P';font-size:9px;color:var(--green)}
+.card p{font-size:14px;color:#475569;line-height:1.5;flex:1}
+.tag{font-family:'JetBrains Mono';font-size:9px;background:var(--dark);color:var(--lime);padding:4px 7px;display:inline-block}
+.quests{display:flex;flex-direction:column;gap:10px}
+.quest{display:grid;grid-template-columns:64px 1fr;gap:14px;align-items:center;background:#fff;border:2px solid var(--dark);border-left:6px solid var(--green);padding:14px 16px;box-shadow:4px 4px 0 var(--dark);transition:.1s;user-select:none}
+.quest:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--dark);background:var(--card)}
+.card:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--dark)}
+.stat:active{transform:translate(1px,1px);box-shadow:1px 1px 0 var(--dark)}
+.q-num{font-family:'Press Start 2P';font-size:16px;color:var(--green);text-align:center;line-height:1}
+.q-num small{display:block;font-size:7px;color:var(--dark);margin-top:4px;background:var(--lime);padding:2px 4px}
+.quest h4{font-size:15px;color:var(--dark)}
+.quest p{font-size:13px;color:#64748b;margin:4px 0}
+.progress{height:8px;background:#000;border:2px solid var(--dark);overflow:hidden;margin-top:6px}
+.progress i{display:block;height:100%}
+.skill-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:700px){.skill-grid{grid-template-columns:1fr}}
+.skill-box{background:#fff;border:3px solid var(--dark);padding:16px;box-shadow:4px 4px 0 var(--dark)}
+.skill-row{display:flex;justify-content:space-between;font-family:'JetBrains Mono';font-size:10px;margin:8px 0 3px}
+.skill-row:first-child{margin-top:0}
+.skill-bar{height:12px;background:#000;border:2px solid var(--dark);position:relative}
+.skill-bar i{position:absolute;inset:2px;background:linear-gradient(90deg,var(--green),var(--lime))}
+.quote{background:var(--dark);border:4px solid var(--lime);padding:20px;text-align:center;margin:16px 20px;max-width:1120px;margin-left:auto;margin-right:auto}
+.quote p{color:#dcfce7;font-size:16px;line-height:1.6}
+footer{border-top:4px solid var(--dark);background:var(--dark);color:#fff;text-align:center;padding:20px;font-family:'JetBrains Mono';font-size:11px}
+.blink{animation:blink 1s steps(2) infinite}
+@keyframes blink{50%{opacity:0}}
+</style>
+</head>
+<body>
+<nav><div class="nav-inner">
+<div class="logo">NIZAM<span>.DEV</span> <span style="font-size:7px;color:var(--lime)"> LVL 01</span></div>
+<div class="hud"><span>HP</span><div class="bar"><div class="bar-fill hp" style="width:92%"></div></div><span>XP</span><div class="bar"><div class="bar-fill" style="width:35%"></div></div><span style="color:var(--lime)">35%</span></div>
+<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+<div class="nav-links"><a href="#start">START</a><a href="#quest">QUEST</a><a href="#skill">STATS</a><a href="#kontak">KONTAK</a></div>
+<button id="sndBtn" onclick="toggleSound()" style="font-family:'Press Start 2P';font-size:8px;background:var(--lime);color:var(--dark);border:2px solid #fff;padding:7px 9px;cursor:pointer;box-shadow:3px 3px 0 #000">🔊 ON</button>
+</div>
+</div></nav>
+
+<div class="hero" id="start">
+<div class="hero-left">
+<div class="badge">▣ NEW GAME • PEMULA MODE ON</div>
+<h1>LEVEL 1<br><em>JOURNEY TO</em><br>CODE MASTER</h1>
+<p>Halo, aku <b style="color:var(--green)">Nizam</b> — Pemula fokus bikin <b>WEBSITE</b>. Ini save-point ku dari NOL sampai bisa bikin portfolio & landing page. UI hijau-putih biar fresh 🌿</p>
+<div class="stats">
+<div class="stat"><span>CLASS</span><b>Learner</b></div>
+<div class="stat"><span>RANK</span><b>Beginner</b></div>
+<div class="stat"><span>LOC</span><b>Indonesia</b></div>
+<div class="stat"><span>STATUS</span><b style="color:var(--green)">● ONLINE</b></div>
+</div>
+<div class="links">
+<a class="pixel-btn" href="https://github.com/nizam169" target="_blank"><svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.04c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.75.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.5.99.11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 016 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.65.24 2.87.12 3.17.77.84 1.23 1.91 1.23 3.22 0 4.61-2.8 5.63-5.47 5.93.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.82.58C20.56 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg> GITHUB</a>
+<a class="pixel-btn tele" href="https://t.me/storenizam" target="_blank"><svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.64 8.56l-1.98 9.35c-.15.66-.55.82-1.11.51l-3.08-2.27-1.49 1.43c-.17.17-.31.31-.63.31l.22-3.18 5.79-5.24c.25-.22-.06-.35-.39-.13l-7.16 4.51-3.08-.96c-.67-.21-.69-.67.14-.99l12.04-4.64c.56-.2 1.04.13.73.81z"/></svg> TELEGRAM</a>
+<a class="pixel-btn yellow" href="#quest">▶ QUEST</a>
+</div>
+<div class="tip">> Tip: Ngoding = RPG. Naik level pelan-pelan, jangan skip tutorial!</div>
+</div>
+<div class="char-card">
+<div class="char-sprite">🧑‍💻</div>
+<div class="type">PLAYER • NIZAM</div>
+<div style="font-family:'Press Start 2P';font-size:10px;color:var(--dark)">FUTURE WEB DEV</div>
+<div style="margin:10px 0;display:flex;gap:6px;justify-content:center;flex-wrap:wrap"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JS</span></div>
+<div class="lvl">LEVEL 01 — NEWBIE</div>
+<div class="char-info">> EXP: 350 / 1000<br>> Quest: 2/10 Done<br>> Trophy: "Hello World!" 🏆</div>
+<div style="display:flex;gap:8px;justify-content:center;margin-top:12px">
+<a class="pixel-btn" style="font-size:7px;padding:8px 10px" href="https://github.com/nizam169" target="_blank"><svg width="12" height="12" viewBox="0 0 24 24" fill="white"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.04c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.75.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.5.99.11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 016 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.65.24 2.87.12 3.17.77.84 1.23 1.91 1.23 3.22 0 4.61-2.8 5.63-5.47 5.93.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.82.58C20.56 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg> GITHUB</a>
+<a class="pixel-btn tele" style="font-size:7px;padding:8px 10px" href="https://t.me/storenizam" target="_blank"><svg width="12" height="12" viewBox="0 0 24 24" fill="white"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.64 8.56l-1.98 9.35c-.15.66-.55.82-1.11.51l-3.08-2.27-1.49 1.43c-.17.17-.31.31-.63.31l.22-3.18 5.79-5.24c.25-.22-.06-.35-.39-.13l-7.16 4.51-3.08-.96c-.67-.21-.69-.67.14-.99l12.04-4.64c.56-.2 1.04.13.73.81z"/></svg> TELEGRAM</a>
+</div>
+</div>
+</div>
+
+<section>
+<div class="sec-title">KENAPA WEBSITE KAYAK MAIN GAME?</div>
+<div class="grid3">
+<div class="card"><h3>🎮 LEVELING</h3><p>Dari HTML → CSS → deploy. Tiap error = +EXP!</p></div>
+<div class="card"><h3>🌐 FOKUS WEBSITE</h3><p>Nizam khusus <b>Website</b>: Portfolio, Landing Page, Toko Online.</p></div>
+<div class="card"><h3>👾 Pemula Coding</h3><p>Masih Belajar Dan Konsisten <b> Pemula Coding</b>.</p></div>
+</div>
+</section>
+
+<section id="quest">
+<div class="sec-title">QUEST LOG — ROADMAP 0 → BISA</div>
+<div class="quests">
+<div class="quest"><div class="q-num">01<small>DONE</small></div><div><div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px"><h4>LOGIKA & ALGORITMA</h4><span style="font-family:'JetBrains Mono';font-size:10px;color:var(--green)">● SELESAI</span></div><p>Input → Proses → Output. Latihan flowchart.</p><div class="progress"><i style="width:100%;background:var(--green)"></i></div></div></div>
+<div class="quest" style="border-left-color:var(--yellow)"><div class="q-num">02<small>ACTIVE</small></div><div><div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px"><h4>HTML + CSS — TAMPILAN</h4><span style="font-family:'JetBrains Mono';font-size:10px;color:#ca8a04">◐ PROSES</span></div><p>Bikin portfolio putih-hijau ini tanpa template!</p><div class="progress"><i style="width:60%;background:var(--yellow)"></i></div></div></div>
+<div class="quest" style="border-left-color:#94a3b8"><div class="q-num">03<small>LOCKED</small></div><div><div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px"><h4>JAVASCRIPT DASAR</h4><span style="font-family:'JetBrains Mono';font-size:10px;color:#94a3b8">○ TERKUNCI</span></div><p>Tombol, form & animasi biar website hidup.</p><div class="progress"><i style="width:0%"></i></div></div></div>
+<div class="quest" style="border-left-color:#94a3b8"><div class="q-num">04<small>LOCKED</small></div><div><div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px"><h4>GIT & GITHUB</h4><span style="font-family:'JetBrains Mono';font-size:10px;color:#94a3b8">○ TERKUNCI</span></div><p>Simpan di github.com/nizam169 biar aman.</p><div class="progress"><i style="width:0%"></i></div></div></div>
+<div class="quest"><div class="q-num">05<small>BOSS</small></div><div><div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px"><h4>FINAL: WEBSITE PORTFOLIO</h4><span style="font-family:'JetBrains Mono';font-size:10px;color:var(--green)">★ BOSS</span></div><p>Gabungin semua jadi 1 website siap klien.</p><div class="progress"><i style="width:10%;background:var(--green)"></i></div></div></div>
+</div>
+<div style="margin-top:12px;background:#fff;border:2px dashed var(--green);padding:10px;font-family:'JetBrains Mono';font-size:11px;color:var(--green);text-align:center">💡 "Error itu petunjuk, bukan hukuman. Google & Telegram adalah party-mu!" — Nizam</div>
+</section>
+
+<section id="skill">
+<div class="sec-title">PLAYER STATS</div>
+<div class="skill-grid">
+<div class="skill-box">
+<div class="skill-row"><span>HTML</span><span>70%</span></div><div class="skill-bar"><i style="width:70%"></i></div>
+<div class="skill-row"><span>CSS (UI Hijau)</span><span>60%</span></div><div class="skill-bar"><i style="width:60%"></i></div>
+<div class="skill-row"><span>JavaScript Website</span><span>35%</span></div><div class="skill-bar"><i style="width:35%;background:linear-gradient(90deg,var(--yellow),#fb923c)"></i></div>
+<div class="skill-row"><span>Semangat</span><span>99%</span></div><div class="skill-bar"><i style="width:99%"></i></div>
+</div>
+<div class="skill-box" style="background:var(--card)">
+<b style="font-family:'Press Start 2P';font-size:8px;color:var(--green)">CARA CEPAT NAIK LEVEL:</b><br><br>
+<span style="font-size:14px;line-height:1.7;color:#334155">
+1. <b>1% tiap hari</b> — 30 menit nonton + 30 praktek<br>
+2. <b>Jangan copas buta</b> — ketik ulang<br>
+3. <b>Project kecil</b> — todo, kalkulator, landing<br>
+4. <b>Tanya Telegram</b> — t.me/storenizam<br>
+</span>
+<span style="font-family:'JetBrains Mono';font-size:11px;color:var(--green)">> Konsistensi > Intensitas</span>
+</div>
+</div>
+</section>
+
+<section id="kontak">
+<div class="sec-title">CONNECT — HUBUNGI NIZAM</div>
+<div class="grid3">
+<div class="card" style="text-align:center;align-items:center"><div style="display:grid;place-items:center;width:52px;height:52px;background:#000;border:3px solid var(--dark)"><svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.04c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.75.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.5.99.11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 016 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.65.24 2.87.12 3.17.77.84 1.23 1.91 1.23 3.22 0 4.61-2.8 5.63-5.47 5.93.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.82.58C20.56 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg></div><h3>GITHUB</h3><p>Lihat code & progress</p><a class="pixel-btn" href="https://github.com/nizam169" target="_blank" style="width:100%"><svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.04c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.75.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.5.99.11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 016 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.65.24 2.87.12 3.17.77.84 1.23 1.91 1.23 3.22 0 4.61-2.8 5.63-5.47 5.93.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.82.58C20.56 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg> github.com/nizam169</a></div>
+<div class="card" style="text-align:center;align-items:center;border-color:#2AABEE"><div style="display:grid;place-items:center;width:52px;height:52px;background:#2AABEE;border:3px solid var(--dark)"><svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.64 8.56l-1.98 9.35c-.15.66-.55.82-1.11.51l-3.08-2.27-1.49 1.43c-.17.17-.31.31-.63.31l.22-3.18 5.79-5.24c.25-.22-.06-.35-.39-.13l-7.16 4.51-3.08-.96c-.67-.21-.69-.67.14-.99l12.04-4.64c.56-.2 1.04.13.73.81z"/></svg></div><h3>TELEGRAM</h3><p>Chat & order cepat</p><a class="pixel-btn tele" href="https://t.me/storenizam" target="_blank" style="width:100%"><svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.64 8.56l-1.98 9.35c-.15.66-.55.82-1.11.51l-3.08-2.27-1.49 1.43c-.17.17-.31.31-.63.31l.22-3.18 5.79-5.24c.25-.22-.06-.35-.39-.13l-7.16 4.51-3.08-.96c-.67-.21-.69-.67.14-.99l12.04-4.64c.56-.2 1.04.13.73.81z"/></svg> t.me/storenizam</a></div>
+<div class="card" style="text-align:center;align-items:center" onclick="showToast('📚 CATATAN COMING SOON');playCoin()"><div style="font-size:28px;width:52px;height:52px;display:grid;place-items:center;background:var(--yellow);border:3px solid var(--dark)">📚</div><h3>CATATAN</h3><p>Rangkuman FREE buat pemula</p><span class="tag" style="cursor:pointer">COMING SOON — TAP!</span></div>
+</div>
+</section>
+
+<div class="quote">
+<div style="font-family:'Press Start 2P';font-size:10px;color:var(--lime)">💬 PESAN NIZAM <span class="blink">_</span></div>
+<p style="margin:10px 0">"Kalau Nizam dari 0 aja berani tekan START, kamu juga bisa. Cukup <b style="color:var(--lime)">niat + 1 jam sehari</b>."</p>
+<div style="font-family:'JetBrains Mono';font-size:11px;color:var(--lime)">— Nizam • Level 1 Web Dev —</div>
+</div>
+
+<footer>
+<div style="font-family:'Press Start 2P';font-size:9px;color:var(--lime)">NIZAM.DEV © 2026 — PRESS START TO CODE <span class="blink">█</span></div>
+<div style="margin-top:8px;display:flex;gap:12px;justify-content:center;align-items:center;flex-wrap:wrap"><a href="https://github.com/nizam169" style="color:var(--lime);display:inline-flex;align-items:center;gap:6px;text-decoration:none"><svg width="14" height="14" viewBox="0 0 24 24" fill="#a3e635"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.04c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.75.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.5.99.11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 016 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.65.24 2.87.12 3.17.77.84 1.23 1.91 1.23 3.22 0 4.61-2.8 5.63-5.47 5.93.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.82.58C20.56 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg> github.com/nizam169</a> • <a href="https://t.me/storenizam" style="color:var(--lime);display:inline-flex;align-items:center;gap:6px;text-decoration:none"><svg width="14" height="14" viewBox="0 0 24 24" fill="#a3e635"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.64 8.56l-1.98 9.35c-.15.66-.55.82-1.11.51l-3.08-2.27-1.49 1.43c-.17.17-.31.31-.63.31l.22-3.18 5.79-5.24c.25-.22-.06-.35-.39-.13l-7.16 4.51-3.08-.96c-.67-.21-.69-.67.14-.99l12.04-4.64c.56-.2 1.04.13.73.81z"/></svg> t.me/storenizam</a></div>
+<div style="margin-top:6px;opacity:.6">Putih • Hijau Game • Sound ON • /fortolio/</div>
+</footer>
+<div id="toast" style="position:fixed;bottom:70px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--dark);color:var(--lime);font-family:'Press Start 2P';font-size:8px;padding:12px 16px;border:3px solid var(--lime);box-shadow:4px 4px 0 #000;opacity:0;pointer-events:none;transition:.25s;z-index:999;white-space:nowrap">▶ OK!</div>
+<div style="position:fixed;bottom:14px;right:14px;z-index:99;display:flex;gap:8px">
+<button onclick="playCoin();showToast('🪙 +10 COIN!')" class="pixel-btn yellow" style="font-size:8px;padding:9px 11px">🪙 COIN</button>
+<button onclick="playLevelUp();showToast('⭐ LEVEL UP!')" class="pixel-btn" style="font-size:8px;padding:9px 11px">⭐ UP</button>
+</div>
+<script>
+let AC,soundOn=true;
+function ctx(){if(!AC) AC=new (window.AudioContext||window.webkitAudioContext)(); if(AC.state=='suspended') AC.resume(); return AC}
+function tone(f,t,d,v=0.25,s){if(!soundOn) return; const c=ctx(),o=c.createOscillator(),g=c.createGain();o.type=t;o.frequency.value=f;o.connect(g);g.connect(c.destination);g.gain.setValueAtTime(v,c.currentTime);g.gain.exponentialRampToValueAtTime(0.01,c.currentTime+d);if(s) o.frequency.exponentialRampToValueAtTime(s,c.currentTime+d);o.start();o.stop(c.currentTime+d)}
+function playClick(){tone(800,'square',0.12,0.2,400)}
+function playHover(){tone(1200,'square',0.06,0.08)}
+function playCoin(){tone(900,'square',0.15,0.3,1400);setTimeout(()=>tone(1200,'square',0.2,0.25),90)}
+function playLevelUp(){[523,659,784,1046].forEach((f,i)=>setTimeout(()=>tone(f,'square',0.3,0.22),i*110))}
+function toggleSound(){soundOn=!soundOn;document.getElementById('sndBtn').textContent=soundOn?'🔊 ON':'🔇 OFF';document.getElementById('sndBtn').style.background=soundOn?'var(--lime)':'#fff';if(soundOn) playCoin(); showToast(soundOn?'🔊 SOUND ON':'🔇 SOUND OFF')}
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.style.opacity='1';t.style.transform='translateX(-50%) translateY(0)';clearTimeout(t._h);t._h=setTimeout(()=>{t.style.opacity='0';t.style.transform='translateX(-50%) translateY(20px)'},2000)}
+document.querySelectorAll('.pixel-btn,.nav-links a,.card,.quest,.stat').forEach(el=>{
+  el.style.cursor='pointer';
+  el.addEventListener('mouseenter',playHover);
+  el.addEventListener('click',playClick);
+});
+document.querySelectorAll('.card').forEach(c=>{
+  if(!c.querySelector('a')){
+    c.addEventListener('click',()=>{const t=c.querySelector('h3')?.textContent||'CARD';showToast('▶ '+t);playCoin()});
+  }
+});
+document.querySelectorAll('.quest').forEach(q=>{
+  q.addEventListener('click',()=>{const t=q.querySelector('h4')?.textContent||'QUEST';showToast('▶ '+t);playCoin()});
+});
+document.querySelectorAll('.stat').forEach(s=>{
+  s.addEventListener('click',()=>showToast('▶ '+s.textContent.trim()));
+});
+document.body.addEventListener('click',()=>ctx(),{once:true});
+</script>
+</body>
+</html>
