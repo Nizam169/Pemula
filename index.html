@@ -334,11 +334,163 @@
       max-width: 580px;
     }
 
-    /* Services / Focus Grid */
+    /* Cards Grid */
     .cards-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 20px;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .project-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 26px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.25s ease;
+      position: relative;
+    }
+
+    .project-card:hover {
+      border-color: var(--blue-200);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .project-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .project-domain {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--blue-600);
+    }
+
+    .project-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      background: var(--blue-50);
+      color: var(--blue-700);
+      border: 1px solid var(--blue-200);
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+    }
+
+    .project-card h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 8px;
+    }
+
+    .project-card p {
+      font-size: 0.925rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .project-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--blue-600);
+      text-decoration: none;
+      transition: gap 0.2s ease;
+    }
+
+    .project-link:hover {
+      gap: 10px;
+      color: var(--blue-700);
+    }
+
+    /* AI Stack Grid */
+    .ai-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .ai-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      transition: all 0.25s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .ai-card:hover {
+      border-color: var(--blue-200);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .ai-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .ai-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.95rem;
+      background: var(--blue-50);
+      color: var(--blue-600);
+      border: 1px solid var(--blue-100);
+    }
+
+    .ai-card h4 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .ai-role {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-light);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .ai-card p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    @media (max-width: 860px) {
+      .projects-grid,
+      .ai-grid {
+        grid-template-columns: 1fr;
+      }
     }
 
     .service-card {
@@ -713,7 +865,9 @@
       </a>
 
       <nav class="nav-links">
+        <a href="#proyek">Web Saya</a>
         <a href="#fokus">Fokus</a>
+        <a href="#ai-stack">AI Asisten</a>
         <a href="#roadmap">Roadmap</a>
         <a href="#keahlian">Keahlian</a>
         <a href="#kontak">Kontak</a>
@@ -773,6 +927,47 @@
       </div>
     </section>
 
+    <!-- My Websites / Portofolio Jaringan -->
+    <section class="section" id="proyek">
+      <div class="section-header">
+        <span class="section-tag">Jaringan Web</span>
+        <h2 class="section-title">Website & Proyek Aktif</h2>
+        <p class="section-desc">Eksplorasi domain dan proyek web yang sedang dibangun dan dikembangkan.</p>
+      </div>
+
+      <div class="projects-grid">
+        <div class="project-card">
+          <div>
+            <div class="project-top">
+              <span class="project-domain">buluku.web.id</span>
+              <span class="project-badge">● Active Website</span>
+            </div>
+            <h3>Buluku Web</h3>
+            <p>Platform dan proyek web dengan fokus pada kemudahan navigasi, layout responsif, dan konten digital yang ringan diakses.</p>
+          </div>
+          <a href="https://buluku.web.id" target="_blank" rel="noopener noreferrer" class="project-link">
+            <span>Kunjungi buluku.web.id</span>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+        </div>
+
+        <div class="project-card">
+          <div>
+            <div class="project-top">
+              <span class="project-domain">luminoir.my.id</span>
+              <span class="project-badge">● Active Website</span>
+            </div>
+            <h3>Luminoir Studio</h3>
+            <p>Eksperimen visual dan web showcase bertema modern, memadukan estetika kontemporer dan arsitektur kode yang terstruktur.</p>
+          </div>
+          <a href="https://luminoir.my.id" target="_blank" rel="noopener noreferrer" class="project-link">
+            <span>Kunjungi luminoir.my.id</span>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
     <!-- Services / Fokus Section -->
     <section class="section" id="fokus">
       <div class="section-header">
@@ -804,6 +999,61 @@
           </div>
           <h3>Clean Code & Responsif</h3>
           <p>Kombinasi HTML semantik, CSS efisien, dan JavaScript interaktif ringan yang memastikan aksesibilitas dan performa optimal.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- AI Assistants / Toolstack Section -->
+    <section class="section" id="ai-stack">
+      <div class="section-header">
+        <span class="section-tag">AI Powered Workflow</span>
+        <h2 class="section-title">AI sebagai Asisten Coding</h2>
+        <p class="section-desc">Memanfaatkan kecerdasan buatan sebagai co-pilot untuk debugging, eksplorasi ide, refactoring kode, dan mempercepat proses belajar.</p>
+      </div>
+
+      <div class="ai-grid">
+        <div class="ai-card">
+          <div class="ai-header">
+            <div class="ai-icon">DS</div>
+            <div>
+              <h4>DeepSeek</h4>
+              <span class="ai-role">Logic & Debugging</span>
+            </div>
+          </div>
+          <p>Membantu pemecahan algoritma rumit, optimasi logika fungsi, dan analisa error terminal secara mendalam.</p>
+        </div>
+
+        <div class="ai-card">
+          <div class="ai-header">
+            <div class="ai-icon">CL</div>
+            <div>
+              <h4>Claude</h4>
+              <span class="ai-role">Architecture & UI</span>
+            </div>
+          </div>
+          <p>Partner ideal untuk refactoring arsitektur kode bersih, struktur semantik, dan styling modern yang presisi.</p>
+        </div>
+
+        <div class="ai-card">
+          <div class="ai-header">
+            <div class="ai-icon">GM</div>
+            <div>
+              <h4>Gemini</h4>
+              <span class="ai-role">Research & Context</span>
+            </div>
+          </div>
+          <p>Eksplorasi dokumentasi web terbaru, integrasi tools modern, dan pemahaman konsep komputasi secara cepat.</p>
+        </div>
+
+        <div class="ai-card">
+          <div class="ai-header">
+            <div class="ai-icon">GPT</div>
+            <div>
+              <h4>ChatGPT</h4>
+              <span class="ai-role">Brainstorming & QA</span>
+            </div>
+          </div>
+          <p>Asisten interaktif untuk drafting ide proyek, validasi alur user experience, dan review skrip front-end.</p>
         </div>
       </div>
     </section>
