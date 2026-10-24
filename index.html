@@ -831,7 +831,66 @@
       border: 1px solid var(--border);
     }
 
-    /* Skills & Principles Section */
+    .skills-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+      background: #f1f5f9;
+      padding: 4px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+    }
+
+    .tab-btn {
+      flex: 1;
+      padding: 10px 16px;
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      background: transparent;
+      border: none;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-family: inherit;
+    }
+
+    .tab-btn.active {
+      background: #ffffff;
+      color: var(--blue-600);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+      animation: fadeIn 0.25s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .swipe-container {
+      width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      padding-bottom: 4px;
+    }
+
+    .swipe-container::-webkit-scrollbar {
+      display: none;
+    }
     .skills-layout {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -1430,14 +1489,23 @@
         <p class="section-desc">Transparan terhadap progres kemampuan saat ini dan berpegang teguh pada etos kerja belajar yang sehat.</p>
       </div>
 
-      <div class="skills-layout">
-        <!-- Tech Stacks -->
+      <!-- Tab Switcher (Bisa Digeser / Diklik) -->
+      <div class="skills-tabs">
+        <button class="tab-btn active" onclick="switchSkillTab('tools')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          Pemahaman Tools (20%)
+        </button>
+        <button class="tab-btn" onclick="switchSkillTab('principles')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          Prinsip Belajar
+        </button>
+      </div>
+
+      <!-- Tab 1: Tools (List Rapi Anti-Keluar Garis) -->
+      <div class="tab-content active" id="tab-tools">
         <div class="skill-panel">
           <div>
-            <h3>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-              Tingkat Pemahaman Tools
-            </h3>
+            <h3>Tingkat Pemahaman Tools</h3>
             <p class="skill-panel-sub">Evaluasi jujur pemula (level eksplorasi & praktek dasar mandiri).</p>
           </div>
 
@@ -1495,14 +1563,13 @@
             </div>
           </div>
         </div>
+      </div>
 
-        <!-- Principles -->
+      <!-- Tab 2: Principles -->
+      <div class="tab-content" id="tab-principles">
         <div class="skill-panel">
           <div>
-            <h3>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-              Prinsip Belajar Berkelanjutan
-            </h3>
+            <h3>Prinsip Belajar Berkelanjutan</h3>
             <p class="skill-panel-sub">Pedoman harian agar tidak burnout dan terus berkembang.</p>
           </div>
 
@@ -1590,6 +1657,25 @@
           nav.classList.remove('active');
         });
       });
+    }
+
+    function switchSkillTab(tab) {
+      const btnTools = document.querySelectorAll('.tab-btn')[0];
+      const btnPrinciples = document.querySelectorAll('.tab-btn')[1];
+      const contentTools = document.getElementById('tab-tools');
+      const contentPrinciples = document.getElementById('tab-principles');
+
+      if (tab === 'tools') {
+        btnTools.classList.add('active');
+        btnPrinciples.classList.remove('active');
+        contentTools.classList.add('active');
+        contentPrinciples.classList.remove('active');
+      } else {
+        btnPrinciples.classList.add('active');
+        btnTools.classList.remove('active');
+        contentPrinciples.classList.add('active');
+        contentTools.classList.remove('active');
+      }
     }
   </script>
 </body>
