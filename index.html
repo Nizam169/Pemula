@@ -617,16 +617,46 @@
       }
 
       .menu-toggle {
-        display: inline-flex;
-        align-items: center;
+        display: flex;
+        flex-direction: column;
         justify-content: center;
-        width: 38px;
-        height: 38px;
+        align-items: center;
+        gap: 5px;
+        width: 42px;
+        height: 42px;
+        padding: 0;
         border-radius: var(--radius-sm);
-        border: 1px solid var(--border);
+        border: 1.5px solid var(--border);
         background: #ffffff;
         cursor: pointer;
-        color: var(--text-main);
+        transition: all 0.2s ease;
+      }
+
+      .menu-toggle:hover,
+      .menu-toggle:active {
+        background: var(--blue-50);
+        border-color: var(--blue-200);
+      }
+
+      .burger-line {
+        width: 20px;
+        height: 2px;
+        background-color: var(--text-main);
+        border-radius: 2px;
+        transition: all 0.25s ease;
+      }
+
+      .menu-toggle.open .burger-line:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+      }
+
+      .menu-toggle.open .burger-line:nth-child(2) {
+        opacity: 0;
+        transform: scale(0);
+      }
+
+      .menu-toggle.open .burger-line:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
       }
 
       .contact-card {
@@ -1088,7 +1118,9 @@
           <span>Hubungi</span>
         </a>
         <button class="menu-toggle" id="menuToggle" aria-label="Toggle Navigation">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          <span class="burger-line"></span>
+          <span class="burger-line"></span>
+          <span class="burger-line"></span>
         </button>
       </div>
     </div>
@@ -1163,10 +1195,10 @@
               Platform otomatis untuk aktivasi status Alight Motion Premium melalui sistem <em>Magic Link</em> verifikasi sekali klik. Dirancang praktis, tanpa iklan mengganggu, dan aktif dalam hitungan detik untuk kebutuhan video editor.
             </p>
             <div class="project-features">
-              <span class="project-feat">⚡ &lt; 15s Aktivasi</span>
-              <span class="project-feat">🔗 Magic Link System</span>
-              <span class="project-feat">🚫 No Ads</span>
-              <span class="project-feat">📱 Mobile Friendly</span>
+              <span class="project-feat">Aktivasi Cepat</span>
+              <span class="project-feat">Sistem Magic Link</span>
+              <span class="project-feat">Bebas Iklan</span>
+              <span class="project-feat">Mobile Friendly</span>
             </div>
           </div>
           <a href="https://buluku.web.id" target="_blank" rel="noopener noreferrer" class="project-link">
@@ -1188,10 +1220,10 @@
               Layanan email sementara gratis tanpa registrasi akun untuk menerima kode verifikasi dan melindungi privasi inbox utama. Dilengkapi fitur penambahan custom domain sendiri via DNS MX & DKIM.
             </p>
             <div class="project-features">
-              <span class="project-feat">⏱️ Auto-Refresh 10s</span>
-              <span class="project-feat">🗑️ Auto-Delete 24 Jam</span>
-              <span class="project-feat">🌐 Custom Domain Support</span>
-              <span class="project-feat">🔒 Zero Registration</span>
+              <span class="project-feat">Auto-Refresh 10 Detik</span>
+              <span class="project-feat">Hapus Otomatis 24 Jam</span>
+              <span class="project-feat">Support Custom Domain</span>
+              <span class="project-feat">Tanpa Perlu Daftar</span>
             </div>
           </div>
           <a href="https://luminoir.my.id" target="_blank" rel="noopener noreferrer" class="project-link">
@@ -1527,10 +1559,12 @@
     const nav = document.getElementById('mainNav');
     if (toggle && nav) {
       toggle.addEventListener('click', () => {
+        toggle.classList.toggle('open');
         nav.classList.toggle('active');
       });
       nav.querySelectorAll('a').forEach(link => {
         link.addEventListener('click', () => {
+          toggle.classList.remove('open');
           nav.classList.remove('active');
         });
       });
