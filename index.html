@@ -68,22 +68,6 @@
       line-height: 1.6;
     }
 
-    /* Ambient Subtle Grid */
-    .bg-pattern {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 600px;
-      background: 
-        radial-gradient(ellipse 70% 50% at 50% -10%, rgba(37, 99, 235, 0.12), transparent 70%),
-        repeating-linear-gradient(0deg, rgba(15, 23, 42, 0.03) 0px, rgba(15, 23, 42, 0.03) 1px, transparent 1px, transparent 24px),
-        repeating-linear-gradient(90deg, rgba(15, 23, 42, 0.03) 0px, rgba(15, 23, 42, 0.03) 1px, transparent 1px, transparent 24px);
-      pointer-events: none;
-      z-index: -1;
-      overflow: hidden;
-    }
-
     .container {
       width: 100%;
       max-width: 1080px;
@@ -328,18 +312,11 @@
     }
 
     .section-tag {
-      display: inline-block;
-      font-size: 0.775rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--neo-border);
-      background: var(--blue-100);
-      padding: 3px 10px;
-      border: 1.5px solid var(--neo-border);
-      border-radius: var(--radius-sm);
-      box-shadow: 2px 2px 0 var(--neo-border);
-      margin-bottom: 10px;
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-light);
+      margin-bottom: 6px;
     }
 
     .section-title {
@@ -438,19 +415,12 @@
       box-shadow: 1.5px 1.5px 0 var(--neo-border);
     }
 
-    .project-badge.live-pulse::before {
+    .project-badge.is-live::before {
       content: "";
       width: 7px;
       height: 7px;
       background-color: #10b981;
       border-radius: 50%;
-      box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.4);
-      animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.3); opacity: 0.7; }
     }
 
     .bento-card h3 {
@@ -545,25 +515,6 @@
       align-items: center;
       gap: 12px;
       margin-bottom: 12px;
-    }
-
-    .ai-icon {
-      width: 44px;
-      height: 44px;
-      border-radius: var(--radius-sm);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      background: #ffffff;
-      border: var(--neo-border-w) solid var(--neo-border);
-      box-shadow: 2px 2px 0 var(--neo-border);
-      overflow: hidden;
-    }
-
-    .ai-icon svg {
-      width: 24px;
-      height: 24px;
     }
 
     .ai-card h4 {
@@ -996,10 +947,12 @@
     .skill-item-info {
       display: flex;
       justify-content: space-between;
-      align-items: center;
+      align-items: baseline;
+      gap: 12px;
       font-size: 0.9rem;
       font-weight: 800;
-      margin-bottom: 8px;
+      margin-bottom: 4px;
+      flex-wrap: wrap;
     }
 
     .skill-name {
@@ -1010,31 +963,10 @@
       font-size: 0.885rem;
     }
 
-    .skill-percent {
-      font-family: 'JetBrains Mono', monospace;
-      font-weight: 800;
-      color: var(--neo-border);
-      background: var(--blue-100);
-      padding: 2px 8px;
-      border-radius: var(--radius-sm);
-      border: 1.5px solid var(--neo-border);
-      font-size: 0.775rem;
-      box-shadow: 1px 1px 0 var(--neo-border);
-    }
-
-    .skill-track {
-      width: 100%;
-      height: 10px;
-      background: #ffffff;
-      border: 1.5px solid var(--neo-border);
-      border-radius: var(--radius-full);
-      overflow: hidden;
-    }
-
-    .skill-bar {
-      height: 100%;
-      background: var(--blue-600);
-      border-right: 1.5px solid var(--neo-border);
+    .skill-use {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-light);
     }
 
     .principle-item {
@@ -1101,19 +1033,6 @@
       position: relative;
       overflow: hidden;
       box-shadow: var(--neo-shadow-lg);
-    }
-
-    .contact-card::after {
-      content: "";
-      position: absolute;
-      top: -40%;
-      right: -10%;
-      width: 260px;
-      height: 260px;
-      border-radius: 50%;
-      background: rgba(37, 99, 235, 0.08);
-      border: 2px dashed rgba(15, 23, 42, 0.15);
-      pointer-events: none;
     }
 
     .contact-inner {
@@ -1231,8 +1150,6 @@
 </head>
 <body>
 
-  <div class="bg-pattern"></div>
-
   <!-- Header -->
   <header>
     <div class="container nav-wrapper">
@@ -1325,7 +1242,7 @@
           <div>
             <div class="project-card-header">
               <span class="project-domain">buluku.web.id</span>
-              <span class="project-badge live-pulse">Active Tool • Flagship</span>
+              <span class="project-badge is-live">Aktif — Proyek Utama</span>
             </div>
             <h3>AmPrem.AI</h3>
             <span class="project-tagline">Instant Alight Motion Premium Activation</span>
@@ -1350,7 +1267,7 @@
           <div>
             <div class="project-card-header">
               <span class="project-domain">luminoir.my.id</span>
-              <span class="project-badge live-pulse">Active Service</span>
+              <span class="project-badge is-live">Aktif — Layanan</span>
             </div>
             <h3>MailNoir</h3>
             <span class="project-tagline">Disposable Temporary Email Service</span>
@@ -1374,7 +1291,7 @@
           <div>
             <div class="project-card-header">
               <span class="project-domain">amnoir.my.id</span>
-              <span class="project-badge live-pulse">Active Tool</span>
+              <span class="project-badge is-live">Aktif — Tool</span>
             </div>
             <h3>AMNOIR 3D</h3>
             <span class="project-tagline">TikTok Preset Alight Motion Scraper</span>
@@ -1441,13 +1358,6 @@
       <div class="ai-grid">
         <div class="ai-card">
           <div class="ai-header">
-            <div class="ai-icon" style="background: #0d1b2a; border-color: #1e293b;">
-              <!-- DeepSeek Whale Logo -->
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M19.5 12c-1.5-3.5-4.5-5-8.5-5-4.2 0-7 2.8-7 6.5 0 3.2 2.3 5.5 5.5 5.5 2.8 0 4.8-1.4 6-3.2.8.5 1.8.8 2.8.6.6-.1 1.2-.5 1.2-1.1 0-.7-.6-1.3-1.3-1.3-.6 0-1.1.3-1.4.7-.6.8-1.5 1.3-2.6 1.3-2.3 0-4-1.6-4-4 0-2.4 1.8-4.2 4.8-4.2 2.8 0 5 1 6.2 3.5.3.7 1.1 1 1.8.7.7-.3 1-.9.7-1.7-.5-1.1-1.3-2.1-2.2-2.8z" fill="#4d96ff"/>
-                <circle cx="8" cy="11.5" r="1.2" fill="#ffffff"/>
-              </svg>
-            </div>
             <div>
               <h4>DeepSeek</h4>
               <span class="ai-role">Logic & Debugging</span>
@@ -1458,13 +1368,6 @@
 
         <div class="ai-card">
           <div class="ai-header">
-            <div class="ai-icon" style="background: #faf5f0; border-color: #fed7aa;">
-              <!-- Claude Anthropic Terracotta Spark Logo -->
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M12 2L13.8 8.2L20 10L13.8 11.8L12 18L10.2 11.8L4 10L10.2 8.2L12 2Z" fill="#d97706"/>
-                <circle cx="12" cy="10" r="2.2" fill="#b45309"/>
-              </svg>
-            </div>
             <div>
               <h4>Claude</h4>
               <span class="ai-role">Architecture & UI</span>
@@ -1475,19 +1378,6 @@
 
         <div class="ai-card">
           <div class="ai-header">
-            <div class="ai-icon" style="background: #f0f7ff; border-color: #bfdbfe;">
-              <!-- Google Gemini Star Logo -->
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M12 2C12 7.52 7.52 12 2 12C7.52 12 12 16.48 12 22C12 16.48 16.48 12 22 12C16.48 12 12 7.52 12 2Z" fill="url(#geminiGrad)"/>
-                <defs>
-                  <linearGradient id="geminiGrad" x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse">
-                    <stop stop-color="#1a73e8"/>
-                    <stop offset="0.5" stop-color="#8ab4f8"/>
-                    <stop offset="1" stop-color="#ea4335"/>
-                  </linearGradient>
-                </defs>
-              </svg>
-            </div>
             <div>
               <h4>Gemini</h4>
               <span class="ai-role">Research & Context</span>
@@ -1498,12 +1388,6 @@
 
         <div class="ai-card">
           <div class="ai-header">
-            <div class="ai-icon" style="background: #f0fdf4; border-color: #bbf7d0;">
-              <!-- OpenAI / ChatGPT Logo -->
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M20.5 10.2c-.3-1.4-1.2-2.5-2.5-3.1-.3-.1-.6-.2-1-.2V6c0-1.7-1.3-3-3-3-.8 0-1.5.3-2.1.8-.4-.5-1-.8-1.7-.8-1.7 0-3 1.3-3 3v.8c-.8.2-1.6.7-2.1 1.4-1 .9-1.5 2.2-1.3 3.6.1.7.4 1.4.9 2-.2.6-.3 1.3-.2 2 .2 1.4 1.1 2.6 2.4 3.1.3.1.7.2 1.1.2v.9c0 1.7 1.3 3 3 3 .8 0 1.6-.3 2.1-.8.4.5 1 .8 1.7.8 1.7 0 3-1.3 3-3v-.9c.8-.2 1.6-.7 2.1-1.4 1-.9 1.5-2.2 1.3-3.6-.1-.7-.4-1.4-.9-2 .3-.7.4-1.4.2-2.1zm-8.5-5.2c.6 0 1 .4 1 1v2.5l-2.2 1.3-2-3.5c.9-.8 2-1.3 3.2-1.3zm-5.4 3.5c.3-.5.7-.9 1.2-1.1l2 3.5-2.2 1.3-2.2-1.3c.1-.9.5-1.8 1.2-2.4zm-1 6.5c-.2-.6-.2-1.3 0-1.9l2.2 1.3v2.6l-2-1.2c-.2-.2-.2-.5-.2-.8zm7.4 7c-.6 0-1-.4-1-1v-2.5l2.2-1.3 2 3.5c-.9.8-2 1.3-3.2 1.3zm5.4-3.5c-.3.5-.7.9-1.2 1.1l-2-3.5 2.2-1.3 2.2 1.3c-.1.9-.5 1.8-1.2 2.4zm1-6.5c.2.6.2 1.3 0 1.9l-2.2-1.3v-2.6l2 1.2c.2.2.2.5.2.8z" fill="#10a37f"/>
-              </svg>
-            </div>
             <div>
               <h4>ChatGPT</h4>
               <span class="ai-role">Brainstorming & QA</span>
@@ -1573,7 +1457,7 @@
       <div class="skills-tabs">
         <button class="tab-btn active" onclick="switchSkillTab('tools')">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-          Pemahaman Tools (20%)
+          Tools yang Dipakai
         </button>
         <button class="tab-btn" onclick="switchSkillTab('principles')">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
@@ -1585,60 +1469,36 @@
       <div class="tab-content active" id="tab-tools">
         <div class="skill-panel">
           <div>
-            <h3>Tingkat Pemahaman Tools</h3>
-            <p class="skill-panel-sub">Evaluasi jujur pemula (level eksplorasi & praktek dasar mandiri).</p>
+            <h3>Tools yang Dipakai Sehari-hari</h3>
+            <p class="skill-panel-sub">Yang saya pakai untuk membangun semua proyek di halaman ini.</p>
           </div>
 
           <div class="skill-list">
             <div class="skill-card-item">
               <div class="skill-item-info">
-                <span class="skill-name">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
-                  HTML5 (Semantic & Layout)
-                </span>
-                <span class="skill-percent">20%</span>
-              </div>
-              <div class="skill-track">
-                <div class="skill-bar" style="width: 20%;"></div>
+                <span class="skill-name">HTML5</span>
+                <span class="skill-use">menyusun struktur & konten halaman web</span>
               </div>
             </div>
 
             <div class="skill-card-item">
               <div class="skill-item-info">
-                <span class="skill-name">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/></svg>
-                  CSS3 (Styling & Responsive)
-                </span>
-                <span class="skill-percent">20%</span>
-              </div>
-              <div class="skill-track">
-                <div class="skill-bar" style="width: 20%;"></div>
+                <span class="skill-name">CSS3</span>
+                <span class="skill-use">layout responsif & tema neo-brutalism di situs ini</span>
               </div>
             </div>
 
             <div class="skill-card-item">
               <div class="skill-item-info">
-                <span class="skill-name">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-                  JavaScript (Dasar & DOM)
-                </span>
-                <span class="skill-percent">20%</span>
-              </div>
-              <div class="skill-track">
-                <div class="skill-bar" style="width: 20%;"></div>
+                <span class="skill-name">JavaScript</span>
+                <span class="skill-use">interaksi dasar: tab, menu navigasi, fetch API</span>
               </div>
             </div>
 
             <div class="skill-card-item">
               <div class="skill-item-info">
-                <span class="skill-name">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M13 6h3a2 2 0 0 1 2 2v7"/><line x1="6" y1="9" x2="6" y2="21"/></svg>
-                  Git & GitHub Workflow
-                </span>
-                <span class="skill-percent">20%</span>
-              </div>
-              <div class="skill-track">
-                <div class="skill-bar" style="width: 20%;"></div>
+                <span class="skill-name">Git & GitHub</span>
+                <span class="skill-use">menyimpan & mengelola kode tiap proyek</span>
               </div>
             </div>
           </div>
@@ -1708,7 +1568,7 @@
     <div class="container footer-wrapper">
       <div class="footer-left">
         <p class="footer-copy">© 2026 <strong>Nizam</strong> (zamm.my.id) — Hak cipta dilindungi.</p>
-        <span class="footer-sub">Didesain dengan clean white & royal blue theme, tanpa elemen artifisial berlebihan.</span>
+        <span class="footer-sub">Satu file HTML — tanpa framework, tanpa animasi berlebihan.</span>
       </div>
       <div class="footer-links">
         <a href="https://github.com/nizam169" target="_blank" rel="noopener noreferrer">
