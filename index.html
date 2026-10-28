@@ -61,6 +61,20 @@
       scroll-behavior: smooth;
     }
 
+    section[id] {
+      scroll-margin-top: 84px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .tab-content.active {
+        animation: none;
+      }
+    }
+
     body {
       background-color: var(--bg);
       color: var(--text-main);
@@ -202,6 +216,114 @@
       color: var(--text-main);
       max-width: 840px;
       margin-bottom: 20px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.08fr 0.92fr;
+      gap: 26px;
+      align-items: center;
+    }
+
+    .hero-visual {
+      position: relative;
+      height: 440px;
+      background: var(--bg-subtle);
+      border: var(--neo-border-w) solid var(--neo-border);
+      border-radius: var(--radius-md);
+      box-shadow: var(--neo-shadow);
+      overflow: hidden;
+    }
+
+    .hero-visual canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+      touch-action: pan-y;
+      cursor: grab;
+    }
+
+    .hero-visual canvas.grabbing {
+      cursor: grabbing;
+    }
+
+    .hero-visual canvas.point {
+      cursor: pointer;
+    }
+
+    .visual-hint {
+      position: absolute;
+      left: 12px;
+      bottom: 12px;
+      z-index: 2;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      background: #ffffff;
+      border: 1.5px solid var(--neo-border);
+      border-radius: var(--radius-sm);
+      padding: 5px 10px;
+      box-shadow: 2px 2px 0 var(--neo-border);
+      pointer-events: none;
+    }
+
+    .visual-fallback {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      text-align: center;
+      padding: 20px;
+    }
+
+    #heroVisual.no3d canvas,
+    #heroVisual.no3d .visual-hint {
+      display: none;
+    }
+
+    .fallback-badge {
+      width: 74px;
+      height: 74px;
+      border: var(--neo-border-w) solid var(--neo-border);
+      border-radius: var(--radius-sm);
+      background: var(--blue-600);
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--neo-shadow-sm);
+    }
+
+    .fallback-links {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .fallback-links a {
+      display: inline-flex;
+      padding: 12px 18px;
+      background: #ffffff;
+      color: var(--neo-border);
+      border: 1.5px solid var(--neo-border);
+      border-radius: var(--radius-sm);
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 2px 2px 0 var(--neo-border);
+      transition: all 0.15s ease;
+    }
+
+    .fallback-links a:hover {
+      background: var(--blue-50);
+      transform: translate(1px, 1px);
+      box-shadow: 1px 1px 0 var(--neo-border);
     }
 
     .hero-title span {
@@ -542,11 +664,24 @@
       .ai-grid {
         grid-template-columns: repeat(2, 1fr);
       }
+
+      .hero-visual {
+        height: 360px;
+      }
     }
 
     @media (max-width: 860px) {
       .hero {
         padding: 32px 0 24px;
+      }
+
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .hero-visual {
+        height: 320px;
       }
 
       .hero-title {
@@ -691,6 +826,16 @@
     @media (max-width: 520px) {
       .hero-meta {
         grid-template-columns: 1fr;
+      }
+
+      .hero-visual {
+        height: 270px;
+      }
+
+      .visual-hint {
+        left: 10px;
+        bottom: 10px;
+        font-size: 0.7rem;
       }
 
       .hero-title {
@@ -1184,28 +1329,46 @@
   <!-- Hero Section -->
   <main class="container">
     <section class="hero">
-      <div class="status-pill">
-        <span class="status-dot"></span>
-        <span>Terbuka untuk kolaborasi & proyek website</span>
-      </div>
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <div class="status-pill">
+            <span class="status-dot"></span>
+            <span>Terbuka untuk kolaborasi & proyek website</span>
+          </div>
 
-      <h1 class="hero-title">
-        Membangun website modern yang <span>bersih, cepat,</span> dan terstruktur.
-      </h1>
+          <h1 class="hero-title">
+            Membangun website modern yang <span>bersih, cepat,</span> dan terstruktur.
+          </h1>
 
-      <p class="hero-subtitle">
-        Halo, saya <strong>Nizam</strong>. Web developer pemula asal Indonesia yang fokus belajar dan membangun website yang praktis, cepat diakses, dan nyaman digunakan di ponsel maupun laptop.
-      </p>
+          <p class="hero-subtitle">
+            Halo, saya <strong>Nizam</strong>. Web developer pemula asal Indonesia yang fokus belajar dan membangun website yang praktis, cepat diakses, dan nyaman digunakan di ponsel maupun laptop.
+          </p>
 
-      <div class="hero-actions">
-        <a href="#kontak" class="btn btn-primary">
-          <span>Mulai Diskusi</span>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
-        <a href="https://github.com/nizam169" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.04c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.75.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.5.99.11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 016 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.65.24 2.87.12 3.17.77.84 1.23 1.91 1.23 3.22 0 4.61-2.8 5.63-5.47 5.93.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.82.58C20.56 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
-          <span>github.com/nizam169</span>
-        </a>
+          <div class="hero-actions">
+            <a href="#kontak" class="btn btn-primary">
+              <span>Mulai Diskusi</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <a href="https://github.com/nizam169" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.04c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.75.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.5.99.11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 016 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.65.24 2.87.12 3.17.77.84 1.23 1.91 1.23 3.22 0 4.61-2.8 5.63-5.47 5.93.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.82.58C20.56 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
+              <span>github.com/nizam169</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="hero-visual" id="heroVisual">
+          <canvas id="scene3d" role="img" aria-label="Huruf N tiga dimensi dikelilingi bentuk geometris neo-brutalis. Geser untuk memutar; setiap bentuk bisa diklik untuk pindah ke bagian halaman terkait."></canvas>
+          <p class="visual-hint">Geser untuk memutar, klik bentuk untuk pindah bagian</p>
+          <div class="visual-fallback" id="visualFallback" hidden>
+            <div class="fallback-badge">N</div>
+            <div class="fallback-links">
+              <a href="#proyek">Proyek</a>
+              <a href="#ai-stack">AI Asisten</a>
+              <a href="#roadmap">Roadmap</a>
+              <a href="#kontak">Kontak</a>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div class="hero-meta">
@@ -1242,7 +1405,7 @@
           <div>
             <div class="project-card-header">
               <span class="project-domain">buluku.web.id</span>
-              <span class="project-badge is-live">Aktif — Proyek Utama</span>
+              <span class="project-badge is-live">Proyek Utama</span>
             </div>
             <h3>AmPrem.AI</h3>
             <span class="project-tagline">Instant Alight Motion Premium Activation</span>
@@ -1267,7 +1430,7 @@
           <div>
             <div class="project-card-header">
               <span class="project-domain">luminoir.my.id</span>
-              <span class="project-badge is-live">Aktif — Layanan</span>
+              <span class="project-badge is-live">Layanan aktif</span>
             </div>
             <h3>MailNoir</h3>
             <span class="project-tagline">Disposable Temporary Email Service</span>
@@ -1291,7 +1454,7 @@
           <div>
             <div class="project-card-header">
               <span class="project-domain">amnoir.my.id</span>
-              <span class="project-badge is-live">Aktif — Tool</span>
+              <span class="project-badge is-live">Tool aktif</span>
             </div>
             <h3>AMNOIR 3D</h3>
             <span class="project-tagline">TikTok Preset Alight Motion Scraper</span>
@@ -1568,7 +1731,7 @@
     <div class="container footer-wrapper">
       <div class="footer-left">
         <p class="footer-copy">© 2026 <strong>Nizam</strong> (zamm.my.id) — Hak cipta dilindungi.</p>
-        <span class="footer-sub">Satu file HTML — tanpa framework, tanpa animasi berlebihan.</span>
+        <span class="footer-sub">Satu file HTML, tanpa build step, tanpa animasi berlebihan.</span>
       </div>
       <div class="footer-links">
         <a href="https://github.com/nizam169" target="_blank" rel="noopener noreferrer">
@@ -1616,6 +1779,285 @@
         contentPrinciples.classList.add('active');
         contentTools.classList.remove('active');
       }
+    }
+  </script>
+
+  <script>
+    window.__visOK = false;
+    function showVisualFallback() {
+      var box = document.getElementById('heroVisual');
+      var fb = document.getElementById('visualFallback');
+      if (box && fb) { box.classList.add('no3d'); fb.hidden = false; }
+    }
+    window.setTimeout(function () {
+      if (!window.__visOK) { showVisualFallback(); }
+    }, 8000);
+  </script>
+
+  <script type="module">
+    import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.module.js';
+
+    const canvas = document.getElementById('scene3d');
+    const container = document.getElementById('heroVisual');
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function fail() {
+      window.__visOK = false;
+      showVisualFallback();
+    }
+
+    function init() {
+      if (!container || !canvas) throw new Error('missing hero visual elements');
+      if (!(canvas.getContext('webgl2') || canvas.getContext('webgl'))) {
+        throw new Error('webgl is not available');
+      }
+
+      const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 50);
+      camera.position.set(0, 0.12, 6.6);
+      camera.lookAt(0, 0, 0);
+
+      scene.add(new THREE.HemisphereLight(0xffffff, 0xdbeafe, 1.25));
+      const keyLight = new THREE.DirectionalLight(0xffffff, 1.7);
+      keyLight.position.set(3.5, 4, 4.5);
+      scene.add(keyLight);
+      const rimLight = new THREE.DirectionalLight(0xffffff, 0.55);
+      rimLight.position.set(-4, -2.5, -3);
+      scene.add(rimLight);
+
+      const shadeSteps = new Uint8Array([90, 170, 255]);
+      const gradientMap = new THREE.DataTexture(shadeSteps, shadeSteps.length, 1, THREE.RedFormat);
+      gradientMap.minFilter = THREE.NearestFilter;
+      gradientMap.magFilter = THREE.NearestFilter;
+      gradientMap.needsUpdate = true;
+
+      const toon = (hex) => new THREE.MeshToonMaterial({ color: hex, gradientMap });
+      const outlineMaterial = new THREE.MeshBasicMaterial({ color: 0x0f172a, side: THREE.BackSide });
+      const edgeMaterial = new THREE.LineBasicMaterial({ color: 0x0f172a });
+
+      function chunky(geometry, hex, options) {
+        const opts = options || {};
+        const group = new THREE.Group();
+        group.add(new THREE.Mesh(geometry, toon(hex)));
+        if (opts.edge) {
+          group.add(new THREE.LineSegments(new THREE.EdgesGeometry(geometry, opts.angle || 24), edgeMaterial));
+        } else {
+          const hull = new THREE.Mesh(geometry, outlineMaterial);
+          hull.scale.setScalar(opts.hull || 1.055);
+          group.add(hull);
+        }
+        return group;
+      }
+
+      const nShape = new THREE.Shape();
+      nShape.moveTo(-0.62, 0.78);
+      nShape.lineTo(-0.22, 0.78);
+      nShape.lineTo(0.22, -0.04);
+      nShape.lineTo(0.22, 0.78);
+      nShape.lineTo(0.62, 0.78);
+      nShape.lineTo(0.62, -0.78);
+      nShape.lineTo(0.22, -0.78);
+      nShape.lineTo(-0.22, 0.04);
+      nShape.lineTo(-0.22, -0.78);
+      nShape.lineTo(-0.62, -0.78);
+      nShape.closePath();
+
+      const geoN = new THREE.ExtrudeGeometry(nShape, {
+        depth: 0.55,
+        bevelEnabled: true,
+        bevelThickness: 0.07,
+        bevelSize: 0.06,
+        bevelSegments: 3,
+        curveSegments: 1
+      });
+      geoN.center();
+
+      const stage = new THREE.Group();
+      const nGroup = chunky(geoN, 0x2563eb, { edge: true, angle: 32 });
+      nGroup.scale.setScalar(1.28);
+      nGroup.userData = { sel: '#kontak', baseY: 0, phase: 0, amp: 0.05, speed: 0.7 };
+      stage.add(nGroup);
+
+      const torus = chunky(new THREE.TorusGeometry(0.46, 0.2, 20, 36), 0xbfdbfe, { hull: 1.06 });
+      torus.position.set(-1.95, 1.05, -0.35);
+      torus.rotation.set(1.15, -0.25, 0.2);
+      torus.userData = { sel: '#proyek', baseY: 1.05, phase: 0.8, amp: 0.09, speed: 0.9 };
+      stage.add(torus);
+
+      const box = chunky(new THREE.BoxGeometry(0.72, 0.72, 0.72), 0xffffff, { edge: true, angle: 24 });
+      box.position.set(2.05, 0.95, -0.55);
+      box.rotation.set(0.5, 0.7, 0);
+      box.userData = { sel: '#roadmap', baseY: 0.95, phase: 2.1, amp: 0.08, speed: 0.75 };
+      stage.add(box);
+
+      const ico = chunky(new THREE.IcosahedronGeometry(0.5, 0), 0x2563eb, { edge: true, angle: 8 });
+      ico.position.set(1.7, -1.2, 0.25);
+      ico.rotation.set(0.4, 0.3, 0.15);
+      ico.userData = { sel: '#keahlian', baseY: -1.2, phase: 4.0, amp: 0.09, speed: 1.05 };
+      stage.add(ico);
+
+      const capsule = chunky(new THREE.CapsuleGeometry(0.26, 0.62, 6, 18), 0xbfdbfe, { hull: 1.08 });
+      capsule.position.set(-1.8, -1.25, 0.35);
+      capsule.rotation.set(0, 0, 0.55);
+      capsule.userData = { sel: '#ai-stack', baseY: -1.25, phase: 5.1, amp: 0.08, speed: 0.85 };
+      stage.add(capsule);
+
+      const ball = chunky(new THREE.SphereGeometry(0.24, 24, 18), 0x334155, { hull: 1.09 });
+      ball.position.set(1.0, 1.95, -0.3);
+      ball.userData = { sel: '#fokus', baseY: 1.95, phase: 1.4, amp: 0.07, speed: 1.15 };
+      stage.add(ball);
+
+      const actors = [nGroup, torus, box, ico, capsule, ball];
+      scene.add(stage);
+
+      function resize() {
+        const w = container.clientWidth || 1;
+        const h = container.clientHeight || 1;
+        renderer.setSize(w, h, false);
+        camera.aspect = w / h;
+        camera.updateProjectionMatrix();
+      }
+      if ('ResizeObserver' in window) {
+        new ResizeObserver(resize).observe(container);
+      }
+      window.addEventListener('resize', resize);
+      resize();
+
+      const raycaster = new THREE.Raycaster();
+      raycaster.params.Line.threshold = 0;
+      const pointer = new THREE.Vector2(-10, -10);
+      let hovered = null;
+      let dragging = false;
+      let movedFar = false;
+      let lastX = 0;
+      let lastY = 0;
+      let targetRY = 0;
+      let targetRX = 0;
+      let curRY = 0;
+      let curRX = 0;
+      let lastInteract = 0;
+      let visible = true;
+
+      new IntersectionObserver((entries) => {
+        visible = entries[0].isIntersecting;
+      }, { threshold: 0.02 }).observe(container);
+
+      function pickAt(e) {
+        const rect = canvas.getBoundingClientRect();
+        pointer.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+        pointer.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+        raycaster.setFromCamera(pointer, camera);
+        const hits = raycaster.intersectObjects(actors, true);
+        for (const hit of hits) {
+          let o = hit.object;
+          while (o && !(o.userData && o.userData.sel)) o = o.parent;
+          if (o) return o;
+        }
+        return null;
+      }
+
+      canvas.addEventListener('pointerdown', (e) => {
+        dragging = true;
+        movedFar = false;
+        lastX = e.clientX;
+        lastY = e.clientY;
+        lastInteract = performance.now();
+        canvas.classList.add('grabbing');
+        canvas.setPointerCapture(e.pointerId);
+      });
+
+      canvas.addEventListener('pointermove', (e) => {
+        if (dragging) {
+          const dx = e.clientX - lastX;
+          const dy = e.clientY - lastY;
+          if (Math.abs(dx) + Math.abs(dy) > 4) movedFar = true;
+          targetRY += dx * 0.0045;
+          targetRX = Math.max(-0.5, Math.min(0.5, targetRX + dy * 0.0028));
+          lastX = e.clientX;
+          lastY = e.clientY;
+        } else if (e.pointerType !== 'touch') {
+          const hit = pickAt(e);
+          if (hit !== hovered) {
+            hovered = hit;
+            canvas.classList.toggle('point', !!hovered);
+          }
+        }
+        lastInteract = performance.now();
+      });
+
+      function releasePointer(e) {
+        hovered = null;
+        canvas.classList.remove('point');
+        if (!dragging) return;
+        dragging = false;
+        canvas.classList.remove('grabbing');
+        if (!movedFar && e && e.clientX !== undefined) {
+          const hit = pickAt(e);
+          if (hit) {
+            hit.userData.popAt = performance.now();
+            const target = document.querySelector(hit.userData.sel);
+            if (target) target.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'start' });
+          }
+        }
+        lastInteract = performance.now();
+      }
+      canvas.addEventListener('pointerup', releasePointer);
+      canvas.addEventListener('pointercancel', () => {
+        dragging = false;
+        canvas.classList.remove('grabbing');
+      });
+      canvas.addEventListener('pointerleave', () => {
+        hovered = null;
+        canvas.classList.remove('point');
+      });
+
+      const clock = new THREE.Clock();
+      let lastT = 0;
+
+      function animate() {
+        requestAnimationFrame(animate);
+        if (!visible || document.hidden) return;
+        const now = performance.now();
+        const t = clock.getElapsedTime();
+        const dt = Math.min(t - lastT, 0.05);
+        lastT = t;
+
+        if (!dragging && !hovered && !reducedMotion && now - lastInteract > 4000) {
+          targetRY += dt * 0.12;
+        }
+
+        curRY += (targetRY - curRY) * 0.08;
+        curRX += (targetRX - curRX) * 0.08;
+        stage.rotation.y = curRY;
+        stage.rotation.x = curRX;
+
+        for (const actor of actors) {
+          const u = actor.userData;
+          actor.position.y = u.baseY + (reducedMotion ? 0 : Math.sin(t * u.speed + u.phase) * u.amp);
+          let s = 1;
+          if (actor === hovered) s *= 1.07;
+          if (u.popAt) {
+            const p = (now - u.popAt) / 380;
+            if (p < 1) s *= 1 + 0.2 * Math.sin(Math.PI * p);
+            else u.popAt = 0;
+          }
+          actor.scale.setScalar(actor === nGroup ? 1.28 * s : s);
+        }
+
+        renderer.render(scene, camera);
+        if (!window.__visOK) window.__visOK = true;
+      }
+
+      animate();
+    }
+
+    try {
+      init();
+    } catch (err) {
+      fail();
     }
   </script>
 </body>
