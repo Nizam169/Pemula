@@ -251,22 +251,6 @@
       cursor: pointer;
     }
 
-    .visual-hint {
-      position: absolute;
-      left: 12px;
-      bottom: 12px;
-      z-index: 2;
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: var(--text-muted);
-      background: #ffffff;
-      border: 1.5px solid var(--neo-border);
-      border-radius: var(--radius-sm);
-      padding: 5px 10px;
-      box-shadow: 2px 2px 0 var(--neo-border);
-      pointer-events: none;
-    }
-
     .visual-fallback {
       position: absolute;
       inset: 0;
@@ -279,8 +263,7 @@
       padding: 20px;
     }
 
-    #heroVisual.no3d canvas,
-    #heroVisual.no3d .visual-hint {
+    #heroVisual.no3d canvas {
       display: none;
     }
 
@@ -832,12 +815,6 @@
         height: 270px;
       }
 
-      .visual-hint {
-        left: 10px;
-        bottom: 10px;
-        font-size: 0.7rem;
-      }
-
       .hero-title {
         font-size: 1.75rem;
       }
@@ -1358,7 +1335,6 @@
 
         <div class="hero-visual" id="heroVisual">
           <canvas id="scene3d" role="img" aria-label="Huruf N tiga dimensi dikelilingi bentuk geometris neo-brutalis. Geser untuk memutar; setiap bentuk bisa diklik untuk pindah ke bagian halaman terkait."></canvas>
-          <p class="visual-hint">Geser untuk memutar, klik bentuk untuk pindah bagian</p>
           <div class="visual-fallback" id="visualFallback" hidden>
             <div class="fallback-badge">N</div>
             <div class="fallback-links">
