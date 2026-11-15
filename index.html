@@ -24,11 +24,11 @@
     <div class="webgl-overlay"></div>
   </div>
 
-  <!-- Navbar Keren (Floating Glass Pill) -->
+  <!-- Navbar Keren Anti-Slop (Floating Pill Design) -->
   <header class="navbar-wrapper">
     <nav class="navbar" aria-label="Navigasi Utama">
       <!-- Brand Logo -->
-      <a href="#" class="nav-brand" aria-label="Beranda zamm.my.id">
+      <a href="#hero" class="nav-brand" aria-label="Beranda zamm.my.id">
         <span class="brand-symbol">Z</span>
         <div class="brand-text">
           <span class="brand-title">zamm.my.id</span>
@@ -39,20 +39,30 @@
       <!-- Desktop Nav Links -->
       <ul class="nav-menu" id="navMenu">
         <li><a href="#hero" class="nav-link active">Beranda</a></li>
+        <li><a href="#waktu" class="nav-link">Waktu & Suasana</a></li>
+        <li><a href="#hewan-3d" class="nav-link">Hewan 3D</a></li>
         <li><a href="#bahasa" class="nav-link">Bahasa</a></li>
         <li><a href="#proyek" class="nav-link">Web Saya</a></li>
         <li><a href="#fokus" class="nav-link">Fokus</a></li>
-        <li><a href="#ai-stack" class="nav-link">AI Tools</a></li>
-        <li><a href="#roadmap" class="nav-link">Roadmap</a></li>
         <li><a href="#kontak" class="nav-link">Kontak</a></li>
       </ul>
 
-      <!-- Action Button & Hamburger -->
+      <!-- Action Button, Jakarta Clock Widget & Hamburger -->
       <div class="nav-actions">
+        <!-- Live Jakarta Real-Time Clock Pill -->
+        <a href="#waktu" class="nav-clock-pill" aria-label="Waktu Jakarta saat ini: lihat pengaturan waktu dan suasana hutan">
+          <span class="clock-live-indicator"></span>
+          <span class="nav-clock-time" id="navJakartaClock">--:--:-- WIB</span>
+          <span class="nav-clock-phase" id="navClockPhase">Malam</span>
+        </a>
+
+        <!-- Telegram CTA -->
         <a href="https://t.me/storenizam" target="_blank" rel="noopener noreferrer" class="btn-nav-cta" aria-label="Hubungi via Telegram">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.64 8.56l-1.98 9.35c-.15.66-.55.82-1.11.51l-3.08-2.27-1.49 1.43c-.17.17-.31.31-.63.31l.22-3.18 5.79-5.24c.25-.22-.06-.35-.39-.13l-7.16 4.51-3.08-.96c-.67-.21-.69-.67.14-.99l12.04-4.64c.56-.2 1.04.13.73.81z"/></svg>
           <span>Chat</span>
         </a>
+
+        <!-- Hamburger Toggle -->
         <button class="burger-toggle" id="burgerToggle" aria-label="Buka menu navigasi" aria-expanded="false" aria-controls="navDrawer">
           <span class="b-line b-line-1"></span>
           <span class="b-line b-line-2"></span>
@@ -68,15 +78,26 @@
       <span class="drawer-brand">Menu Navigasi</span>
       <button class="drawer-close" id="drawerClose" aria-label="Tutup menu">✕</button>
     </div>
+
+    <!-- Drawer Clock Card -->
+    <div class="drawer-clock-card">
+      <span class="drawer-clock-label">WAKTU JAKARTA (WIB)</span>
+      <div class="drawer-clock-row">
+        <span class="drawer-clock-time" id="drawerJakartaClock">--:--:-- WIB</span>
+        <span class="drawer-clock-badge" id="drawerClockPhase">Malam</span>
+      </div>
+    </div>
+
     <ul class="drawer-links">
       <li><a href="#hero" class="drawer-link">Beranda</a></li>
+      <li><a href="#waktu" class="drawer-link">Waktu & Suasana Hutan</a></li>
+      <li><a href="#hewan-3d" class="drawer-link">Hewan 3D Interaktif</a></li>
       <li><a href="#bahasa" class="drawer-link">Bahasa Pemrograman</a></li>
       <li><a href="#proyek" class="drawer-link">Web Saya & Proyek</a></li>
       <li><a href="#fokus" class="drawer-link">Arah Belajar</a></li>
-      <li><a href="#ai-stack" class="drawer-link">AI Tools Harian</a></li>
-      <li><a href="#roadmap" class="drawer-link">Roadmap Belajar</a></li>
       <li><a href="#kontak" class="drawer-link">Kontak & Diskusi</a></li>
     </ul>
+
     <div class="drawer-cta">
       <a href="https://t.me/storenizam" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="width: 100%; justify-content: center;">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.64 8.56l-1.98 9.35c-.15.66-.55.82-1.11.51l-3.08-2.27-1.49 1.43c-.17.17-.31.31-.63.31l.22-3.18 5.79-5.24c.25-.22-.06-.35-.39-.13l-7.16 4.51-3.08-.96c-.67-.21-.69-.67.14-.99l12.04-4.64c.56-.2 1.04.13.73.81z"/></svg>
@@ -113,36 +134,6 @@
           </a>
         </div>
 
-        <!-- 3D Forest Animal Controller Card -->
-        <div class="animal-control-card">
-          <div class="control-header">
-            <span class="control-label">Eksplorasi Hewan Game 3D di Hutan:</span>
-            <button class="anim-toggle-btn" id="animToggleBtn" aria-label="Jeda animasi 3D">
-              <span id="animIcon">⏸️</span>
-              <span id="animText">Animasi Aktif</span>
-            </button>
-          </div>
-          <div class="animal-buttons" role="group" aria-label="Pilih fokus kamera hewan">
-            <button class="animal-btn active" data-animal="forest" type="button">
-              <span class="a-icon">🌲</span>
-              <span>Panorama Hutan</span>
-            </button>
-            <button class="animal-btn" data-animal="fox" type="button">
-              <span class="a-icon">🦊</span>
-              <span>Rubah Game</span>
-            </button>
-            <button class="animal-btn" data-animal="deer" type="button">
-              <span class="a-icon">🦌</span>
-              <span>Rusa Tanduk</span>
-            </button>
-            <button class="animal-btn" data-animal="owl" type="button">
-              <span class="a-icon">🦉</span>
-              <span>Burung Hantu</span>
-            </button>
-          </div>
-          <p class="control-hint">Petunjuk : Klik salah satu hewan di atas atau sentuh langsung hewan di layar untuk menggerakkannya.</p>
-        </div>
-
         <!-- Meta Grid -->
         <div class="meta-strip">
           <div class="meta-cell">
@@ -151,7 +142,7 @@
           </div>
           <div class="meta-cell">
             <span class="meta-sub">Asal Wilayah</span>
-            <span class="meta-main">Indonesia</span>
+            <span class="meta-main">Indonesia (WIB)</span>
           </div>
           <div class="meta-cell">
             <span class="meta-sub">Fokus Belajar</span>
@@ -165,16 +156,181 @@
       </div>
     </section>
 
+    <!-- SECTION: Waktu Real-Time & Suasana Hutan (Pagi, Siang, Sore, Malam Jam Jakarta) -->
+    <section class="section" id="waktu">
+      <div class="container">
+        <div class="section-title-wrap">
+          <span class="section-chip">Siklus Jakarta (WIB: UTC+7)</span>
+          <h2 class="section-heading">Jam Digital & Suasana Hutan</h2>
+          <p class="section-intro">Pencahayaan latar belakang hutan 3D mengikuti siklus alami jam Jakarta. Anda dapat menikmati pergantian waktu otomatis atau beralih suasana sesuka hati.</p>
+        </div>
+
+        <!-- Clock & Atmosphere Widget Card -->
+        <div class="clock-showcase-card">
+          <div class="clock-display-area">
+            <div class="clock-top-meta">
+              <span class="clock-region-label">WAKTU INDONESIA BARAT (WIB)</span>
+              <span class="phase-badge-pill" id="currentPhaseTag">Malam Hari</span>
+            </div>
+            <div class="clock-digital-number" id="mainJakartaClock">--:--:--</div>
+            <div class="clock-date-line" id="mainJakartaDate">Memuat kalender Jakarta...</div>
+            <p class="clock-phase-description" id="currentPhaseDesc">
+              Suasana tenang bertabur kunang-kunang menyala dengan bulan terang di langit malam.
+            </p>
+          </div>
+
+          <!-- Phase Switcher Controls -->
+          <div class="phase-selector-wrap">
+            <span class="phase-selector-title">Pilih Mode Pencahayaan Hutan 3D:</span>
+            <div class="phase-pills-grid" role="group" aria-label="Pilih suasana pencahayaan hutan">
+              <button class="phase-pill active" data-phase="auto" type="button" aria-pressed="true">
+                <span class="p-symbol">⏱️</span>
+                <span class="p-name">Otomatis WIB</span>
+                <span class="p-sub">Ikut Jam Sekarang</span>
+              </button>
+              <button class="phase-pill" data-phase="pagi" type="button" aria-pressed="false">
+                <span class="p-symbol">🌅</span>
+                <span class="p-name">Pagi</span>
+                <span class="p-sub">05:00 - 11:00</span>
+              </button>
+              <button class="phase-pill" data-phase="siang" type="button" aria-pressed="false">
+                <span class="p-symbol">☀️</span>
+                <span class="p-name">Siang</span>
+                <span class="p-sub">11:00 - 15:00</span>
+              </button>
+              <button class="phase-pill" data-phase="sore" type="button" aria-pressed="false">
+                <span class="p-symbol">🌇</span>
+                <span class="p-name">Sore</span>
+                <span class="p-sub">15:00 - 18:30</span>
+              </button>
+              <button class="phase-pill" data-phase="malam" type="button" aria-pressed="false">
+                <span class="p-symbol">🌙</span>
+                <span class="p-name">Malam</span>
+                <span class="p-sub">18:30 - 05:00</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: Hewan 3D Interaktif (Bisa Digerakkan) -->
+    <section class="section" id="hewan-3d">
+      <div class="container">
+        <div class="section-title-wrap">
+          <span class="section-chip">Animasi & Interaktivitas WebGL</span>
+          <h2 class="section-heading">Hewan 3D Hutan & Kontrol Gerak</h2>
+          <p class="section-intro">Pilih fauna hutan kesukaan Anda, atur sudut kamera, lalu gerakkan hewan ke berbagai arah secara langsung menggunakan tombol kontrol atau keyboard.</p>
+        </div>
+
+        <div class="animal-master-card">
+          <!-- Animal Selection Buttons -->
+          <div class="animal-selection-bar">
+            <span class="animal-bar-title">Fokus Kamera Hewan:</span>
+            <div class="animal-buttons" role="group" aria-label="Pilih hewan hutan 3D">
+              <button class="animal-btn active" data-animal="forest" type="button">
+                <span class="a-icon">🌲</span>
+                <span>Panorama Hutan</span>
+              </button>
+              <button class="animal-btn" data-animal="fox" type="button">
+                <span class="a-icon">🦊</span>
+                <span>Rubah Game</span>
+              </button>
+              <button class="animal-btn" data-animal="deer" type="button">
+                <span class="a-icon">🦌</span>
+                <span>Rusa Tanduk</span>
+              </button>
+              <button class="animal-btn" data-animal="owl" type="button">
+                <span class="a-icon">🦉</span>
+                <span>Burung Hantu</span>
+              </button>
+              <button class="animal-btn" data-animal="rabbit" type="button">
+                <span class="a-icon">🐇</span>
+                <span>Kelinci Hutan</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Interactive Movement Control Pad -->
+          <div class="movement-pad-section">
+            <div class="pad-header">
+              <div class="pad-status">
+                <span class="status-dot"></span>
+                <span>Hewan Aktif: <strong id="activeAnimalName">Panorama Hutan</strong></span>
+              </div>
+              <button class="anim-toggle-btn" id="animToggleBtn" aria-label="Jeda animasi 3D">
+                <span id="animIcon">⏸</span>
+                <span id="animText">Jeda</span>
+              </button>
+            </div>
+
+            <!-- D-Pad and Action Buttons -->
+            <div class="pad-controls-grid">
+              <!-- Directional Pad -->
+              <div class="dpad-box" role="group" aria-label="Tombol pengarah gerak hewan">
+                <button class="dpad-btn dpad-up" id="btnMoveForward" type="button" aria-label="Gerakkan hewan maju">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+                  <span>Maju</span>
+                </button>
+                <div class="dpad-middle-row">
+                  <button class="dpad-btn dpad-left" id="btnRotateLeft" type="button" aria-label="Putar hewan ke kiri">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                    <span>Kiri</span>
+                  </button>
+                  <button class="dpad-btn dpad-jump" id="btnJumpAnimal" type="button" aria-label="Lompat">
+                    <span>Lompat</span>
+                  </button>
+                  <button class="dpad-btn dpad-right" id="btnRotateRight" type="button" aria-label="Putar hewan ke kanan">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    <span>Kanan</span>
+                  </button>
+                </div>
+                <button class="dpad-btn dpad-down" id="btnMoveBackward" type="button" aria-label="Gerakkan hewan mundur">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+                  <span>Mundur</span>
+                </button>
+              </div>
+
+              <!-- Quick Action & Reset Pad -->
+              <div class="actions-box">
+                <button class="action-btn action-special" id="btnSpecialAction" type="button">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                  <span>Aksi Unik Hewan</span>
+                </button>
+                <button class="action-btn action-reset" id="btnResetAnimal" type="button">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+                  <span>Kembali ke Posisi Awal</span>
+                </button>
+                <div class="keyboard-guide">
+                  <span class="guide-title">Kontrol Keyboard:</span>
+                  <div class="guide-keys">
+                    <kbd>W / ↑</kbd> Maju
+                    <kbd>A / ←</kbd> Putar Kiri
+                    <kbd>D / →</kbd> Putar Kanan
+                    <kbd>Spasi</kbd> Lompat
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <p class="movement-note">
+              Tips: Anda juga dapat mengeklik langsung hewan atau area rumput di layar untuk mengarahkan hewan ke titik tersebut.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- SECTION: Bahasa Pemrograman -->
     <section class="section" id="bahasa">
       <div class="container">
         <div class="section-title-wrap">
           <span class="section-chip">Fondasi Utama</span>
-          <h2 class="section-heading">Bahasa Pemrograman Web</h2>
-          <p class="section-intro">Tiga pilar fundamental yang saya gunakan sehari-hari untuk merancang struktur, mempercantik tampilan, dan menambahkan interaktivitas dinamis.</p>
+          <h2 class="section-heading">Bahasa Pemrograman & Stack Web</h2>
+          <p class="section-intro">Teknologi dan bahasa pemrograman yang saya gunakan sehari-hari untuk menyusun struktur, mendesain tampilan modern, dan mengeksekusi logika aplikasi.</p>
         </div>
 
-        <!-- 3 Cards for HTML5, CSS3, JavaScript -->
+        <!-- 6 Cards: HTML5, CSS3, JavaScript, TypeScript, Python, Node.js -->
         <div class="lang-grid">
           <!-- Card 1: HTML5 -->
           <div class="lang-card">
@@ -183,7 +339,7 @@
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 3l1.5 17L12 22l6.5-2L20 3H4z"/><path d="M16.5 7H7.5l.5 5h8l-.5 5-3.5 1-3.5-1-.2-2"/></svg>
               </div>
               <div class="lang-meta">
-                <span class="lang-tag">Struktur & Konten</span>
+                <span class="lang-tag">Struktur & Semantik</span>
                 <h3>HTML5</h3>
               </div>
             </div>
@@ -210,7 +366,7 @@
               </div>
             </div>
             <p class="lang-desc">
-              Mengatur tata letak visual yang presisi, sistem warna terpadu, dan adaptasi layout layar ponsel hingga monitor desktop.
+              Mengatur tata letak visual yang presisi, sistem token warna terpadu, dan adaptasi layout layar ponsel hingga monitor desktop.
             </p>
             <ul class="lang-points">
               <li>Flexbox & CSS Grid modern untuk penyusunan layout responsif</li>
@@ -241,6 +397,72 @@
               <li>Pengelolaan state lokal dan pengolahan data tanpa reload</li>
             </ul>
           </div>
+
+          <!-- Card 4: TypeScript -->
+          <div class="lang-card">
+            <div class="lang-card-top">
+              <div class="lang-icon ts-bg">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 9h8M12 9v8M17 14c0 1.5-1 3-3 3"/></svg>
+              </div>
+              <div class="lang-meta">
+                <span class="lang-tag">Type Safety & Skala</span>
+                <h3>TypeScript</h3>
+              </div>
+            </div>
+            <p class="lang-desc">
+              Superset JavaScript dengan sistem pengetikan statis untuk mencegah bug saat pengembangan dan mempermudah refactoring proyek berskala besar.
+            </p>
+            <ul class="lang-points">
+              <li>Interface dan custom types untuk validasi kontrak data</li>
+              <li>IntelliSense dan autocompletion yang akurat di editor</li>
+              <li>Pencegahan runtime error tipe null dan undefined</li>
+              <li>Struktur kode modular yang bersih dan mudah dirawat</li>
+            </ul>
+          </div>
+
+          <!-- Card 5: Python -->
+          <div class="lang-card">
+            <div class="lang-card-top">
+              <div class="lang-icon py-bg">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9H7a3 3 0 0 0-3 3v3a3 3 0 0 0 3 3h2v-2a2 2 0 0 1 2-2h4a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3"/><path d="M12 15h5a3 3 0 0 0 3-3V9a3 3 0 0 0-3-3h-2v2a2 2 0 0 1-2 2H9a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h3"/></svg>
+              </div>
+              <div class="lang-meta">
+                <span class="lang-tag">Automasi & Scraping</span>
+                <h3>Python</h3>
+              </div>
+            </div>
+            <p class="lang-desc">
+              Bahasa serbaguna untuk membangun skrip automasi, pemrosesan berkas, dan scraper data seperti mesin pencari preset pada tool AMNOIR.
+            </p>
+            <ul class="lang-points">
+              <li>Web scraping menggunakan BeautifulSoup dan Requests</li>
+              <li>Otomasi parsing teks dan ekstraksi tautan digital</li>
+              <li>Pengolahan string regex berkecepatan tinggi</li>
+              <li>Skrip utilitas CLI untuk pengujian backend praktis</li>
+            </ul>
+          </div>
+
+          <!-- Card 6: Node.js -->
+          <div class="lang-card">
+            <div class="lang-card-top">
+              <div class="lang-icon node-bg">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l9 5v10l-9 5-9-5V7l9-5z"/><path d="M12 22V12"/></svg>
+              </div>
+              <div class="lang-meta">
+                <span class="lang-tag">Server Runtime</span>
+                <h3>Node.js</h3>
+              </div>
+            </div>
+            <p class="lang-desc">
+              Lingkungan eksekusi JavaScript di sisi server untuk melayani API endpoint ringan, integrasi webhook, dan manajemen dependensi npm.
+            </p>
+            <ul class="lang-points">
+              <li>Pembuatan REST API endpoint yang cepat dan ringan</li>
+              <li>Manajemen package npm untuk utilitas frontend</li>
+              <li>Penanganan request asinkron berbasis event non-blocking</li>
+              <li>Integrasi deployment mulus ke cloud server Vercel</li>
+            </ul>
+          </div>
         </div>
 
         <!-- Interactive Code Snippet Showcase -->
@@ -254,7 +476,10 @@
                 <span>style.css</span>
               </button>
               <button class="code-tab" role="tab" aria-selected="false" data-tab="js" id="tab-btn-js">
-                <span>app.js</span>
+                <span>forest3d.js</span>
+              </button>
+              <button class="code-tab" role="tab" aria-selected="false" data-tab="python" id="tab-btn-py">
+                <span>scraper.py</span>
               </button>
             </div>
             <button class="code-copy-btn" id="codeCopyBtn" type="button" aria-label="Salin potongan kode">
@@ -265,41 +490,52 @@
 
           <div class="code-body">
             <!-- HTML Snippet -->
-            <pre class="code-panel active" id="codePanelHtml"><code><span class="c-tag">&lt;main</span> <span class="c-attr">class=</span><span class="c-str">"container"</span><span class="c-tag">&gt;</span>
-  <span class="c-tag">&lt;section</span> <span class="c-attr">id=</span><span class="c-str">"karya"</span> <span class="c-attr">class=</span><span class="c-str">"grid"</span><span class="c-tag">&gt;</span>
-    <span class="c-tag">&lt;article</span> <span class="c-attr">class=</span><span class="c-str">"card"</span><span class="c-tag">&gt;</span>
-      <span class="c-tag">&lt;h3&gt;</span>zamm.my.id<span class="c-tag">&lt;/h3&gt;</span>
-      <span class="c-tag">&lt;p&gt;</span>Penyusunan kode semantik dan aksesibel.<span class="c-tag">&lt;/p&gt;</span>
-      <span class="c-tag">&lt;a</span> <span class="c-attr">href=</span><span class="c-str">"#kontak"</span> <span class="c-attr">class=</span><span class="c-str">"btn"</span><span class="c-tag">&gt;</span>Hubungi Nizam<span class="c-tag">&lt;/a&gt;</span>
-    <span class="c-tag">&lt;/article&gt;</span>
-  <span class="c-tag">&lt;/section&gt;</span>
-<span class="c-tag">&lt;/main&gt;</span></code></pre>
+            <pre class="code-panel active" id="codePanelHtml"><code><span class="c-tag">&lt;header</span> <span class="c-attr">class=</span><span class="c-str">"navbar-wrapper"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;nav</span> <span class="c-attr">class=</span><span class="c-str">"navbar"</span> <span class="c-attr">aria-label=</span><span class="c-str">"Navigasi Utama"</span><span class="c-tag">&gt;</span>
+    <span class="c-tag">&lt;a</span> <span class="c-attr">href=</span><span class="c-str">"#hero"</span> <span class="c-attr">class=</span><span class="c-str">"nav-brand"</span><span class="c-tag">&gt;</span>zamm.my.id<span class="c-tag">&lt;/a&gt;</span>
+    <span class="c-tag">&lt;ul</span> <span class="c-attr">class=</span><span class="c-str">"nav-menu"</span><span class="c-tag">&gt;</span>
+      <span class="c-tag">&lt;li&gt;&lt;a</span> <span class="c-attr">href=</span><span class="c-str">"#waktu"</span><span class="c-tag">&gt;</span>Waktu & Suasana<span class="c-tag">&lt;/a&gt;&lt;/li&gt;</span>
+      <span class="c-tag">&lt;li&gt;&lt;a</span> <span class="c-attr">href=</span><span class="c-str">"#hewan-3d"</span><span class="c-tag">&gt;</span>Hewan 3D<span class="c-tag">&lt;/li&gt;</span>
+      <span class="c-tag">&lt;li&gt;&lt;a</span> <span class="c-attr">href=</span><span class="c-str">"#bahasa"</span><span class="c-tag">&gt;</span>Bahasa Web<span class="c-tag">&lt;/li&gt;</span>
+    <span class="c-tag">&lt;/ul&gt;</span>
+  <span class="c-tag">&lt;/nav&gt;</span>
+<span class="c-tag">&lt;/header&gt;</span></code></pre>
 
             <!-- CSS Snippet -->
             <pre class="code-panel" id="codePanelCss"><code><span class="c-sel">:root</span> {
-  <span class="c-prop">--bg-forest</span>: <span class="c-val">#0b131f</span>;
-  <span class="c-prop">--accent-emerald</span>: <span class="c-val">#10b981</span>;
-  <span class="c-prop">--accent-amber</span>: <span class="c-val">#f59e0b</span>;
+  <span class="c-prop">--bg-dark</span>: <span class="c-val">#070e17</span>;
+  <span class="c-prop">--emerald-400</span>: <span class="c-val">#34d399</span>;
+  <span class="c-prop">--amber-400</span>: <span class="c-val">#fbbf24</span>;
 }
 
-<span class="c-sel">.grid-responsive</span> {
-  <span class="c-prop">display</span>: <span class="c-val">grid</span>;
-  <span class="c-prop">grid-template-columns</span>: <span class="c-val">repeat(auto-fit, minmax(280px, 1fr))</span>;
-  <span class="c-prop">gap</span>: <span class="c-val">20px</span>;
+<span class="c-sel">.navbar</span> {
+  <span class="c-prop">display</span>: <span class="c-val">flex</span>;
+  <span class="c-prop">align-items</span>: <span class="c-val">center</span>;
+  <span class="c-prop">background</span>: <span class="c-val">rgba(11, 21, 35, 0.85)</span>;
   <span class="c-prop">backdrop-filter</span>: <span class="c-val">blur(16px)</span>;
+  <span class="c-prop">border-radius</span>: <span class="c-val">9999px</span>;
 }</code></pre>
 
             <!-- JS Snippet -->
             <pre class="code-panel" id="codePanelJs"><code><span class="c-kw">import</span> * <span class="c-kw">as</span> THREE <span class="c-kw">from</span> <span class="c-str">'three'</span>;
 
-<span class="c-kw">async function</span> <span class="c-fn">initForestScene</span>() {
-  <span class="c-kw">const</span> scene = <span class="c-kw">new</span> THREE.Scene();
-  <span class="c-kw">const</span> camera = <span class="c-kw">new</span> THREE.PerspectiveCamera(<span class="c-num">50</span>, innerWidth / innerHeight, <span class="c-num">0.1</span>, <span class="c-num">100</span>);
-  <span class="c-kw">const</span> renderer = <span class="c-kw">new</span> THREE.WebGLRenderer({ antialias: <span class="c-kw">true</span>, alpha: <span class="c-kw">true</span> });
-  
-  <span class="c-comm">// Gerakkan hewan game rubah & burung hantu</span>
-  renderer.setAnimationLoop(<span class="c-fn">renderFrame</span>);
+<span class="c-comm">// Siklus waktu pencahayaan Three.js jam Jakarta</span>
+<span class="c-kw">function</span> <span class="c-fn">setTimePhase</span>(phase) {
+  <span class="c-kw">const</span> cfg = timePhaseConfigs[phase];
+  scene.fog.color.setHex(cfg.fogColor);
+  dirLight.color.setHex(cfg.dirColor);
+  ambientLight.intensity = cfg.ambientIntensity;
 }</code></pre>
+
+            <!-- Python Snippet -->
+            <pre class="code-panel" id="codePanelPython"><code><span class="c-kw">import</span> re, requests
+<span class="c-kw">from</span> bs4 <span class="c-kw">import</span> BeautifulSoup
+
+<span class="c-comm"># Ekstraksi tautan preset XML / Cloud dari link TikTok</span>
+<span class="c-kw">def</span> <span class="c-fn">extract_am_preset</span>(url):
+    response = requests.get(url, timeout=10)
+    links = re.findall(r<span class="c-str">"https?://alight\.link/\S+"</span>, response.text)
+    <span class="c-kw">return</span> list(set(links))</code></pre>
           </div>
         </div>
       </div>
@@ -422,100 +658,6 @@
       </div>
     </section>
 
-    <!-- SECTION: AI Tools Harian -->
-    <section class="section" id="ai-stack">
-      <div class="container">
-        <div class="section-title-wrap">
-          <span class="section-chip">Alat Bantu Harian</span>
-          <h2 class="section-heading">AI sebagai Partner Belajar</h2>
-          <p class="section-intro">Ketika belajar secara mandiri, saya memanfaatkan model kecerdasan buatan untuk berdiskusi konsep komputasi, mencari penyebab error, dan menguji logika kode.</p>
-        </div>
-
-        <div class="ai-grid">
-          <div class="ai-card">
-            <div class="ai-header">
-              <h4>DeepSeek</h4>
-              <span class="ai-badge">Logic & Debugging</span>
-            </div>
-            <p>Membantu pemecahan algoritma, optimasi alur fungsi, serta analisa pesan error di terminal secara mendalam.</p>
-          </div>
-
-          <div class="ai-card">
-            <div class="ai-header">
-              <h4>Claude</h4>
-              <span class="ai-badge">Architecture & UI</span>
-            </div>
-            <p>Partner terpercaya untuk refactoring struktur semantik bersih, konsistensi styling, dan penerapan standar kode yang baik.</p>
-          </div>
-
-          <div class="ai-card">
-            <div class="ai-header">
-              <h4>Gemini</h4>
-              <span class="ai-badge">Research & Context</span>
-            </div>
-            <p>Eksplorasi dokumentasi web modern, referensi API terbaru, dan pemahaman konsep teknis secara menyeluruh.</p>
-          </div>
-
-          <div class="ai-card">
-            <div class="ai-header">
-              <h4>ChatGPT</h4>
-              <span class="ai-badge">Brainstorming & QA</span>
-            </div>
-            <p>Asisten diskusi untuk merancang ide proyek baru, validasi skenario alur pengguna, dan review berkas front-end.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SECTION: Roadmap Belajar -->
-    <section class="section" id="roadmap">
-      <div class="container">
-        <div class="section-title-wrap">
-          <span class="section-chip">Jalur Pembelajaran</span>
-          <h2 class="section-heading">Roadmap Pengembangan Diri</h2>
-          <p class="section-intro">Setiap langkah dijalankan secara teratur untuk membentuk pondasi pemrograman yang kuat dan aplikatif.</p>
-        </div>
-
-        <div class="timeline">
-          <div class="timeline-card">
-            <div class="timeline-top">
-              <span class="step-num">LANGKAH 01</span>
-              <span class="status-chip chip-done">Selesai</span>
-            </div>
-            <h4>Dasar Logika & Struktur Komputasi</h4>
-            <p>Memahami konsep dasar alur logika, variabel, tipe data, serta problem solving terarah.</p>
-          </div>
-
-          <div class="timeline-card">
-            <div class="timeline-top">
-              <span class="step-num">LANGKAH 02</span>
-              <span class="status-chip chip-progress">Sedang Berjalan</span>
-            </div>
-            <h4>Penguasaan Semantic HTML & Modern CSS</h4>
-            <p>Mendalami Flexbox, CSS Grid, responsivitas mobile-first, sistem warna, dan tipografi nyaman dibaca.</p>
-          </div>
-
-          <div class="timeline-card">
-            <div class="timeline-top">
-              <span class="step-num">LANGKAH 03</span>
-              <span class="status-chip chip-progress">Sedang Berjalan</span>
-            </div>
-            <h4>JavaScript Modern & Animasi 3D WebGL</h4>
-            <p>Manipulasi DOM, event handling, fetch data asinkron, dan pembuatan grafis 3D interaktif menggunakan Three.js.</p>
-          </div>
-
-          <div class="timeline-card">
-            <div class="timeline-top">
-              <span class="step-num">LANGKAH 04</span>
-              <span class="status-chip chip-next">Tahap Lanjut</span>
-            </div>
-            <h4>Version Control & Deployment Otomatis</h4>
-            <p>Manajemen repositori Git di GitHub, pengujian alur branch, dan deployment langsung ke server Vercel.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- SECTION: Kontak & Kolaborasi -->
     <section class="section" id="kontak">
       <div class="container">
@@ -557,6 +699,8 @@
 
       <div class="footer-links-wrap">
         <a href="#hero" class="f-link">Beranda</a>
+        <a href="#waktu" class="f-link">Waktu & Suasana</a>
+        <a href="#hewan-3d" class="f-link">Hewan 3D</a>
         <a href="#bahasa" class="f-link">Bahasa</a>
         <a href="#proyek" class="f-link">Web Saya</a>
         <a href="https://github.com/nizam169" target="_blank" rel="noopener noreferrer" class="f-link">GitHub</a>

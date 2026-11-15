@@ -1,78 +1,247 @@
 /* ==========================================================================
    zamm.my.id - app.js
-   Interactive UI Controller: Navbar, Tabs, Code Snippet, 3D Controls
+   Interactive UI Controller:
+   1. Real-time Jakarta Clock & Time-of-Day System (Pagi, Siang, Sore, Malam)
+   2. 3D Forest Animal Controller & Interactive Movement (Rubah, Rusa, Burung Hantu, Kelinci)
+   3. Anti-Slop Navbar & Accessible Mobile Drawer
+   4. Programming Languages Code Showcase Tabs with Copy Feedback
+   5. Smooth Scrollspy Navigation
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
-  initMobileNav();
+  initJakartaTime();
+  initAnimalControls();
   initLanguageTabs();
   initCodeCopy();
-  initAnimalControls();
+  initMobileNav();
   initScrollSpy();
 });
 
 /* ==========================================================================
-   1. Mobile Navigation Drawer
+   1. Real-Time Jakarta Clock & Time-of-Day Phase Engine (WIB: UTC+7)
    ========================================================================== */
-function initMobileNav() {
-  const burger = document.getElementById('burgerToggle');
-  const drawer = document.getElementById('navDrawer');
-  const closeBtn = document.getElementById('drawerClose');
+let timeMode = 'auto'; // 'auto' | 'pagi' | 'siang' | 'sore' | 'malam'
+let currentAutoPhase = 'malam';
 
-  if (!burger || !drawer) return;
+function initJakartaTime() {
+  const clockNav = document.getElementById('navJakartaClock');
+  const clockNavPhase = document.getElementById('navClockPhase');
+  const clockDrawer = document.getElementById('drawerJakartaClock');
+  const clockDrawerPhase = document.getElementById('drawerClockPhase');
+  const mainClock = document.getElementById('mainJakartaClock');
+  const mainDate = document.getElementById('mainJakartaDate');
+  const phaseTag = document.getElementById('currentPhaseTag');
+  const phaseDesc = document.getElementById('currentPhaseDesc');
+  const phasePills = document.querySelectorAll('.phase-pill');
 
-  function openDrawer() {
-    drawer.classList.add('open');
-    drawer.setAttribute('aria-hidden', 'false');
-    burger.setAttribute('aria-expanded', 'true');
-    document.body.style.overflow = 'hidden';
-  }
+  function updateClock() {
+    const now = new Date();
 
-  function closeDrawer() {
-    drawer.classList.remove('open');
-    drawer.setAttribute('aria-hidden', 'true');
-    burger.setAttribute('aria-expanded', 'false');
-    document.body.style.overflow = '';
-  }
+    // Format current time in Jakarta timezone (Asia/Jakarta, UTC+7)
+    const timeFormatter = new Intl.DateTimeFormat('id-ID', {
+      timeZone: 'Asia/Jakarta',
+      hour12: false,
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit'
+    });
 
-  burger.addEventListener('click', () => {
-    const isOpen = drawer.classList.contains('open');
-    if (isOpen) closeDrawer();
-    else openDrawer();
-  });
+    const dateFormatter = new Intl.DateTimeFormat('id-ID', {
+      timeZone: 'Asia/Jakarta',
+      weekday: 'long',
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    });
 
-  if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
+    const timeString = timeFormatter.format(now);
+    const dateString = dateFormatter.format(now);
 
-  // Close when clicking on any mobile nav link
-  drawer.querySelectorAll('.drawer-link').forEach(link => {
-    link.addEventListener('click', closeDrawer);
-  });
+    // Calculate fractional hour in Jakarta time
+    const parts = timeString.split(':').map(Number);
+    const hour = parts[0] + parts[1] / 60;
 
-  // Close on Escape key (R-32)
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && drawer.classList.contains('open')) {
-      closeDrawer();
-      burger.focus();
+    // Phase threshold:
+    // Pagi:  05:00 - 10:59 WIB
+    // Siang: 11:00 - 14:59 WIB
+    // Sore:  15:00 - 18:29 WIB
+    // Malam: 18:30 - 04:59 WIB
+    let detectedPhase = 'malam';
+    if (hour >= 5 && hour < 11) {
+      detectedPhase = 'pagi';
+    } else if (hour >= 11 && hour < 15) {
+      detectedPhase = 'siang';
+    } else if (hour >= 15 && hour < 18.5) {
+      detectedPhase = 'sore';
+    } else {
+      detectedPhase = 'malam';
     }
+
+    currentAutoPhase = detectedPhase;
+    const activePhase = timeMode === 'auto' ? detectedPhase : timeMode;
+
+    const phaseLabels = {
+      pagi: 'Pagi Hari',
+      siang: 'Siang Hari',
+      sore: 'Sore Hari',
+      malam: 'Malam Hari'
+    };
+
+    const phaseDescriptions = {
+      pagi: 'Matahari terbit perlahan membasuh pepohonan cemara dengan kabut fajar yang sejuk.',
+      siang: 'Pencahayaan terang benderang dari atas langit, seluruh fauna hutan aktif bergerak.',
+      sore: 'Sinar keemasan golden hour menyinari dedaunan hutan sebelum senja berganti gelap.',
+      malam: 'Suasana tenang bertabur kunang-kunang menyala dengan bulan terang di langit malam.'
+    };
+
+    // Update Navbar Widget
+    if (clockNav) clockNav.textContent = `${timeString} WIB`;
+    if (clockNavPhase) clockNavPhase.textContent = phaseLabels[activePhase];
+
+    // Update Drawer Widget
+    if (clockDrawer) clockDrawer.textContent = `${timeString} WIB`;
+    if (clockDrawerPhase) clockDrawerPhase.textContent = phaseLabels[activePhase];
+
+    // Update Main Section Widget
+    if (mainClock) mainClock.textContent = timeString;
+    if (mainDate) mainDate.textContent = `${dateString} : WIB (UTC+7)`;
+    if (phaseTag) phaseTag.textContent = phaseLabels[activePhase];
+    if (phaseDesc) phaseDesc.textContent = phaseDescriptions[activePhase];
+
+    // Synchronize 3D Scene Lighting
+    if (window.forest3D && typeof window.forest3D.setTimePhase === 'function') {
+      window.forest3D.setTimePhase(activePhase);
+    }
+  }
+
+  // Phase selection pill clicks
+  phasePills.forEach(pill => {
+    pill.addEventListener('click', () => {
+      const selected = pill.dataset.phase;
+      timeMode = selected;
+
+      phasePills.forEach(p => {
+        const isActive = p === pill;
+        p.classList.toggle('active', isActive);
+        p.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+      });
+
+      updateClock();
+    });
   });
+
+  // Run immediately then tick every 1000ms
+  updateClock();
+  setInterval(updateClock, 1000);
 }
 
 /* ==========================================================================
-   2. Interactive Language Code Tabs
+   2. 3D Animal Controller & Interactive Movement
+   ========================================================================== */
+function initAnimalControls() {
+  const animalSelectButtons = document.querySelectorAll('.animal-btn');
+  const animToggleBtn = document.getElementById('animToggleBtn');
+  const animIcon = document.getElementById('animIcon');
+  const animText = document.getElementById('animText');
+
+  // Movement Pad Buttons
+  const btnForward = document.getElementById('btnMoveForward');
+  const btnBackward = document.getElementById('btnMoveBackward');
+  const btnTurnLeft = document.getElementById('btnRotateLeft');
+  const btnTurnRight = document.getElementById('btnRotateRight');
+  const btnJump = document.getElementById('btnJumpAnimal');
+  const btnSpecial = document.getElementById('btnSpecialAction');
+  const btnReset = document.getElementById('btnResetAnimal');
+
+  // Animal Selection
+  animalSelectButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const animal = btn.dataset.animal;
+      if (window.forest3D) {
+        window.forest3D.setFocus(animal);
+      }
+    });
+  });
+
+  // Movement Action Handlers
+  if (btnForward) {
+    btnForward.addEventListener('click', () => {
+      if (window.forest3D) window.forest3D.moveForward();
+    });
+  }
+
+  if (btnBackward) {
+    btnBackward.addEventListener('click', () => {
+      if (window.forest3D) window.forest3D.moveBackward();
+    });
+  }
+
+  if (btnTurnLeft) {
+    btnTurnLeft.addEventListener('click', () => {
+      if (window.forest3D) window.forest3D.rotateLeft();
+    });
+  }
+
+  if (btnTurnRight) {
+    btnTurnRight.addEventListener('click', () => {
+      if (window.forest3D) window.forest3D.rotateRight();
+    });
+  }
+
+  if (btnJump) {
+    btnJump.addEventListener('click', () => {
+      if (window.forest3D) window.forest3D.jump();
+    });
+  }
+
+  if (btnSpecial) {
+    btnSpecial.addEventListener('click', () => {
+      if (window.forest3D) window.forest3D.specialAction();
+    });
+  }
+
+  if (btnReset) {
+    btnReset.addEventListener('click', () => {
+      if (window.forest3D) window.forest3D.resetPosition();
+    });
+  }
+
+  // Animation Pause / Resume for Accessibility (R-19 & R-39)
+  if (animToggleBtn && animIcon && animText) {
+    animToggleBtn.addEventListener('click', () => {
+      if (window.forest3D) {
+        const isRunning = window.forest3D.toggleAnimation();
+        if (isRunning) {
+          animIcon.textContent = '⏸';
+          animText.textContent = 'Jeda';
+          animToggleBtn.setAttribute('aria-label', 'Jeda animasi 3D');
+        } else {
+          animIcon.textContent = '▶';
+          animText.textContent = 'Mulai';
+          animToggleBtn.setAttribute('aria-label', 'Lanjutkan animasi 3D');
+        }
+      }
+    });
+  }
+}
+
+/* ==========================================================================
+   3. Interactive Programming Languages Code Tabs
    ========================================================================== */
 function initLanguageTabs() {
   const tabs = document.querySelectorAll('.code-tab');
   const panels = {
     html: document.getElementById('codePanelHtml'),
     css: document.getElementById('codePanelCss'),
-    js: document.getElementById('codePanelJs')
+    js: document.getElementById('codePanelJs'),
+    python: document.getElementById('codePanelPython')
   };
 
   tabs.forEach(tab => {
     tab.addEventListener('click', () => {
       const selected = tab.dataset.tab;
 
-      // Update Tab Buttons
+      // Update Tab Button States
       tabs.forEach(t => {
         const isActive = t === tab;
         t.classList.toggle('active', isActive);
@@ -90,7 +259,7 @@ function initLanguageTabs() {
 }
 
 /* ==========================================================================
-   3. Copy Code Button with Toast Feedback
+   4. Copy Code Button with Accessible Toast Feedback
    ========================================================================== */
 function initCodeCopy() {
   const copyBtn = document.getElementById('codeCopyBtn');
@@ -125,41 +294,53 @@ function initCodeCopy() {
 }
 
 /* ==========================================================================
-   4. 3D Forest Animal Controller Buttons
+   5. Anti-Slop Mobile Navigation Drawer
    ========================================================================== */
-function initAnimalControls() {
-  const buttons = document.querySelectorAll('.animal-btn');
-  const animToggleBtn = document.getElementById('animToggleBtn');
-  const animIcon = document.getElementById('animIcon');
-  const animText = document.getElementById('animText');
+function initMobileNav() {
+  const burger = document.getElementById('burgerToggle');
+  const drawer = document.getElementById('navDrawer');
+  const closeBtn = document.getElementById('drawerClose');
 
-  buttons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const animal = btn.dataset.animal;
-      if (window.forest3D) {
-        window.forest3D.setFocus(animal);
-      }
-    });
+  if (!burger || !drawer) return;
+
+  function openDrawer() {
+    drawer.classList.add('open');
+    drawer.setAttribute('aria-hidden', 'false');
+    burger.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeDrawer() {
+    drawer.classList.remove('open');
+    drawer.setAttribute('aria-hidden', 'true');
+    burger.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+
+  burger.addEventListener('click', () => {
+    const isOpen = drawer.classList.contains('open');
+    if (isOpen) closeDrawer();
+    else openDrawer();
   });
 
-  if (animToggleBtn && animIcon && animText) {
-    animToggleBtn.addEventListener('click', () => {
-      if (window.forest3D) {
-        const isRunning = window.forest3D.toggleAnimation();
-        if (isRunning) {
-          animIcon.textContent = '⏸️';
-          animText.textContent = 'Animasi Aktif';
-        } else {
-          animIcon.textContent = '▶️';
-          animText.textContent = 'Jeda';
-        }
-      }
-    });
-  }
+  if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
+
+  // Close when clicking any link inside the mobile drawer
+  drawer.querySelectorAll('.drawer-link').forEach(link => {
+    link.addEventListener('click', closeDrawer);
+  });
+
+  // Close on Escape key press (R-32 accessibility)
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && drawer.classList.contains('open')) {
+      closeDrawer();
+      burger.focus();
+    }
+  });
 }
 
 /* ==========================================================================
-   5. Active Navbar Link Highlight on Scroll
+   6. Active Navbar Link Highlight on Scroll (ScrollSpy)
    ========================================================================== */
 function initScrollSpy() {
   const sections = document.querySelectorAll('section[id]');

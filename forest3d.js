@@ -1,42 +1,62 @@
 /* ==========================================================================
    zamm.my.id - forest3d.js
-   Enchanted 3D Low-Poly Forest & Game Animals (Three.js WebGL)
-   Animals: Fox (Rubah), Deer (Rusa), Owl (Burung Hantu)
+   Enchanted 3D Low-Poly Forest & Game Animals with Dynamic Jakarta Time
+   Animals: Fox (Rubah), Deer (Rusa), Owl (Burung Hantu), Rabbit (Kelinci)
+   Lighting: Pagi (Morning), Siang (Noon), Sore (Sunset), Malam (Starry Night)
    ========================================================================== */
 
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.module.js';
 
 let scene, camera, renderer, clock;
-let fox, deer, owl;
+let ambientLight, dirLight, bounceLight;
+let celestialMesh, celestialGlow;
+let fox, deer, owl, rabbit;
 let fireflies;
+let terrainMesh;
 let isAnimating = true;
 let currentFocus = 'forest';
+let currentTimePhase = 'malam';
 
-// Camera Targets for Smooth Interpolation
-const cameraTargets = {
-  forest: { pos: new THREE.Vector3(0, 3.8, 12.5), look: new THREE.Vector3(0, 1.2, 0) },
-  fox:    { pos: new THREE.Vector3(-3.2, 1.8, 5.2), look: new THREE.Vector3(-2.8, 0.7, 0.5) },
-  deer:   { pos: new THREE.Vector3(3.4, 2.2, 6.0), look: new THREE.Vector3(2.8, 1.3, 0) },
-  owl:    { pos: new THREE.Vector3(0, 3.0, 5.8), look: new THREE.Vector3(0, 2.1, -1.2) }
+// Base coordinates for animals in the clearing
+const homePositions = {
+  fox:    { x: -2.8, y: 0, z: 0.5, rotY: 0.45 },
+  deer:   { x: 2.8,  y: 0, z: 0.0, rotY: -0.55 },
+  owl:    { x: 0.0,  y: 0, z: -1.2, rotY: 0 },
+  rabbit: { x: 0.0,  y: 0, z: 1.8, rotY: 0.15 }
 };
 
-const currentCamPos = new THREE.Vector3(0, 3.8, 12.5);
+// Camera Targets for Smooth Focus Interpolation
+const cameraTargets = {
+  forest: { pos: new THREE.Vector3(0, 4.0, 13.5), look: new THREE.Vector3(0, 1.2, 0) },
+  fox:    { pos: new THREE.Vector3(-3.2, 2.0, 5.5), look: new THREE.Vector3(-2.8, 0.8, 0.5) },
+  deer:   { pos: new THREE.Vector3(3.4, 2.4, 6.2),  look: new THREE.Vector3(2.8, 1.3, 0) },
+  owl:    { pos: new THREE.Vector3(0, 3.2, 5.8),   look: new THREE.Vector3(0, 2.1, -1.2) },
+  rabbit: { pos: new THREE.Vector3(0, 1.8, 5.0),   look: new THREE.Vector3(0, 0.6, 1.8) }
+};
+
+const currentCamPos = new THREE.Vector3(0, 4.0, 13.5);
 const currentLookAt = new THREE.Vector3(0, 1.2, 0);
 
-// Mouse parallax
+// Mouse parallax & Raycaster
 const mouse = { x: 0, y: 0, targetX: 0, targetY: 0 };
 const raycaster = new THREE.Raycaster();
 const pointer = new THREE.Vector2(-10, -10);
 
+// Autonomous navigation target for active animal
+const navTarget = { active: false, x: 0, z: 0 };
+
 // Helper Toon / Low-Poly Shaded Material
 const createMat = (color) => new THREE.MeshLambertMaterial({ color, flatShading: true });
 
+/* ==========================================================================
+   Initialization
+   ========================================================================== */
 function init() {
   const canvas = document.getElementById('forestCanvas');
   const container = document.getElementById('webglContainer');
   if (!canvas || !container) return;
 
-  // Renderer Setup
+  // WebGL Renderer Setup
   renderer = new THREE.WebGLRenderer({
     canvas,
     alpha: true,
@@ -50,43 +70,53 @@ function init() {
   scene = new THREE.Scene();
   scene.fog = new THREE.FogExp2(0x070e17, 0.038);
 
-  // Camera
+  // Perspective Camera
   camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
   camera.position.copy(currentCamPos);
   camera.lookAt(currentLookAt);
 
   clock = new THREE.Clock();
 
-  // Lighting
+  // Lighting & Celestial Setup
   setupLighting();
+  setupCelestialBody();
 
-  // Build Environment
+  // Environment Construction
   buildTerrain();
   buildTrees();
   buildRocksAndMushrooms();
   buildFireflies();
 
-  // Build Animals
+  // Animal Models Construction
   fox = createFox();
-  fox.position.set(-2.8, 0, 0.5);
-  fox.rotation.y = 0.45;
+  fox.position.set(homePositions.fox.x, homePositions.fox.y, homePositions.fox.z);
+  fox.rotation.y = homePositions.fox.rotY;
   scene.add(fox);
 
   deer = createDeer();
-  deer.position.set(2.8, 0, 0);
-  deer.rotation.y = -0.55;
+  deer.position.set(homePositions.deer.x, homePositions.deer.y, homePositions.deer.z);
+  deer.rotation.y = homePositions.deer.rotY;
   scene.add(deer);
 
   owl = createOwl();
-  owl.position.set(0, 0, -1.2);
+  owl.position.set(homePositions.owl.x, homePositions.owl.y, homePositions.owl.z);
+  owl.rotation.y = homePositions.owl.rotY;
   scene.add(owl);
 
-  // Events
+  rabbit = createRabbit();
+  rabbit.position.set(homePositions.rabbit.x, homePositions.rabbit.y, homePositions.rabbit.z);
+  rabbit.rotation.y = homePositions.rabbit.rotY;
+  scene.add(rabbit);
+
+  // Event Listeners
   window.addEventListener('resize', onWindowResize);
   window.addEventListener('mousemove', onMouseMove);
   canvas.addEventListener('click', onCanvasClick);
 
-  // Visibility state
+  // Keyboard navigation for active animal (WASD / Arrow Keys)
+  window.addEventListener('keydown', onKeyDown);
+
+  // Page visibility pause to save battery
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) clock.stop();
     else clock.start();
@@ -97,22 +127,168 @@ function init() {
 }
 
 /* ==========================================================================
-   Lighting Setup
+   Lighting & Celestial Setup (Time of Day Dependent)
    ========================================================================== */
 function setupLighting() {
-  // Ambient Soft Night Tone
-  const ambient = new THREE.AmbientLight(0x1a334d, 1.4);
-  scene.add(ambient);
+  // Ambient Soft Tone
+  ambientLight = new THREE.AmbientLight(0x152538, 1.3);
+  scene.add(ambientLight);
 
-  // Moonlight / Sunbeam Key Light
-  const moonLight = new THREE.DirectionalLight(0xd1e8ff, 1.8);
-  moonLight.position.set(10, 15, 8);
-  scene.add(moonLight);
+  // Main Key Light (Moonlight or Sunlight)
+  dirLight = new THREE.DirectionalLight(0xd1e8ff, 1.8);
+  dirLight.position.set(10, 15, 8);
+  scene.add(dirLight);
 
-  // Warm Forest Floor Bounce Light
-  const warmLight = new THREE.DirectionalLight(0xf59e0b, 0.6);
-  warmLight.position.set(-8, -2, -5);
-  scene.add(warmLight);
+  // Forest Floor Bounce Light
+  bounceLight = new THREE.DirectionalLight(0x10b981, 0.4);
+  bounceLight.position.set(-8, -2, -5);
+  scene.add(bounceLight);
+}
+
+function setupCelestialBody() {
+  const celestialGroup = new THREE.Group();
+  celestialGroup.name = 'celestial';
+
+  // Core Sphere (Sun or Moon)
+  const sphereGeo = new THREE.SphereGeometry(1.6, 16, 16);
+  const sphereMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+  celestialMesh = new THREE.Mesh(sphereGeo, sphereMat);
+  celestialGroup.add(celestialMesh);
+
+  // Soft Aura Glow Ring
+  const ringGeo = new THREE.RingGeometry(1.7, 2.5, 24);
+  const ringMat = new THREE.MeshBasicMaterial({
+    color: 0x93c5fd,
+    side: THREE.DoubleSide,
+    transparent: true,
+    opacity: 0.35
+  });
+  celestialGlow = new THREE.Mesh(ringGeo, ringMat);
+  celestialGroup.add(celestialGlow);
+
+  celestialGroup.position.set(18, 22, -30);
+  scene.add(celestialGroup);
+}
+
+/* ==========================================================================
+   Dynamic Time of Day Mode (Pagi, Siang, Sore, Malam)
+   ========================================================================== */
+const timePhaseConfigs = {
+  pagi: {
+    fogColor: 0x223a48,
+    fogDensity: 0.030,
+    ambientColor: 0x485a6a,
+    ambientIntensity: 1.3,
+    dirColor: 0xffd8b2,
+    dirIntensity: 2.1,
+    dirPos: [14, 9, 6],
+    bounceColor: 0x2a9d8f,
+    bounceIntensity: 0.5,
+    fireflyOpacity: 0.15,
+    fireflyColor: 0xa7f3d0,
+    celestialColor: 0xffe8d6,
+    celestialPos: [22, 12, -32],
+    celestialGlowColor: 0xfbbf24,
+    skyBg: 'linear-gradient(180deg, #18283b 0%, #29435c 40%, #c47c5d 85%, #f4a261 100%)'
+  },
+  siang: {
+    fogColor: 0x2d5a7b,
+    fogDensity: 0.022,
+    ambientColor: 0x82b9d6,
+    ambientIntensity: 1.6,
+    dirColor: 0xfffaed,
+    dirIntensity: 2.5,
+    dirPos: [4, 22, 5],
+    bounceColor: 0x38b000,
+    bounceIntensity: 0.65,
+    fireflyOpacity: 0.0,
+    fireflyColor: 0x34d399,
+    celestialColor: 0xffffff,
+    celestialPos: [6, 26, -26],
+    celestialGlowColor: 0xfef08a,
+    skyBg: 'linear-gradient(180deg, #1b4965 0%, #2b6f93 45%, #62b6cb 80%, #bee9e8 100%)'
+  },
+  sore: {
+    fogColor: 0x38203d,
+    fogDensity: 0.034,
+    ambientColor: 0x5a354c,
+    ambientIntensity: 1.25,
+    dirColor: 0xf59e0b,
+    dirIntensity: 2.3,
+    dirPos: [-16, 7, 4],
+    bounceColor: 0xe76f51,
+    bounceIntensity: 0.6,
+    fireflyOpacity: 0.55,
+    fireflyColor: 0xfbbf24,
+    celestialColor: 0xf97316,
+    celestialPos: [-24, 9, -32],
+    celestialGlowColor: 0xf43f5e,
+    skyBg: 'linear-gradient(180deg, #1d1a36 0%, #3a224a 40%, #a44a3f 75%, #f39237 100%)'
+  },
+  malam: {
+    fogColor: 0x070e17,
+    fogDensity: 0.038,
+    ambientColor: 0x152538,
+    ambientIntensity: 1.3,
+    dirColor: 0xd1e8ff,
+    dirIntensity: 1.8,
+    dirPos: [10, 15, 8],
+    bounceColor: 0x10b981,
+    bounceIntensity: 0.4,
+    fireflyOpacity: 0.9,
+    fireflyColor: 0x34d399,
+    celestialColor: 0xe2e8f0,
+    celestialPos: [18, 22, -30],
+    celestialGlowColor: 0x93c5fd,
+    skyBg: 'radial-gradient(circle at 50% 25%, #0e2033 0%, #070e17 80%)'
+  }
+};
+
+function setTimePhase(phase) {
+  if (!timePhaseConfigs[phase]) phase = 'malam';
+  currentTimePhase = phase;
+  const cfg = timePhaseConfigs[phase];
+
+  if (!scene) return;
+
+  // Scene Fog
+  scene.fog.color.setHex(cfg.fogColor);
+  scene.fog.density = cfg.fogDensity;
+
+  // Ambient & Directional Lights
+  if (ambientLight) {
+    ambientLight.color.setHex(cfg.ambientColor);
+    ambientLight.intensity = cfg.ambientIntensity;
+  }
+  if (dirLight) {
+    dirLight.color.setHex(cfg.dirColor);
+    dirLight.intensity = cfg.dirIntensity;
+    dirLight.position.set(...cfg.dirPos);
+  }
+  if (bounceLight) {
+    bounceLight.color.setHex(cfg.bounceColor);
+    bounceLight.intensity = cfg.bounceIntensity;
+  }
+
+  // Celestial Body
+  const celestial = scene.getObjectByName('celestial');
+  if (celestial && celestialMesh && celestialGlow) {
+    celestial.position.set(...cfg.celestialPos);
+    celestialMesh.material.color.setHex(cfg.celestialColor);
+    celestialGlow.material.color.setHex(cfg.celestialGlowColor);
+  }
+
+  // Fireflies
+  if (fireflies) {
+    fireflies.material.opacity = cfg.fireflyOpacity;
+    fireflies.material.color.setHex(cfg.fireflyColor);
+  }
+
+  // Update background container gradient
+  const webglContainer = document.getElementById('webglContainer');
+  if (webglContainer) {
+    webglContainer.style.background = cfg.skyBg;
+  }
 }
 
 /* ==========================================================================
@@ -127,16 +303,17 @@ function buildTerrain() {
     const vy = pos.getY(i);
     const dist = Math.sqrt(vx * vx + vy * vy);
     let elevation = Math.sin(vx * 0.14) * Math.cos(vy * 0.14) * 0.9;
-    if (dist < 8) elevation *= (dist / 8); // Flatter center clearing for animals
+    if (dist < 8) elevation *= (dist / 8); // Flatter central clearing for animal motion
     pos.setZ(i, elevation);
   }
   geo.computeVertexNormals();
 
   const terrainMat = createMat(0x112419);
-  const terrain = new THREE.Mesh(geo, terrainMat);
-  terrain.rotation.x = -Math.PI / 2;
-  terrain.position.y = -0.05;
-  scene.add(terrain);
+  terrainMesh = new THREE.Mesh(geo, terrainMat);
+  terrainMesh.name = 'terrain';
+  terrainMesh.rotation.x = -Math.PI / 2;
+  terrainMesh.position.y = -0.05;
+  scene.add(terrainMesh);
 }
 
 /* ==========================================================================
@@ -205,7 +382,8 @@ function buildRocksAndMushrooms() {
     [-2.4, 0, 1.1],
     [2.2, 0, 0.8],
     [0.6, 0, -1.0],
-    [-0.8, 0, -0.8]
+    [-0.8, 0, -0.8],
+    [0.9, 0, 1.6]
   ];
 
   shroomSpots.forEach(([x, y, z]) => {
@@ -227,7 +405,7 @@ function buildRocksAndMushrooms() {
    Glowing Forest Fireflies (Kunang-Kunang)
    ========================================================================== */
 function buildFireflies() {
-  const count = 75;
+  const count = 80;
   const geometry = new THREE.BufferGeometry();
   const positions = new Float32Array(count * 3);
   const phases = new Float32Array(count);
@@ -302,6 +480,7 @@ function createFox() {
   foxGroup.add(headGroup);
 
   // 4 Legs
+  const legs = [];
   const legCoords = [
     [0.22, 0.24, 0.35],
     [-0.22, 0.24, 0.35],
@@ -312,6 +491,7 @@ function createFox() {
     const leg = new THREE.Mesh(new THREE.BoxGeometry(0.14, 0.48, 0.14), dark);
     leg.position.set(...pos);
     foxGroup.add(leg);
+    legs.push(leg);
   });
 
   // Tail
@@ -333,8 +513,11 @@ function createFox() {
   foxGroup.userData = {
     headGroup,
     tailGroup,
+    legs,
     baseY: 0,
-    jumpTimer: 0
+    jumpTimer: 0,
+    spinTimer: 0,
+    stepCycle: 0
   };
 
   return foxGroup;
@@ -396,6 +579,7 @@ function createDeer() {
   deerGroup.add(headGroup);
 
   // 4 Slender Legs
+  const legs = [];
   const legCoords = [
     [0.25, 0.48, 0.48],
     [-0.25, 0.48, 0.48],
@@ -406,12 +590,16 @@ function createDeer() {
     const leg = new THREE.Mesh(new THREE.CylinderGeometry(0.07, 0.05, 0.96, 4), dark);
     leg.position.set(...pos);
     deerGroup.add(leg);
+    legs.push(leg);
   });
 
   deerGroup.userData = {
     headGroup,
+    legs,
     baseY: 0,
-    jumpTimer: 0
+    jumpTimer: 0,
+    bowTimer: 0,
+    stepCycle: 0
   };
 
   return deerGroup;
@@ -490,10 +678,97 @@ function createOwl() {
     wingL,
     wingR,
     baseY: 0,
-    jumpTimer: 0
+    jumpTimer: 0,
+    flutterTimer: 0,
+    stepCycle: 0
   };
 
   return owlGroup;
+}
+
+/* ==========================================================================
+   Model 4: Low-Poly Rabbit (Kelinci Hutan)
+   ========================================================================== */
+function createRabbit() {
+  const rabbitGroup = new THREE.Group();
+  rabbitGroup.name = 'rabbit';
+
+  const furWhite = createMat(0xf8fafc);
+  const earPink = createMat(0xfecdd3);
+  const nosePink = createMat(0xf43f5e);
+  const eyeDark = createMat(0x0f172a);
+
+  // Rounded Body
+  const body = new THREE.Mesh(new THREE.BoxGeometry(0.48, 0.42, 0.65), furWhite);
+  body.position.y = 0.32;
+  rabbitGroup.add(body);
+
+  // Head
+  const headGroup = new THREE.Group();
+  headGroup.position.set(0, 0.52, 0.32);
+  const head = new THREE.Mesh(new THREE.BoxGeometry(0.36, 0.32, 0.36), furWhite);
+  headGroup.add(head);
+
+  // Nose
+  const nose = new THREE.Mesh(new THREE.SphereGeometry(0.04, 4, 4), nosePink);
+  nose.position.set(0, -0.04, 0.2);
+  headGroup.add(nose);
+
+  // Two Cute Dark Eyes
+  [-0.14, 0.14].forEach(x => {
+    const eye = new THREE.Mesh(new THREE.SphereGeometry(0.04, 4, 4), eyeDark);
+    eye.position.set(x, 0.05, 0.14);
+    headGroup.add(eye);
+  });
+
+  // Long Twitching Ears
+  const earL = new THREE.Group();
+  earL.position.set(0.11, 0.22, -0.04);
+  const earLMesh = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.42, 0.08), furWhite);
+  earLMesh.position.y = 0.2;
+  earL.add(earLMesh);
+  const innerL = new THREE.Mesh(new THREE.BoxGeometry(0.05, 0.32, 0.03), earPink);
+  innerL.position.set(0, 0.2, 0.035);
+  earL.add(innerL);
+
+  const earR = earL.clone();
+  earR.position.x = -0.11;
+
+  headGroup.add(earL, earR);
+  rabbitGroup.add(headGroup);
+
+  // Front Paws
+  const pawL = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.2, 0.12), furWhite);
+  pawL.position.set(0.14, 0.1, 0.22);
+  const pawR = pawL.clone();
+  pawR.position.x = -0.14;
+  rabbitGroup.add(pawL, pawR);
+
+  // Back Hopping Thighs & Feet
+  const thighL = new THREE.Mesh(new THREE.BoxGeometry(0.14, 0.26, 0.28), furWhite);
+  thighL.position.set(0.22, 0.16, -0.16);
+  const thighR = thighL.clone();
+  thighR.position.x = -0.22;
+  rabbitGroup.add(thighL, thighR);
+
+  // Fluffy Tail
+  const tail = new THREE.Mesh(new THREE.SphereGeometry(0.1, 5, 5), furWhite);
+  tail.position.set(0, 0.32, -0.38);
+  rabbitGroup.add(tail);
+
+  rabbitGroup.userData = {
+    headGroup,
+    earL,
+    earR,
+    pawL,
+    pawR,
+    baseY: 0,
+    jumpTimer: 0,
+    hopTimer: 0,
+    stepCycle: 0
+  };
+
+  return rabbitGroup;
 }
 
 /* ==========================================================================
@@ -510,13 +785,18 @@ function animate() {
   currentCamPos.lerp(target.pos, 0.05);
   currentLookAt.lerp(target.look, 0.05);
 
-  // Gentle Mouse Parallax
+  // Mouse Parallax with Smooth Damping
   mouse.x += (mouse.targetX - mouse.x) * 0.06;
   mouse.y += (mouse.targetY - mouse.y) * 0.06;
 
-  camera.position.x = currentCamPos.x + mouse.x * 0.4;
-  camera.position.y = currentCamPos.y + mouse.y * 0.25;
+  camera.position.x = currentCamPos.x + mouse.x * 0.45;
+  camera.position.y = currentCamPos.y + mouse.y * 0.3;
   camera.lookAt(currentLookAt);
+
+  // Autonomous navigation toward click target
+  if (navTarget.active) {
+    navigateActiveAnimalStep(delta);
+  }
 
   if (isAnimating) {
     // 1. Fox Idle & Jump Animation
@@ -527,8 +807,10 @@ function animate() {
 
       if (u.jumpTimer > 0) {
         u.jumpTimer -= delta * 3;
-        fox.position.y = Math.sin(u.jumpTimer * Math.PI) * 0.6;
-        fox.rotation.y += delta * 4;
+        fox.position.y = Math.max(0, Math.sin(u.jumpTimer * Math.PI) * 0.7);
+        if (u.spinTimer > 0) {
+          fox.rotation.y += delta * 7;
+        }
       } else {
         fox.position.y = Math.sin(time * 2) * 0.03;
       }
@@ -542,7 +824,10 @@ function animate() {
 
       if (u.jumpTimer > 0) {
         u.jumpTimer -= delta * 2.5;
-        deer.position.y = Math.sin(u.jumpTimer * Math.PI) * 0.4;
+        deer.position.y = Math.max(0, Math.sin(u.jumpTimer * Math.PI) * 0.5);
+      } else if (u.bowTimer > 0) {
+        u.bowTimer -= delta * 2;
+        u.headGroup.rotation.x = Math.sin(u.bowTimer * Math.PI) * 0.45;
       } else {
         deer.position.y = Math.sin(time * 1.5) * 0.025;
       }
@@ -551,25 +836,42 @@ function animate() {
     // 3. Owl Head 180° Turn & Wing Flutter
     if (owl) {
       const u = owl.userData;
-      u.headGroup.rotation.y = Math.sin(time * 0.9) * 1.2;
+      u.headGroup.rotation.y = Math.sin(time * 0.9) * 1.35;
 
-      if (u.jumpTimer > 0) {
-        u.jumpTimer -= delta * 3;
-        u.wingL.rotation.z = Math.sin(time * 25) * 0.5;
-        u.wingR.rotation.z = -Math.sin(time * 25) * 0.5;
+      if (u.flutterTimer > 0 || u.jumpTimer > 0) {
+        if (u.flutterTimer > 0) u.flutterTimer -= delta * 2.5;
+        if (u.jumpTimer > 0) u.jumpTimer -= delta * 2.5;
+        u.wingL.rotation.z = Math.sin(time * 28) * 0.6;
+        u.wingR.rotation.z = -Math.sin(time * 28) * 0.6;
       } else {
         u.wingL.rotation.z = 0;
         u.wingR.rotation.z = 0;
       }
     }
 
-    // 4. Fireflies Twinkle & Drift
-    if (fireflies) {
+    // 4. Rabbit Cute Idle & Hop
+    if (rabbit) {
+      const u = rabbit.userData;
+      u.headGroup.rotation.y = Math.sin(time * 2.2) * 0.18 + (mouse.x * 0.15);
+      u.earL.rotation.z = Math.sin(time * 4) * 0.12;
+      u.earR.rotation.z = -Math.sin(time * 4.5) * 0.12;
+
+      if (u.jumpTimer > 0) {
+        u.jumpTimer -= delta * 3.5;
+        rabbit.position.y = Math.max(0, Math.sin(u.jumpTimer * Math.PI) * 0.6);
+      } else {
+        // Natural small rabbit hop cycle
+        rabbit.position.y = Math.max(0, Math.sin(time * 3) * 0.06);
+      }
+    }
+
+    // 5. Fireflies Twinkle & Drift (active in Malam & Sore)
+    if (fireflies && fireflies.material.opacity > 0.05) {
       const pos = fireflies.geometry.attributes.position.array;
       const count = pos.length / 3;
       for (let i = 0; i < count; i++) {
-        pos[i * 3 + 1] += Math.sin(time * 2 + i) * 0.003;
-        pos[i * 3]     += Math.cos(time + i) * 0.002;
+        pos[i * 3 + 1] += Math.sin(time * 2 + i) * 0.0035;
+        pos[i * 3]     += Math.cos(time + i) * 0.0025;
       }
       fireflies.geometry.attributes.position.needsUpdate = true;
     }
@@ -579,7 +881,127 @@ function animate() {
 }
 
 /* ==========================================================================
-   Event Handlers & Public API
+   Navigation & Movement Physics
+   ========================================================================== */
+function getActiveAnimalObject() {
+  if (currentFocus === 'fox') return fox;
+  if (currentFocus === 'deer') return deer;
+  if (currentFocus === 'owl') return owl;
+  if (currentFocus === 'rabbit') return rabbit;
+  return null;
+}
+
+function moveActiveAnimal(forwardSteps) {
+  const animal = getActiveAnimalObject();
+  if (!animal) return;
+
+  const stepSize = forwardSteps * 0.45;
+  const targetX = animal.position.x + Math.sin(animal.rotation.y) * stepSize;
+  const targetZ = animal.position.z + Math.cos(animal.rotation.y) * stepSize;
+
+  // Boundary check: stay within 7.5 radius of clearing
+  const dist = Math.sqrt(targetX * targetX + targetZ * targetZ);
+  if (dist < 7.5) {
+    animal.position.x = targetX;
+    animal.position.z = targetZ;
+  }
+
+  // Leg / hop animation
+  if (animal.userData) {
+    animal.userData.stepCycle = (animal.userData.stepCycle || 0) + 1;
+    animal.position.y = Math.abs(Math.sin(animal.userData.stepCycle * 0.8)) * 0.15;
+  }
+
+  updateCameraForAnimal(animal);
+}
+
+function rotateActiveAnimal(angleChange) {
+  const animal = getActiveAnimalObject();
+  if (!animal) return;
+  animal.rotation.y += angleChange;
+}
+
+function jumpActiveAnimal() {
+  const animal = getActiveAnimalObject();
+  if (!animal || !animal.userData) return;
+  animal.userData.jumpTimer = 1.0;
+}
+
+function performSpecialAction() {
+  const animal = getActiveAnimalObject();
+  if (!animal || !animal.userData) return;
+
+  if (currentFocus === 'fox') {
+    animal.userData.jumpTimer = 1.0;
+    animal.userData.spinTimer = 1.0;
+  } else if (currentFocus === 'deer') {
+    animal.userData.bowTimer = 1.0;
+    animal.userData.jumpTimer = 0.6;
+  } else if (currentFocus === 'owl') {
+    animal.userData.flutterTimer = 1.5;
+  } else if (currentFocus === 'rabbit') {
+    animal.userData.jumpTimer = 1.2;
+  }
+}
+
+function resetActiveAnimal() {
+  const animal = getActiveAnimalObject();
+  if (!animal) return;
+  const base = homePositions[currentFocus];
+  if (base) {
+    animal.position.set(base.x, base.y, base.z);
+    animal.rotation.y = base.rotY;
+  }
+  navTarget.active = false;
+  updateCameraForAnimal(animal);
+}
+
+function updateCameraForAnimal(animal) {
+  if (cameraTargets[currentFocus]) {
+    cameraTargets[currentFocus].look.set(animal.position.x, animal.position.y + 0.8, animal.position.z);
+    cameraTargets[currentFocus].pos.set(
+      animal.position.x - Math.sin(animal.rotation.y) * 4.2,
+      animal.position.y + 2.0,
+      animal.position.z - Math.cos(animal.rotation.y) * 4.2
+    );
+  }
+}
+
+function navigateActiveAnimalStep(delta) {
+  const animal = getActiveAnimalObject();
+  if (!animal) {
+    navTarget.active = false;
+    return;
+  }
+
+  const dx = navTarget.x - animal.position.x;
+  const dz = navTarget.z - animal.position.z;
+  const dist = Math.sqrt(dx * dx + dz * dz);
+
+  if (dist < 0.2) {
+    navTarget.active = false;
+    animal.position.y = 0;
+    return;
+  }
+
+  // Turn toward target
+  const targetAngle = Math.atan2(dx, dz);
+  let diff = targetAngle - animal.rotation.y;
+  while (diff < -Math.PI) diff += Math.PI * 2;
+  while (diff > Math.PI) diff -= Math.PI * 2;
+  animal.rotation.y += diff * 0.15;
+
+  // Move forward
+  const speed = Math.min(dist, delta * 3.5);
+  animal.position.x += Math.sin(animal.rotation.y) * speed;
+  animal.position.z += Math.cos(animal.rotation.y) * speed;
+  animal.position.y = Math.abs(Math.sin(clock.getElapsedTime() * 12)) * 0.12;
+
+  updateCameraForAnimal(animal);
+}
+
+/* ==========================================================================
+   Event Handlers
    ========================================================================== */
 function onWindowResize() {
   if (!camera || !renderer) return;
@@ -593,42 +1015,104 @@ function onMouseMove(e) {
   mouse.targetY = -(e.clientY / window.innerHeight) * 2 + 1;
 }
 
+function onKeyDown(e) {
+  // Ignore if user is currently typing in an input or textarea
+  if (['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) return;
+
+  const validKeys = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'KeyW', 'KeyS', 'KeyA', 'KeyD', 'Space'];
+  if (!validKeys.includes(e.code)) return;
+
+  if (currentFocus === 'forest') {
+    // If viewing panorama, automatically switch to Fox when user starts walking
+    setCameraFocus('fox');
+  }
+
+  if (e.code === 'ArrowUp' || e.code === 'KeyW') {
+    e.preventDefault();
+    moveActiveAnimal(1);
+  } else if (e.code === 'ArrowDown' || e.code === 'KeyS') {
+    e.preventDefault();
+    moveActiveAnimal(-1);
+  } else if (e.code === 'ArrowLeft' || e.code === 'KeyA') {
+    e.preventDefault();
+    rotateActiveAnimal(0.25);
+  } else if (e.code === 'ArrowRight' || e.code === 'KeyD') {
+    e.preventDefault();
+    rotateActiveAnimal(-0.25);
+  } else if (e.code === 'Space') {
+    e.preventDefault();
+    jumpActiveAnimal();
+  }
+}
+
 function onCanvasClick(e) {
   const rect = renderer.domElement.getBoundingClientRect();
   pointer.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
   pointer.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
 
   raycaster.setFromCamera(pointer, camera);
-  const intersects = raycaster.intersectObjects([fox, deer, owl], true);
 
-  if (intersects.length > 0) {
-    let obj = intersects[0].object;
-    while (obj && !['fox', 'deer', 'owl'].includes(obj.name)) {
+  // Check animal click first
+  const animalMeshes = [fox, deer, owl, rabbit].filter(Boolean);
+  const animalHits = raycaster.intersectObjects(animalMeshes, true);
+
+  if (animalHits.length > 0) {
+    let obj = animalHits[0].object;
+    while (obj && !['fox', 'deer', 'owl', 'rabbit'].includes(obj.name)) {
       obj = obj.parent;
     }
     if (obj) {
-      triggerAnimalJump(obj.name);
       setCameraFocus(obj.name);
+      triggerAnimalJump(obj.name);
+      return;
+    }
+  }
+
+  // Check terrain click for animal click-to-move
+  if (terrainMesh && currentFocus !== 'forest') {
+    const terrainHits = raycaster.intersectObject(terrainMesh, false);
+    if (terrainHits.length > 0) {
+      const hitPoint = terrainHits[0].point;
+      const dist = Math.sqrt(hitPoint.x * hitPoint.x + hitPoint.z * hitPoint.z);
+      if (dist < 7.5) {
+        navTarget.x = hitPoint.x;
+        navTarget.z = hitPoint.z;
+        navTarget.active = true;
+      }
     }
   }
 }
 
 function triggerAnimalJump(animalName) {
-  const animal = animalName === 'fox' ? fox : animalName === 'deer' ? deer : owl;
+  const animal = animalName === 'fox' ? fox : animalName === 'deer' ? deer : animalName === 'owl' ? owl : rabbit;
   if (animal && animal.userData) {
-    animal.userData.jumpTimer = 1;
+    animal.userData.jumpTimer = 1.0;
   }
 }
 
 function setCameraFocus(targetName) {
   if (cameraTargets[targetName]) {
     currentFocus = targetName;
+    navTarget.active = false;
     triggerAnimalJump(targetName);
 
-    // Update UI active button
+    // Update active animal button across the UI
     document.querySelectorAll('.animal-btn').forEach(btn => {
       btn.classList.toggle('active', btn.dataset.animal === targetName);
     });
+
+    // Update active animal status label
+    const animalNameLabel = document.getElementById('activeAnimalName');
+    if (animalNameLabel) {
+      const names = {
+        forest: 'Panorama Hutan',
+        fox: 'Rubah Game',
+        deer: 'Rusa Bertanduk',
+        owl: 'Burung Hantu',
+        rabbit: 'Kelinci Hutan'
+      };
+      animalNameLabel.textContent = names[targetName] || targetName;
+    }
   }
 }
 
@@ -637,11 +1121,19 @@ function toggleAnimation() {
   return isAnimating;
 }
 
-// Expose API for app.js
+// Public API for app.js and HTML UI
 window.forest3D = {
   setFocus: setCameraFocus,
   triggerJump: triggerAnimalJump,
-  toggleAnimation: toggleAnimation
+  toggleAnimation: toggleAnimation,
+  setTimePhase: setTimePhase,
+  moveForward: () => moveActiveAnimal(1),
+  moveBackward: () => moveActiveAnimal(-1),
+  rotateLeft: () => rotateActiveAnimal(0.3),
+  rotateRight: () => rotateActiveAnimal(-0.3),
+  jump: jumpActiveAnimal,
+  specialAction: performSpecialAction,
+  resetPosition: resetActiveAnimal
 };
 
 // Initialize when DOM is ready
