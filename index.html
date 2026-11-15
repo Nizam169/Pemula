@@ -3,1699 +3,539 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nizam — Web Developer & Learner</title>
-  <meta name="description" content="Portfolio resmi Nizam (zamm.my.id) — Web Developer pemula yang fokus membangun website modern, fungsional, dan bersih.">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232563eb'/%3E%3Cpath d='M9 23V9l14 14V9' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <title>zamm.my.id - Nizam Web Developer Portfolio</title>
+  <meta name="description" content="Portfolio resmi Nizam (zamm.my.id) : Web Developer yang fokus membangun website modern, fungsional, dan animasi 3D interaktif.">
   
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2310b981'/%3E%3Cpath d='M8 9h16l-14 14h14' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E">
+  
+  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
-  <style>
-    :root {
-      --bg: #ffffff;
-      --bg-subtle: #f8fafc;
-      --surface: #ffffff;
-      --surface-elevated: #f1f5f9;
-      
-      /* Neo-brutalist distinct high-contrast border and shadows */
-      --neo-border: #0f172a;
-      --neo-border-w: 2.5px;
-      --neo-shadow: 4px 4px 0 #0f172a;
-      --neo-shadow-sm: 2px 2px 0 #0f172a;
-      --neo-shadow-lg: 6px 6px 0 #0f172a;
-      --neo-shadow-hover: 1px 1px 0 #0f172a;
-      
-      --blue-50: #eff6ff;
-      --blue-100: #dbeafe;
-      --blue-200: #bfdbfe;
-      --blue-500: #3b82f6;
-      --blue-600: #2563eb;
-      --blue-700: #1d4ed8;
-      --blue-900: #0f172a;
-      
-      --text-main: #0f172a;
-      --text-muted: #334155;
-      --text-light: #64748b;
-      
-      --radius-sm: 6px;
-      --radius-md: 10px;
-      --radius-lg: 14px;
-      --radius-full: 9999px;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      max-width: 100%;
-    }
-
-    html, body {
-      width: 100%;
-      overflow-x: hidden;
-      position: relative;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    section[id] {
-      scroll-margin-top: 84px;
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      html {
-        scroll-behavior: auto;
-      }
-
-      .tab-content.active {
-        animation: none;
-      }
-    }
-
-    body {
-      background-color: var(--bg);
-      color: var(--text-main);
-      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-      line-height: 1.6;
-    }
-
-    .container {
-      width: 100%;
-      max-width: 1080px;
-      margin: 0 auto;
-      padding: 0 16px;
-    }
-
-    /* Header / Navigation */
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      background: #ffffff;
-      border-bottom: var(--neo-border-w) solid var(--neo-border);
-      transition: all 0.2s ease;
-    }
-
-    .nav-wrapper {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 68px;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      text-decoration: none;
-      color: var(--text-main);
-      font-weight: 800;
-      font-size: 1.1rem;
-      letter-spacing: -0.02em;
-    }
-
-    .brand-badge {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 34px;
-      height: 34px;
-      border-radius: var(--radius-sm);
-      background: var(--blue-600);
-      color: #fff;
-      font-weight: 800;
-      font-size: 1rem;
-      border: var(--neo-border-w) solid var(--neo-border);
-      box-shadow: var(--neo-shadow-sm);
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 24px;
-    }
-
-    .nav-links a {
-      text-decoration: none;
-      color: var(--text-main);
-      font-size: 0.925rem;
-      font-weight: 700;
-      padding: 6px 10px;
-      border-radius: var(--radius-sm);
-      border: 1.5px solid transparent;
-      transition: all 0.15s ease;
-    }
-
-    .nav-links a:hover {
-      background: var(--blue-50);
-      border-color: var(--neo-border);
-      box-shadow: 2px 2px 0 var(--neo-border);
-      color: var(--blue-700);
-    }
-
-    .nav-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--blue-50);
-      color: var(--neo-border);
-      border: var(--neo-border-w) solid var(--neo-border);
-      padding: 8px 16px;
-      border-radius: var(--radius-sm);
-      font-size: 0.85rem;
-      font-weight: 700;
-      text-decoration: none;
-      box-shadow: var(--neo-shadow-sm);
-      transition: all 0.15s ease;
-    }
-
-    .nav-cta:hover {
-      background: var(--blue-600);
-      color: #ffffff;
-      transform: translate(1px, 1px);
-      box-shadow: var(--neo-shadow-hover);
-    }
-
-    /* Hero Section */
-    .hero {
-      padding: 60px 0 50px;
-      position: relative;
-    }
-
-    .status-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 14px;
-      background: #ffffff;
-      border: var(--neo-border-w) solid var(--neo-border);
-      border-radius: var(--radius-full);
-      font-size: 0.825rem;
-      font-weight: 700;
-      color: var(--neo-border);
-      box-shadow: var(--neo-shadow-sm);
-      margin-bottom: 24px;
-    }
-
-    .status-dot {
-      width: 9px;
-      height: 9px;
-      background-color: #10b981;
-      border-radius: 50%;
-      border: 1.5px solid var(--neo-border);
-    }
-
-    .hero-title {
-      font-size: clamp(2.2rem, 5vw, 3.4rem);
-      font-weight: 800;
-      line-height: 1.15;
-      letter-spacing: -0.035em;
-      color: var(--text-main);
-      max-width: 840px;
-      margin-bottom: 20px;
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.08fr 0.92fr;
-      gap: 26px;
-      align-items: center;
-    }
-
-    .hero-visual {
-      position: relative;
-      height: 440px;
-      background: var(--bg-subtle);
-      border: var(--neo-border-w) solid var(--neo-border);
-      border-radius: var(--radius-md);
-      box-shadow: var(--neo-shadow);
-      overflow: hidden;
-    }
-
-    .hero-visual canvas {
-      display: block;
-      width: 100%;
-      height: 100%;
-      touch-action: pan-y;
-      cursor: grab;
-    }
-
-    .hero-visual canvas.grabbing {
-      cursor: grabbing;
-    }
-
-    .hero-visual canvas.point {
-      cursor: pointer;
-    }
-
-    .visual-fallback {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 16px;
-      text-align: center;
-      padding: 20px;
-    }
-
-    #heroVisual.no3d canvas {
-      display: none;
-    }
-
-    .fallback-badge {
-      width: 74px;
-      height: 74px;
-      border: var(--neo-border-w) solid var(--neo-border);
-      border-radius: var(--radius-sm);
-      background: var(--blue-600);
-      color: #ffffff;
-      font-weight: 800;
-      font-size: 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: var(--neo-shadow-sm);
-    }
-
-    .fallback-links {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .fallback-links a {
-      display: inline-flex;
-      padding: 12px 18px;
-      background: #ffffff;
-      color: var(--neo-border);
-      border: 1.5px solid var(--neo-border);
-      border-radius: var(--radius-sm);
-      font-size: 0.8rem;
-      font-weight: 700;
-      text-decoration: none;
-      box-shadow: 2px 2px 0 var(--neo-border);
-      transition: all 0.15s ease;
-    }
-
-    .fallback-links a:hover {
-      background: var(--blue-50);
-      transform: translate(1px, 1px);
-      box-shadow: 1px 1px 0 var(--neo-border);
-    }
-
-    .hero-title span {
-      background: var(--blue-600);
-      color: #ffffff;
-      padding: 2px 8px;
-      border-radius: var(--radius-sm);
-      border: var(--neo-border-w) solid var(--neo-border);
-      box-shadow: 3px 3px 0 var(--neo-border);
-      display: inline-block;
-    }
-
-    .hero-subtitle {
-      font-size: 1.1rem;
-      color: var(--text-muted);
-      max-width: 620px;
-      line-height: 1.7;
-      margin-bottom: 32px;
-      font-weight: 500;
-    }
-
-    .hero-actions {
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 9px;
-      padding: 12px 24px;
-      border-radius: var(--radius-sm);
-      font-size: 0.95rem;
-      font-weight: 700;
-      text-decoration: none;
-      cursor: pointer;
-      border: var(--neo-border-w) solid var(--neo-border);
-      transition: all 0.15s ease;
-    }
-
-    .btn-primary {
-      background: var(--blue-600);
-      color: #ffffff;
-      box-shadow: var(--neo-shadow);
-    }
-
-    .btn-primary:hover {
-      background: var(--blue-700);
-      transform: translate(2px, 2px);
-      box-shadow: var(--neo-shadow-hover);
-    }
-
-    .btn-secondary {
-      background: #ffffff;
-      color: var(--text-main);
-      box-shadow: var(--neo-shadow);
-    }
-
-    .btn-secondary:hover {
-      background: var(--bg-subtle);
-      transform: translate(2px, 2px);
-      box-shadow: var(--neo-shadow-hover);
-    }
-
-    .hero-meta {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 14px;
-      margin-top: 44px;
-      padding: 20px;
-      background: #ffffff;
-      border: var(--neo-border-w) solid var(--neo-border);
-      border-radius: var(--radius-md);
-      box-shadow: var(--neo-shadow);
-    }
-
-    .meta-item {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .meta-label {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: var(--text-light);
-      font-weight: 700;
-      margin-bottom: 4px;
-    }
-
-    .meta-val {
-      font-size: 1.05rem;
-      font-weight: 800;
-      color: var(--text-main);
-      font-family: 'JetBrains Mono', monospace;
-    }
-
-    /* Section Typography */
-    .section {
-      padding: 60px 0;
-    }
-
-    .section-header {
-      margin-bottom: 32px;
-    }
-
-    .section-tag {
-      display: block;
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--text-light);
-      margin-bottom: 6px;
-    }
-
-    .section-title {
-      font-size: 2rem;
-      font-weight: 800;
-      letter-spacing: -0.025em;
-      color: var(--text-main);
-    }
-
-    .section-desc {
-      font-size: 0.975rem;
-      color: var(--text-muted);
-      margin-top: 8px;
-      max-width: 580px;
-    }
-
-    /* Cards Grid */
-    .cards-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-    }
-
-    /* Bento Grid System for Projects */
-    .bento-grid {
-      display: grid;
-      grid-template-columns: 1.25fr 1fr;
-      grid-template-rows: auto auto;
-      gap: 20px;
-    }
-
-    .bento-card {
-      background: #ffffff;
-      border: var(--neo-border-w) solid var(--neo-border);
-      border-radius: var(--radius-md);
-      padding: 26px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      box-shadow: var(--neo-shadow);
-      transition: all 0.15s ease;
-      position: relative;
-    }
-
-    .bento-card:hover {
-      transform: translate(2px, 2px);
-      box-shadow: var(--neo-shadow-hover);
-    }
-
-    /* Main Featured Bento item spans 2 rows */
-    .bento-featured {
-      grid-row: span 2;
-      background: linear-gradient(180deg, #ffffff 0%, var(--blue-50) 100%);
-      border-color: var(--neo-border);
-    }
-
-    .bento-featured .project-card-header {
-      margin-bottom: 20px;
-    }
-
-    .bento-featured h3 {
-      font-size: 1.6rem;
-    }
-
-    .project-card-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      margin-bottom: 14px;
-      flex-wrap: wrap;
-    }
-
-    .project-domain {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.95rem;
-      font-weight: 800;
-      color: var(--blue-700);
-      background: #ffffff;
-      padding: 4px 10px;
-      border-radius: var(--radius-sm);
-      border: 1.5px solid var(--neo-border);
-    }
-
-    .project-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: #065f46;
-      background: #d1fae5;
-      border: 1.5px solid var(--neo-border);
-      padding: 4px 10px;
-      border-radius: var(--radius-full);
-      box-shadow: 1.5px 1.5px 0 var(--neo-border);
-    }
-
-    .project-badge.is-live::before {
-      content: "";
-      width: 7px;
-      height: 7px;
-      background-color: #10b981;
-      border-radius: 50%;
-    }
-
-    .bento-card h3 {
-      font-size: 1.35rem;
-      font-weight: 800;
-      color: var(--text-main);
-      margin-bottom: 6px;
-      letter-spacing: -0.02em;
-    }
-
-    .project-tagline {
-      display: block;
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: var(--blue-600);
-      margin-bottom: 12px;
-    }
-
-    .project-desc {
-      font-size: 0.925rem;
-      color: var(--text-muted);
-      line-height: 1.65;
-      margin-bottom: 20px;
-    }
-
-    .project-features {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-bottom: 24px;
-    }
-
-    .project-feat {
-      font-size: 0.775rem;
-      font-weight: 700;
-      color: var(--neo-border);
-      background: #ffffff;
-      border: 1.5px solid var(--neo-border);
-      padding: 4px 10px;
-      border-radius: var(--radius-sm);
-      box-shadow: 2px 2px 0 var(--neo-border);
-    }
-
-    .project-link {
-      display: inline-flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px 16px;
-      background: var(--blue-50);
-      color: var(--neo-border);
-      border: var(--neo-border-w) solid var(--neo-border);
-      border-radius: var(--radius-sm);
-      font-size: 0.875rem;
-      font-weight: 800;
-      text-decoration: none;
-      box-shadow: var(--neo-shadow-sm);
-      transition: all 0.15s ease;
-    }
-
-    .project-link:hover {
-      background: var(--blue-600);
-      color: #ffffff;
-      transform: translate(1px, 1px);
-      box-shadow: var(--neo-shadow-hover);
-    }
-
-    /* AI Stack Grid */
-    .ai-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 18px;
-    }
-
-    .ai-card {
-      background: #ffffff;
-      border: var(--neo-border-w) solid var(--neo-border);
-      border-radius: var(--radius-md);
-      padding: 22px;
-      box-shadow: var(--neo-shadow);
-      transition: all 0.15s ease;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .ai-card:hover {
-      transform: translate(2px, 2px);
-      box-shadow: var(--neo-shadow-hover);
-    }
-
-    .ai-header {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 12px;
-    }
-
-    .ai-card h4 {
-      font-size: 1.05rem;
-      font-weight: 800;
-      color: var(--text-main);
-    }
-
-    .ai-role {
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: var(--text-light);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .ai-card p {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      line-height: 1.5;
-    }
-
-    /* Responsive */
-    @media (max-width: 992px) {
-      .ai-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .hero-visual {
-        height: 360px;
-      }
-    }
-
-    @media (max-width: 860px) {
-      .hero {
-        padding: 32px 0 24px;
-      }
-
-      .hero-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
-      }
-
-      .hero-visual {
-        height: 320px;
-      }
-
-      .hero-title {
-        font-size: 1.85rem;
-        line-height: 1.25;
-        letter-spacing: -0.02em;
-        word-break: break-word;
-      }
-
-      .hero-subtitle {
-        font-size: 0.95rem;
-        margin-bottom: 24px;
-      }
-
-      .hero-meta {
-        grid-template-columns: 1fr 1fr;
-        gap: 10px;
-        padding: 14px;
-        margin-top: 28px;
-      }
-
-      .section {
-        padding: 40px 0;
-      }
-
-      .section-header {
-        margin-bottom: 20px;
-      }
-
-      .section-title {
-        font-size: 1.45rem;
-        word-break: break-word;
-      }
-
-      .section-desc {
-        font-size: 0.9rem;
-      }
-
-      .project-card,
-      .bento-card,
-      .skill-panel,
-      .service-card {
-        padding: 18px 16px;
-      }
-
-      .cards-grid,
-      .bento-grid,
-      .skills-layout,
-      .ai-grid {
-        grid-template-columns: 1fr;
-        gap: 16px;
-      }
-
-      .bento-featured {
-        grid-row: span 1;
-      }
-
-      .timeline-item {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 8px;
-        padding: 14px 16px;
-      }
-
-      .timeline-step {
-        font-size: 0.8rem;
-      }
-
-      .nav-links {
-        display: none;
-      }
-
-      .nav-links.active {
-        display: flex;
-        flex-direction: column;
-        position: absolute;
-        top: 68px;
-        left: 0;
-        right: 0;
-        background: #ffffff;
-        padding: 16px;
-        border-bottom: var(--neo-border-w) solid var(--neo-border);
-        box-shadow: 0 10px 0 rgba(15, 23, 42, 0.08);
-        gap: 14px;
-      }
-
-      .menu-toggle {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 5px;
-        width: 42px;
-        height: 42px;
-        padding: 0;
-        border-radius: var(--radius-sm);
-        border: var(--neo-border-w) solid var(--neo-border);
-        background: #ffffff;
-        cursor: pointer;
-        box-shadow: 2px 2px 0 var(--neo-border);
-        transition: all 0.15s ease;
-      }
-
-      .menu-toggle:hover,
-      .menu-toggle:active {
-        background: var(--blue-50);
-        transform: translate(1px, 1px);
-        box-shadow: 1px 1px 0 var(--neo-border);
-      }
-
-      .burger-line {
-        width: 20px;
-        height: 2.5px;
-        background-color: var(--neo-border);
-        border-radius: 2px;
-        transition: all 0.25s ease;
-      }
-
-      .menu-toggle.open .burger-line:nth-child(1) {
-        transform: translateY(7.5px) rotate(45deg);
-      }
-
-      .menu-toggle.open .burger-line:nth-child(2) {
-        opacity: 0;
-        transform: scale(0);
-      }
-
-      .menu-toggle.open .burger-line:nth-child(3) {
-        transform: translateY(-7.5px) rotate(-45deg);
-      }
-
-      .contact-card {
-        padding: 28px 18px;
-      }
-
-      .contact-card h2 {
-        font-size: 1.45rem;
-      }
-    }
-
-    @media (max-width: 520px) {
-      .hero-meta {
-        grid-template-columns: 1fr;
-      }
-
-      .hero-visual {
-        height: 270px;
-      }
-
-      .hero-title {
-        font-size: 1.75rem;
-      }
-
-      .hero-actions {
-        flex-direction: column;
-        align-items: stretch;
-      }
-
-      .hero-actions .btn {
-        width: 100%;
-      }
-
-      .contact-buttons {
-        flex-direction: column;
-      }
-
-      .contact-buttons .btn {
-        width: 100%;
-      }
-
-      .footer-wrapper {
-        flex-direction: column;
-        text-align: center;
-        gap: 14px;
-      }
-
-      .footer-links {
-        justify-content: center;
-      }
-    }
-
-    .menu-toggle {
-      display: none;
-    }
-
-    .service-card {
-      background: #ffffff;
-      border: var(--neo-border-w) solid var(--neo-border);
-      border-radius: var(--radius-md);
-      padding: 26px;
-      box-shadow: var(--neo-shadow);
-      transition: all 0.15s ease;
-      display: flex;
-      flex-direction: column;
-      position: relative;
-    }
-
-    .service-card:hover {
-      transform: translate(2px, 2px);
-      box-shadow: var(--neo-shadow-hover);
-    }
-
-    .service-icon {
-      width: 44px;
-      height: 44px;
-      border-radius: var(--radius-sm);
-      background: var(--blue-50);
-      color: var(--neo-border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 18px;
-      border: var(--neo-border-w) solid var(--neo-border);
-      box-shadow: 2px 2px 0 var(--neo-border);
-    }
-
-    .service-card h3 {
-      font-size: 1.15rem;
-      font-weight: 800;
-      color: var(--text-main);
-      margin-bottom: 10px;
-    }
-
-    .service-card p {
-      font-size: 0.925rem;
-      color: var(--text-muted);
-      line-height: 1.6;
-    }
-
-    /* Roadmap Timeline */
-    .timeline {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .timeline-item {
-      display: grid;
-      grid-template-columns: 80px 1fr auto;
-      align-items: center;
-      background: #ffffff;
-      border: var(--neo-border-w) solid var(--neo-border);
-      border-radius: var(--radius-md);
-      padding: 18px 24px;
-      box-shadow: var(--neo-shadow);
-      transition: all 0.15s ease;
-    }
-
-    .timeline-item:hover {
-      transform: translate(2px, 2px);
-      box-shadow: var(--neo-shadow-hover);
-    }
-
-    .timeline-step {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.95rem;
-      font-weight: 800;
-      color: var(--blue-700);
-    }
-
-    .timeline-content h4 {
-      font-size: 1.05rem;
-      font-weight: 800;
-      color: var(--text-main);
-      margin-bottom: 2px;
-    }
-
-    .timeline-content p {
-      font-size: 0.885rem;
-      color: var(--text-muted);
-    }
-
-    .status-badge {
-      display: inline-flex;
-      align-items: center;
-      padding: 4px 10px;
-      border-radius: var(--radius-full);
-      font-size: 0.775rem;
-      font-weight: 700;
-      font-family: 'JetBrains Mono', monospace;
-      border: 1.5px solid var(--neo-border);
-      box-shadow: 1.5px 1.5px 0 var(--neo-border);
-    }
-
-    .badge-done {
-      background: #d1fae5;
-      color: #065f46;
-    }
-
-    .badge-progress {
-      background: var(--blue-100);
-      color: var(--blue-900);
-    }
-
-    .badge-next {
-      background: #f1f5f9;
-      color: var(--text-light);
-    }
-
-    .skills-tabs {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 20px;
-      background: #ffffff;
-      padding: 6px;
-      border-radius: var(--radius-md);
-      border: var(--neo-border-w) solid var(--neo-border);
-      box-shadow: var(--neo-shadow-sm);
-    }
-
-    .tab-btn {
-      flex: 1;
-      padding: 10px 16px;
-      font-size: 0.875rem;
-      font-weight: 800;
-      color: var(--neo-border);
-      background: transparent;
-      border: 1.5px solid transparent;
-      border-radius: var(--radius-sm);
-      cursor: pointer;
-      transition: all 0.15s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      font-family: inherit;
-    }
-
-    .tab-btn.active {
-      background: var(--blue-600);
-      color: #ffffff;
-      border-color: var(--neo-border);
-      box-shadow: 2px 2px 0 var(--neo-border);
-    }
-
-    .tab-content {
-      display: none;
-    }
-
-    .tab-content.active {
-      display: block;
-      animation: fadeIn 0.25s ease;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(4px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .skill-panel {
-      background: #ffffff;
-      border: var(--neo-border-w) solid var(--neo-border);
-      border-radius: var(--radius-md);
-      padding: 26px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      box-shadow: var(--neo-shadow);
-      transition: all 0.15s ease;
-    }
-
-    .skill-panel h3 {
-      font-size: 1.25rem;
-      font-weight: 800;
-      margin-bottom: 8px;
-      color: var(--text-main);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .skill-panel-sub {
-      font-size: 0.875rem;
-      color: var(--text-muted);
-      margin-bottom: 24px;
-      line-height: 1.5;
-      font-weight: 500;
-    }
-
-    .skill-list {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .skill-card-item {
-      background: #ffffff;
-      border: 1.5px solid var(--neo-border);
-      border-radius: var(--radius-sm);
-      padding: 14px 16px;
-      box-shadow: 2px 2px 0 var(--neo-border);
-      transition: all 0.15s ease;
-    }
-
-    .skill-card-item:hover {
-      background: var(--blue-50);
-      transform: translate(1px, 1px);
-      box-shadow: 1px 1px 0 var(--neo-border);
-    }
-
-    .skill-item-info {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: 12px;
-      font-size: 0.9rem;
-      font-weight: 800;
-      margin-bottom: 4px;
-      flex-wrap: wrap;
-    }
-
-    .skill-name {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--text-main);
-      font-size: 0.885rem;
-    }
-
-    .skill-use {
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--text-light);
-    }
-
-    .principle-item {
-      display: flex;
-      gap: 16px;
-      align-items: flex-start;
-      padding: 16px;
-      background: #ffffff;
-      border: 1.5px solid var(--neo-border);
-      border-radius: var(--radius-sm);
-      margin-bottom: 12px;
-      box-shadow: 2px 2px 0 var(--neo-border);
-      transition: all 0.15s ease;
-    }
-
-    .principle-item:last-child {
-      margin-bottom: 0;
-    }
-
-    .principle-item:hover {
-      background: var(--blue-50);
-      transform: translate(1px, 1px);
-      box-shadow: 1px 1px 0 var(--neo-border);
-    }
-
-    .principle-num {
-      width: 32px;
-      height: 32px;
-      flex-shrink: 0;
-      border-radius: var(--radius-sm);
-      background: var(--blue-600);
-      color: #ffffff;
-      font-family: 'JetBrains Mono', monospace;
-      font-weight: 800;
-      font-size: 0.9rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 1.5px solid var(--neo-border);
-      box-shadow: 1px 1px 0 var(--neo-border);
-    }
-
-    .principle-item strong {
-      display: block;
-      color: var(--text-main);
-      font-size: 0.95rem;
-      font-weight: 800;
-      margin-bottom: 4px;
-    }
-
-    .principle-item span {
-      font-size: 0.875rem;
-      color: var(--text-muted);
-      line-height: 1.55;
-    }
-
-    /* Contact Banner Neo-Brutalism */
-    .contact-card {
-      background: #ffffff;
-      color: var(--neo-border);
-      border: var(--neo-border-w) solid var(--neo-border);
-      border-radius: var(--radius-md);
-      padding: 40px;
-      position: relative;
-      overflow: hidden;
-      box-shadow: var(--neo-shadow-lg);
-    }
-
-    .contact-inner {
-      position: relative;
-      z-index: 1;
-      max-width: 600px;
-    }
-
-    .contact-card h2 {
-      font-size: 2rem;
-      font-weight: 800;
-      letter-spacing: -0.025em;
-      margin-bottom: 12px;
-      color: var(--neo-border);
-    }
-
-    .contact-card p {
-      color: var(--text-muted);
-      font-size: 1rem;
-      margin-bottom: 28px;
-      line-height: 1.6;
-    }
-
-    .contact-buttons {
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-    }
-
-    .btn-light {
-      background: var(--blue-600);
-      color: #ffffff;
-      font-weight: 700;
-      box-shadow: var(--neo-shadow);
-    }
-
-    .btn-light:hover {
-      background: var(--blue-700);
-      transform: translate(2px, 2px);
-      box-shadow: var(--neo-shadow-hover);
-    }
-
-    .btn-ghost-light {
-      background: #ffffff;
-      color: var(--neo-border);
-      border: var(--neo-border-w) solid var(--neo-border);
-      box-shadow: var(--neo-shadow);
-    }
-
-    .btn-ghost-light:hover {
-      background: var(--blue-50);
-      transform: translate(2px, 2px);
-      box-shadow: var(--neo-shadow-hover);
-    }
-
-    /* Footer */
-    footer {
-      border-top: var(--neo-border-w) solid var(--neo-border);
-      padding: 36px 0;
-      background: #ffffff;
-      margin-top: 40px;
-    }
-
-    .footer-wrapper {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 16px;
-    }
-
-    .footer-left {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .footer-copy {
-      font-size: 0.875rem;
-      color: var(--text-main);
-      font-weight: 700;
-    }
-
-    .footer-sub {
-      font-size: 0.775rem;
-      color: var(--text-light);
-    }
-
-    .footer-links {
-      display: flex;
-      align-items: center;
-      gap: 18px;
-    }
-
-    .footer-links a {
-      color: var(--neo-border);
-      text-decoration: none;
-      font-size: 0.875rem;
-      font-weight: 700;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 4px 8px;
-      border: 1.5px solid transparent;
-      border-radius: var(--radius-sm);
-      transition: all 0.15s ease;
-    }
-
-    .footer-links a:hover {
-      background: var(--blue-50);
-      border-color: var(--neo-border);
-      box-shadow: 2px 2px 0 var(--neo-border);
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- Header -->
-  <header>
-    <div class="container nav-wrapper">
-      <a href="#" class="brand">
-        <span class="brand-badge">N</span>
-        <span>zamm.my.id</span>
+  <!-- Background 3D Canvas (Hutan & Hewan Game) -->
+  <div class="webgl-container" id="webglContainer" aria-hidden="true">
+    <canvas id="forestCanvas"></canvas>
+    <div class="webgl-overlay"></div>
+  </div>
+
+  <!-- Navbar Keren (Floating Glass Pill) -->
+  <header class="navbar-wrapper">
+    <nav class="navbar" aria-label="Navigasi Utama">
+      <!-- Brand Logo -->
+      <a href="#" class="nav-brand" aria-label="Beranda zamm.my.id">
+        <span class="brand-symbol">Z</span>
+        <div class="brand-text">
+          <span class="brand-title">zamm.my.id</span>
+          <span class="brand-dot-live"></span>
+        </div>
       </a>
 
-      <nav class="nav-links" id="mainNav">
-        <a href="#proyek">Web Saya</a>
-        <a href="#fokus">Fokus</a>
-        <a href="#ai-stack">AI Asisten</a>
-        <a href="#roadmap">Roadmap</a>
-        <a href="#keahlian">Keahlian</a>
-        <a href="#kontak">Kontak</a>
-      </nav>
+      <!-- Desktop Nav Links -->
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="#hero" class="nav-link active">Beranda</a></li>
+        <li><a href="#bahasa" class="nav-link">Bahasa</a></li>
+        <li><a href="#proyek" class="nav-link">Web Saya</a></li>
+        <li><a href="#fokus" class="nav-link">Fokus</a></li>
+        <li><a href="#ai-stack" class="nav-link">AI Tools</a></li>
+        <li><a href="#roadmap" class="nav-link">Roadmap</a></li>
+        <li><a href="#kontak" class="nav-link">Kontak</a></li>
+      </ul>
 
-      <div style="display: flex; align-items: center; gap: 10px;">
-        <a href="https://t.me/storenizam" target="_blank" rel="noopener noreferrer" class="nav-cta">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.64 8.56l-1.98 9.35c-.15.66-.55.82-1.11.51l-3.08-2.27-1.49 1.43c-.17.17-.31.31-.63.31l.22-3.18 5.79-5.24c.25-.22-.06-.35-.39-.13l-7.16 4.51-3.08-.96c-.67-.21-.69-.67.14-.99l12.04-4.64c.56-.2 1.04.13.73.81z"/></svg>
-          <span>Hubungi</span>
+      <!-- Action Button & Hamburger -->
+      <div class="nav-actions">
+        <a href="https://t.me/storenizam" target="_blank" rel="noopener noreferrer" class="btn-nav-cta" aria-label="Hubungi via Telegram">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.64 8.56l-1.98 9.35c-.15.66-.55.82-1.11.51l-3.08-2.27-1.49 1.43c-.17.17-.31.31-.63.31l.22-3.18 5.79-5.24c.25-.22-.06-.35-.39-.13l-7.16 4.51-3.08-.96c-.67-.21-.69-.67.14-.99l12.04-4.64c.56-.2 1.04.13.73.81z"/></svg>
+          <span>Chat</span>
         </a>
-        <button class="menu-toggle" id="menuToggle" aria-label="Toggle Navigation">
-          <span class="burger-line"></span>
-          <span class="burger-line"></span>
-          <span class="burger-line"></span>
+        <button class="burger-toggle" id="burgerToggle" aria-label="Buka menu navigasi" aria-expanded="false" aria-controls="navDrawer">
+          <span class="b-line b-line-1"></span>
+          <span class="b-line b-line-2"></span>
+          <span class="b-line b-line-3"></span>
         </button>
       </div>
-    </div>
+    </nav>
   </header>
 
-  <!-- Hero Section -->
-  <main class="container">
-    <section class="hero">
-      <div class="hero-grid">
-        <div class="hero-copy">
-          <div class="status-pill">
-            <span class="status-dot"></span>
-            <span>Terbuka untuk kolaborasi & proyek website</span>
+  <!-- Mobile Drawer Menu -->
+  <div class="nav-drawer" id="navDrawer" aria-hidden="true">
+    <div class="drawer-header">
+      <span class="drawer-brand">Menu Navigasi</span>
+      <button class="drawer-close" id="drawerClose" aria-label="Tutup menu">✕</button>
+    </div>
+    <ul class="drawer-links">
+      <li><a href="#hero" class="drawer-link">Beranda</a></li>
+      <li><a href="#bahasa" class="drawer-link">Bahasa Pemrograman</a></li>
+      <li><a href="#proyek" class="drawer-link">Web Saya & Proyek</a></li>
+      <li><a href="#fokus" class="drawer-link">Arah Belajar</a></li>
+      <li><a href="#ai-stack" class="drawer-link">AI Tools Harian</a></li>
+      <li><a href="#roadmap" class="drawer-link">Roadmap Belajar</a></li>
+      <li><a href="#kontak" class="drawer-link">Kontak & Diskusi</a></li>
+    </ul>
+    <div class="drawer-cta">
+      <a href="https://t.me/storenizam" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="width: 100%; justify-content: center;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.64 8.56l-1.98 9.35c-.15.66-.55.82-1.11.51l-3.08-2.27-1.49 1.43c-.17.17-.31.31-.63.31l.22-3.18 5.79-5.24c.25-.22-.06-.35-.39-.13l-7.16 4.51-3.08-.96c-.67-.21-.69-.67.14-.99l12.04-4.64c.56-.2 1.04.13.73.81z"/></svg>
+        <span>Hubungi Telegram</span>
+      </a>
+    </div>
+  </div>
+
+  <main class="page-main">
+    <!-- Hero Section -->
+    <section class="section-hero" id="hero">
+      <div class="container hero-content">
+        <div class="hero-badge">
+          <span class="badge-dot"></span>
+          <span>zamm.my.id : Web Developer Portfolio</span>
+        </div>
+
+        <h1 class="hero-title">
+          Membangun Website Modern yang <span class="highlight-forest">Cepat</span>, Fungsional, dan <span class="highlight-amber">Interaktif</span>.
+        </h1>
+
+        <p class="hero-desc">
+          Halo, saya <strong>Nizam</strong>. Web developer pemula yang fokus mengeksplorasi pembuatan aplikasi web praktis, logika antarmuka yang bersih, dan integrasi animasi 3D di browser.
+        </p>
+
+        <!-- CTA Buttons -->
+        <div class="hero-buttons">
+          <a href="#bahasa" class="btn btn-primary">
+            <span>Pelajari Bahasa Web</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="#proyek" class="btn btn-secondary">
+            <span>Lihat Hasil Karya</span>
+          </a>
+        </div>
+
+        <!-- 3D Forest Animal Controller Card -->
+        <div class="animal-control-card">
+          <div class="control-header">
+            <span class="control-label">Eksplorasi Hewan Game 3D di Hutan:</span>
+            <button class="anim-toggle-btn" id="animToggleBtn" aria-label="Jeda animasi 3D">
+              <span id="animIcon">⏸️</span>
+              <span id="animText">Animasi Aktif</span>
+            </button>
           </div>
-
-          <h1 class="hero-title">
-            Membangun website modern yang <span>bersih, cepat,</span> dan terstruktur.
-          </h1>
-
-          <p class="hero-subtitle">
-            Halo, saya <strong>Nizam</strong>. Web developer pemula asal Indonesia yang fokus belajar dan membangun website yang praktis, cepat diakses, dan nyaman digunakan di ponsel maupun laptop.
-          </p>
-
-          <div class="hero-actions">
-            <a href="#kontak" class="btn btn-primary">
-              <span>Mulai Diskusi</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </a>
-            <a href="https://github.com/nizam169" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.04c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.75.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.5.99.11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 016 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.65.24 2.87.12 3.17.77.84 1.23 1.91 1.23 3.22 0 4.61-2.8 5.63-5.47 5.93.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.82.58C20.56 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
-              <span>github.com/nizam169</span>
-            </a>
+          <div class="animal-buttons" role="group" aria-label="Pilih fokus kamera hewan">
+            <button class="animal-btn active" data-animal="forest" type="button">
+              <span class="a-icon">🌲</span>
+              <span>Panorama Hutan</span>
+            </button>
+            <button class="animal-btn" data-animal="fox" type="button">
+              <span class="a-icon">🦊</span>
+              <span>Rubah Game</span>
+            </button>
+            <button class="animal-btn" data-animal="deer" type="button">
+              <span class="a-icon">🦌</span>
+              <span>Rusa Tanduk</span>
+            </button>
+            <button class="animal-btn" data-animal="owl" type="button">
+              <span class="a-icon">🦉</span>
+              <span>Burung Hantu</span>
+            </button>
           </div>
+          <p class="control-hint">Petunjuk : Klik salah satu hewan di atas atau sentuh langsung hewan di layar untuk menggerakkannya.</p>
         </div>
 
-        <div class="hero-visual" id="heroVisual">
-          <canvas id="scene3d" role="img" aria-label="Huruf N tiga dimensi dikelilingi bentuk geometris neo-brutalis. Geser untuk memutar; setiap bentuk bisa diklik untuk pindah ke bagian halaman terkait."></canvas>
-          <div class="visual-fallback" id="visualFallback" hidden>
-            <div class="fallback-badge">N</div>
-            <div class="fallback-links">
-              <a href="#proyek">Proyek</a>
-              <a href="#ai-stack">AI Asisten</a>
-              <a href="#roadmap">Roadmap</a>
-              <a href="#kontak">Kontak</a>
-            </div>
+        <!-- Meta Grid -->
+        <div class="meta-strip">
+          <div class="meta-cell">
+            <span class="meta-sub">Domain Utama</span>
+            <span class="meta-main">zamm.my.id</span>
           </div>
-        </div>
-      </div>
-
-      <div class="hero-meta">
-        <div class="meta-item">
-          <span class="meta-label">Domain</span>
-          <span class="meta-val">zamm.my.id</span>
-        </div>
-        <div class="meta-item">
-          <span class="meta-label">Lokasi</span>
-          <span class="meta-val">Indonesia</span>
-        </div>
-        <div class="meta-item">
-          <span class="meta-label">Fokus Utama</span>
-          <span class="meta-val">Frontend & Web UI</span>
-        </div>
-        <div class="meta-item">
-          <span class="meta-label">Status</span>
-          <span class="meta-val" style="color: #2563eb;">Aktif Berkarya</span>
+          <div class="meta-cell">
+            <span class="meta-sub">Asal Wilayah</span>
+            <span class="meta-main">Indonesia</span>
+          </div>
+          <div class="meta-cell">
+            <span class="meta-sub">Fokus Belajar</span>
+            <span class="meta-main">Frontend & 3D Canvas</span>
+          </div>
+          <div class="meta-cell">
+            <span class="meta-sub">Status Proyek</span>
+            <span class="meta-main live-color">Aktif Berkarya</span>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- My Websites / Portofolio Jaringan (Bento Layout) -->
+    <!-- SECTION: Bahasa Pemrograman -->
+    <section class="section" id="bahasa">
+      <div class="container">
+        <div class="section-title-wrap">
+          <span class="section-chip">Fondasi Utama</span>
+          <h2 class="section-heading">Bahasa Pemrograman Web</h2>
+          <p class="section-intro">Tiga pilar fundamental yang saya gunakan sehari-hari untuk merancang struktur, mempercantik tampilan, dan menambahkan interaktivitas dinamis.</p>
+        </div>
+
+        <!-- 3 Cards for HTML5, CSS3, JavaScript -->
+        <div class="lang-grid">
+          <!-- Card 1: HTML5 -->
+          <div class="lang-card">
+            <div class="lang-card-top">
+              <div class="lang-icon html-bg">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 3l1.5 17L12 22l6.5-2L20 3H4z"/><path d="M16.5 7H7.5l.5 5h8l-.5 5-3.5 1-3.5-1-.2-2"/></svg>
+              </div>
+              <div class="lang-meta">
+                <span class="lang-tag">Struktur & Konten</span>
+                <h3>HTML5</h3>
+              </div>
+            </div>
+            <p class="lang-desc">
+              Pondasi utama penyusun seluruh halaman web secara semantik, memastikan aksesibilitas pembaca layar dan struktur SEO yang tepat.
+            </p>
+            <ul class="lang-points">
+              <li>Elemen semantik: main, article, section, nav, header</li>
+              <li>Aksesibilitas web berstandar WCAG AA dan atribut ARIA</li>
+              <li>Formulir interaktif dengan validasi bawaan browser</li>
+              <li>Meta tags komprehensif untuk optimasi indexing search engine</li>
+            </ul>
+          </div>
+
+          <!-- Card 2: CSS3 -->
+          <div class="lang-card">
+            <div class="lang-card-top">
+              <div class="lang-icon css-bg">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 3l1.5 17L12 22l6.5-2L20 3H4z"/><path d="M7.5 7h9l-1 9-3.5 1-3.5-1-.2-3h3.7"/></svg>
+              </div>
+              <div class="lang-meta">
+                <span class="lang-tag">Tampilan & Gaya</span>
+                <h3>CSS3</h3>
+              </div>
+            </div>
+            <p class="lang-desc">
+              Mengatur tata letak visual yang presisi, sistem warna terpadu, dan adaptasi layout layar ponsel hingga monitor desktop.
+            </p>
+            <ul class="lang-points">
+              <li>Flexbox & CSS Grid modern untuk penyusunan layout responsif</li>
+              <li>CSS Custom Properties (variabel) untuk kemudahan tema</li>
+              <li>Animasi akselerasi GPU (transform, opacity) berkecepatan 60 FPS</li>
+              <li>Desain mobile-first bebas dari masalah horizontal overflow</li>
+            </ul>
+          </div>
+
+          <!-- Card 3: JavaScript -->
+          <div class="lang-card">
+            <div class="lang-card-top">
+              <div class="lang-icon js-bg">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 17c0-2 1-3 3-3s3 1 3 3"/><line x1="16" y1="8" x2="16" y2="17"/></svg>
+              </div>
+              <div class="lang-meta">
+                <span class="lang-tag">Logika & Interaktivitas</span>
+                <h3>JavaScript (ES6+)</h3>
+              </div>
+            </div>
+            <p class="lang-desc">
+              Mesin penggerak yang membuat website menjadi hidup, menangani aksi pengguna, komunikasi server, hingga grafis 3D WebGL.
+            </p>
+            <ul class="lang-points">
+              <li>Manipulasi DOM dinamis dan event listener interaktif</li>
+              <li>Asynchronous JavaScript menggunakan Promises dan Fetch API</li>
+              <li>Pemanfaatan WebGL dan Three.js untuk grafis 3D animasi</li>
+              <li>Pengelolaan state lokal dan pengolahan data tanpa reload</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Interactive Code Snippet Showcase -->
+        <div class="code-preview-box">
+          <div class="code-header">
+            <div class="code-tabs" role="tablist" aria-label="Pilih bahasa untuk melihat contoh kode">
+              <button class="code-tab active" role="tab" aria-selected="true" data-tab="html" id="tab-btn-html">
+                <span>index.html</span>
+              </button>
+              <button class="code-tab" role="tab" aria-selected="false" data-tab="css" id="tab-btn-css">
+                <span>style.css</span>
+              </button>
+              <button class="code-tab" role="tab" aria-selected="false" data-tab="js" id="tab-btn-js">
+                <span>app.js</span>
+              </button>
+            </div>
+            <button class="code-copy-btn" id="codeCopyBtn" type="button" aria-label="Salin potongan kode">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <span id="copyBtnText">Salin Kode</span>
+            </button>
+          </div>
+
+          <div class="code-body">
+            <!-- HTML Snippet -->
+            <pre class="code-panel active" id="codePanelHtml"><code><span class="c-tag">&lt;main</span> <span class="c-attr">class=</span><span class="c-str">"container"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;section</span> <span class="c-attr">id=</span><span class="c-str">"karya"</span> <span class="c-attr">class=</span><span class="c-str">"grid"</span><span class="c-tag">&gt;</span>
+    <span class="c-tag">&lt;article</span> <span class="c-attr">class=</span><span class="c-str">"card"</span><span class="c-tag">&gt;</span>
+      <span class="c-tag">&lt;h3&gt;</span>zamm.my.id<span class="c-tag">&lt;/h3&gt;</span>
+      <span class="c-tag">&lt;p&gt;</span>Penyusunan kode semantik dan aksesibel.<span class="c-tag">&lt;/p&gt;</span>
+      <span class="c-tag">&lt;a</span> <span class="c-attr">href=</span><span class="c-str">"#kontak"</span> <span class="c-attr">class=</span><span class="c-str">"btn"</span><span class="c-tag">&gt;</span>Hubungi Nizam<span class="c-tag">&lt;/a&gt;</span>
+    <span class="c-tag">&lt;/article&gt;</span>
+  <span class="c-tag">&lt;/section&gt;</span>
+<span class="c-tag">&lt;/main&gt;</span></code></pre>
+
+            <!-- CSS Snippet -->
+            <pre class="code-panel" id="codePanelCss"><code><span class="c-sel">:root</span> {
+  <span class="c-prop">--bg-forest</span>: <span class="c-val">#0b131f</span>;
+  <span class="c-prop">--accent-emerald</span>: <span class="c-val">#10b981</span>;
+  <span class="c-prop">--accent-amber</span>: <span class="c-val">#f59e0b</span>;
+}
+
+<span class="c-sel">.grid-responsive</span> {
+  <span class="c-prop">display</span>: <span class="c-val">grid</span>;
+  <span class="c-prop">grid-template-columns</span>: <span class="c-val">repeat(auto-fit, minmax(280px, 1fr))</span>;
+  <span class="c-prop">gap</span>: <span class="c-val">20px</span>;
+  <span class="c-prop">backdrop-filter</span>: <span class="c-val">blur(16px)</span>;
+}</code></pre>
+
+            <!-- JS Snippet -->
+            <pre class="code-panel" id="codePanelJs"><code><span class="c-kw">import</span> * <span class="c-kw">as</span> THREE <span class="c-kw">from</span> <span class="c-str">'three'</span>;
+
+<span class="c-kw">async function</span> <span class="c-fn">initForestScene</span>() {
+  <span class="c-kw">const</span> scene = <span class="c-kw">new</span> THREE.Scene();
+  <span class="c-kw">const</span> camera = <span class="c-kw">new</span> THREE.PerspectiveCamera(<span class="c-num">50</span>, innerWidth / innerHeight, <span class="c-num">0.1</span>, <span class="c-num">100</span>);
+  <span class="c-kw">const</span> renderer = <span class="c-kw">new</span> THREE.WebGLRenderer({ antialias: <span class="c-kw">true</span>, alpha: <span class="c-kw">true</span> });
+  
+  <span class="c-comm">// Gerakkan hewan game rubah & burung hantu</span>
+  renderer.setAnimationLoop(<span class="c-fn">renderFrame</span>);
+}</code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: Web Saya & Portofolio Jaringan -->
     <section class="section" id="proyek">
-      <div class="section-header">
-        <span class="section-tag">Jaringan Web</span>
-        <h2 class="section-title">Website & Proyek Aktif</h2>
-        <p class="section-desc">Eksplorasi ekosistem web tools dan utilitas digital yang dibangun dan dikembangkan.</p>
-      </div>
+      <div class="container">
+        <div class="section-title-wrap">
+          <span class="section-chip">Ekosistem Nyata</span>
+          <h2 class="section-heading">Website & Proyek Aktif</h2>
+          <p class="section-intro">Hasil karya web tools dan utilitas digital yang telah dipublikasikan dan dapat diakses publik secara langsung.</p>
+        </div>
 
-      <div class="bento-grid">
-        <!-- Bento 1: AmPrem (Featured Hero Tile) -->
-        <div class="bento-card bento-featured">
-          <div>
-            <div class="project-card-header">
+        <div class="projects-grid">
+          <!-- Proyek 1: AmPrem.AI -->
+          <article class="project-card featured-project">
+            <div class="project-header">
               <span class="project-domain">buluku.web.id</span>
-              <span class="project-badge is-live">Proyek Utama</span>
+              <span class="project-status is-live">Proyek Utama</span>
             </div>
-            <h3>AmPrem.AI</h3>
-            <span class="project-tagline">Instant Alight Motion Premium Activation</span>
+            <h3 class="project-title">AmPrem.AI</h3>
+            <span class="project-sub">Instant Alight Motion Premium Activation</span>
             <p class="project-desc">
-              Platform otomatisasi utama untuk aktivasi status Alight Motion Premium via sistem <em>Magic Link</em> verifikasi sekali klik. Dirancang praktis, tanpa iklan mengganggu, dan aktif dalam hitungan detik untuk kebutuhan ribuan video editor.
+              Platform otomatisasi utama untuk aktivasi status Alight Motion Premium melalui sistem Magic Link verifikasi sekali klik. Dirancang praktis, tanpa iklan mengganggu, dan aktif dalam hitungan detik untuk kebutuhan ribuan editor video.
             </p>
-            <div class="project-features">
-              <span class="project-feat">Aktivasi &lt; 15s</span>
-              <span class="project-feat">Sistem Magic Link</span>
-              <span class="project-feat">Bebas Iklan</span>
-              <span class="project-feat">Mobile Friendly</span>
+            <div class="project-tags">
+              <span class="p-tag">Aktivasi &lt; 15 Detik</span>
+              <span class="p-tag">Sistem Magic Link</span>
+              <span class="p-tag">Bebas Iklan</span>
+              <span class="p-tag">Mobile Friendly</span>
             </div>
-          </div>
-          <a href="https://buluku.web.id" target="_blank" rel="noopener noreferrer" class="project-link">
-            <span>Buka AmPrem.AI (buluku.web.id)</span>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-          </a>
-        </div>
+            <a href="https://buluku.web.id" target="_blank" rel="noopener noreferrer" class="project-link-btn">
+              <span>Buka AmPrem.AI (buluku.web.id)</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/></svg>
+            </a>
+          </article>
 
-        <!-- Bento 2: MailNoir -->
-        <div class="bento-card">
-          <div>
-            <div class="project-card-header">
+          <!-- Proyek 2: MailNoir -->
+          <article class="project-card">
+            <div class="project-header">
               <span class="project-domain">luminoir.my.id</span>
-              <span class="project-badge is-live">Layanan aktif</span>
+              <span class="project-status is-live">Layanan Aktif</span>
             </div>
-            <h3>MailNoir</h3>
-            <span class="project-tagline">Disposable Temporary Email Service</span>
+            <h3 class="project-title">MailNoir</h3>
+            <span class="project-sub">Disposable Temporary Email Service</span>
             <p class="project-desc">
-              Layanan email sementara gratis tanpa registrasi akun untuk menerima kode verifikasi dan melindungi privasi inbox utama. Mendukung penambahan custom domain via DNS MX & DKIM.
+              Layanan email sementara gratis tanpa registrasi akun untuk menerima kode verifikasi dan melindungi privasi inbox utama. Mendukung penambahan custom domain via DNS MX dan DKIM.
             </p>
-            <div class="project-features">
-              <span class="project-feat">Auto-Refresh 10s</span>
-              <span class="project-feat">Hapus 24 Jam</span>
-              <span class="project-feat">Custom Domain</span>
+            <div class="project-tags">
+              <span class="p-tag">Auto Refresh 10s</span>
+              <span class="p-tag">Pembersihan 24 Jam</span>
+              <span class="p-tag">Custom Domain</span>
             </div>
-          </div>
-          <a href="https://luminoir.my.id" target="_blank" rel="noopener noreferrer" class="project-link">
-            <span>Buka MailNoir (luminoir.my.id)</span>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-          </a>
-        </div>
+            <a href="https://luminoir.my.id" target="_blank" rel="noopener noreferrer" class="project-link-btn">
+              <span>Buka MailNoir (luminoir.my.id)</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/></svg>
+            </a>
+          </article>
 
-        <!-- Bento 3: AMNOIR 3D -->
-        <div class="bento-card">
-          <div>
-            <div class="project-card-header">
+          <!-- Proyek 3: AMNOIR 3D -->
+          <article class="project-card">
+            <div class="project-header">
               <span class="project-domain">amnoir.my.id</span>
-              <span class="project-badge is-live">Tool aktif</span>
+              <span class="project-status is-live">Tool Aktif</span>
             </div>
-            <h3>AMNOIR 3D</h3>
-            <span class="project-tagline">TikTok Preset Alight Motion Scraper</span>
+            <h3 class="project-title">AMNOIR 3D</h3>
+            <span class="project-sub">TikTok Preset Alight Motion Scraper</span>
             <p class="project-desc">
-              Alat pencari otomatis preset Alight Motion dari tautan TikTok. Menganalisis deskripsi video, bio akun, serta komentar secara instan untuk mengekstrak preset <strong>5MB Cloud</strong> & <strong>XML</strong>.
+              Alat pencari otomatis preset Alight Motion dari tautan TikTok. Menganalisis deskripsi video, bio akun, serta komentar secara instan untuk mengekstrak preset 5MB Cloud dan XML.
             </p>
-            <div class="project-features">
-              <span class="project-feat">Auto Scan TikTok</span>
-              <span class="project-feat">5MB & XML</span>
-              <span class="project-feat">Live Stream Log</span>
+            <div class="project-tags">
+              <span class="p-tag">Auto Scan TikTok</span>
+              <span class="p-tag">5MB & XML Support</span>
+              <span class="p-tag">Live Stream Log</span>
             </div>
-          </div>
-          <a href="https://amnoir.my.id" target="_blank" rel="noopener noreferrer" class="project-link">
-            <span>Buka AMNOIR 3D (amnoir.my.id)</span>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-          </a>
+            <a href="https://amnoir.my.id" target="_blank" rel="noopener noreferrer" class="project-link-btn">
+              <span>Buka AMNOIR 3D (amnoir.my.id)</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/></svg>
+            </a>
+          </article>
         </div>
       </div>
     </section>
 
-    <!-- Services / Fokus Section -->
+    <!-- SECTION: Fokus Pembelajaran -->
     <section class="section" id="fokus">
-      <div class="section-header">
-        <span class="section-tag">Arah Pembelajaran</span>
-        <h2 class="section-title">Fokus yang Sedang Ditekuni</h2>
-        <p class="section-desc">Membangun kebiasaan ngoding yang rapi, struktur file yang teratur, dan tampilan yang enak dilihat di layar kecil.</p>
-      </div>
-
-      <div class="cards-grid">
-        <div class="service-card">
-          <div class="service-icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
-          </div>
-          <h3>Web Sederhana & Fungsional</h3>
-          <p>Membiasakan diri membuat halaman web yang langsung menyelesaikan masalah pengguna tanpa animasi berat.</p>
+      <div class="container">
+        <div class="section-title-wrap">
+          <span class="section-chip">Arah Belajar</span>
+          <h2 class="section-heading">Fokus yang Sedang Ditekuni</h2>
+          <p class="section-intro">Membangun kebiasaan penulisan kode yang rapi, arsitektur modular, dan antarmuka yang nyaman dioperasikan satu tangan di layar ponsel.</p>
         </div>
 
-        <div class="service-card">
-          <div class="service-icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <div class="focus-grid">
+          <div class="focus-card">
+            <div class="focus-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+            </div>
+            <h3>Web Sederhana & Fungsional</h3>
+            <p>Membiasakan diri menyusun aplikasi web yang langsung menyelesaikan kebutuhan pengguna dengan waktu muat cepat dan tanpa animasi yang memberatkan perangkat.</p>
           </div>
-          <h3>Portofolio & Showcase Pribadi</h3>
-          <p>Mendokumentasikan hasil karya nyata seperti AmPrem dan MailNoir agar bisa dilihat dan digunakan siapa saja.</p>
-        </div>
 
-        <div class="service-card">
-          <div class="service-icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          <div class="focus-card">
+            <div class="focus-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <h3>Portofolio & Karya Nyata</h3>
+            <p>Mendokumentasikan hasil karya nyata seperti AmPrem, MailNoir, dan AMNOIR agar bisa diuji dan dinikmati siapa saja di internet secara transparan.</p>
           </div>
-          <h3>Mobile First & Kode Rapi</h3>
-          <p>Selalu menguji tampilan di layar HP terlebih dahulu agar teks tidak berantakan dan tombol mudah ditekan jari.</p>
+
+          <div class="focus-card">
+            <div class="focus-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            </div>
+            <h3>Mobile First & Kode Rapi</h3>
+            <p>Selalu memprioritaskan pengetesan di layar smartphone terlebih dahulu agar teks tidak terpotong dan tombol memiliki ukuran sentuh yang nyaman.</p>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- AI Assistants / Toolstack Section -->
+    <!-- SECTION: AI Tools Harian -->
     <section class="section" id="ai-stack">
-      <div class="section-header">
-        <span class="section-tag">Alat Bantu Harian</span>
-        <h2 class="section-title">AI sebagai Teman Belajar</h2>
-        <p class="section-desc">Ketika belajar sendirian dari nol, AI saya manfaatkan untuk tanya konsep yang belum paham, mencari penyebab error terminal, dan mereview baris kode.</p>
-      </div>
+      <div class="container">
+        <div class="section-title-wrap">
+          <span class="section-chip">Alat Bantu Harian</span>
+          <h2 class="section-heading">AI sebagai Partner Belajar</h2>
+          <p class="section-intro">Ketika belajar secara mandiri, saya memanfaatkan model kecerdasan buatan untuk berdiskusi konsep komputasi, mencari penyebab error, dan menguji logika kode.</p>
+        </div>
 
-      <div class="ai-grid">
-        <div class="ai-card">
-          <div class="ai-header">
-            <div>
+        <div class="ai-grid">
+          <div class="ai-card">
+            <div class="ai-header">
               <h4>DeepSeek</h4>
-              <span class="ai-role">Logic & Debugging</span>
+              <span class="ai-badge">Logic & Debugging</span>
             </div>
+            <p>Membantu pemecahan algoritma, optimasi alur fungsi, serta analisa pesan error di terminal secara mendalam.</p>
           </div>
-          <p>Membantu pemecahan algoritma rumit, optimasi logika fungsi, dan analisa error terminal secara mendalam.</p>
-        </div>
 
-        <div class="ai-card">
-          <div class="ai-header">
-            <div>
+          <div class="ai-card">
+            <div class="ai-header">
               <h4>Claude</h4>
-              <span class="ai-role">Architecture & UI</span>
+              <span class="ai-badge">Architecture & UI</span>
             </div>
+            <p>Partner terpercaya untuk refactoring struktur semantik bersih, konsistensi styling, dan penerapan standar kode yang baik.</p>
           </div>
-          <p>Partner ideal untuk refactoring arsitektur kode bersih, struktur semantik, dan styling modern yang presisi.</p>
-        </div>
 
-        <div class="ai-card">
-          <div class="ai-header">
-            <div>
+          <div class="ai-card">
+            <div class="ai-header">
               <h4>Gemini</h4>
-              <span class="ai-role">Research & Context</span>
+              <span class="ai-badge">Research & Context</span>
             </div>
+            <p>Eksplorasi dokumentasi web modern, referensi API terbaru, dan pemahaman konsep teknis secara menyeluruh.</p>
           </div>
-          <p>Eksplorasi dokumentasi web terbaru, integrasi tools modern, dan pemahaman konsep komputasi secara cepat.</p>
-        </div>
 
-        <div class="ai-card">
-          <div class="ai-header">
-            <div>
+          <div class="ai-card">
+            <div class="ai-header">
               <h4>ChatGPT</h4>
-              <span class="ai-role">Brainstorming & QA</span>
+              <span class="ai-badge">Brainstorming & QA</span>
             </div>
+            <p>Asisten diskusi untuk merancang ide proyek baru, validasi skenario alur pengguna, dan review berkas front-end.</p>
           </div>
-          <p>Asisten interaktif untuk drafting ide proyek, validasi alur user experience, dan review skrip front-end.</p>
         </div>
       </div>
     </section>
 
-    <!-- Roadmap Section -->
+    <!-- SECTION: Roadmap Belajar -->
     <section class="section" id="roadmap">
-      <div class="section-header">
-        <span class="section-tag">Perjalanan Belajar</span>
-        <h2 class="section-title">Roadmap Pengembangan Diri</h2>
-        <p class="section-desc">Setiap tahapan ditempuh secara konsisten untuk membangun fondasi teknis yang solid dan teruji.</p>
-      </div>
+      <div class="container">
+        <div class="section-title-wrap">
+          <span class="section-chip">Jalur Pembelajaran</span>
+          <h2 class="section-heading">Roadmap Pengembangan Diri</h2>
+          <p class="section-intro">Setiap langkah dijalankan secara teratur untuk membentuk pondasi pemrograman yang kuat dan aplikatif.</p>
+        </div>
 
-      <div class="timeline">
-        <div class="timeline-item">
-          <span class="timeline-step">STEP 01</span>
-          <div class="timeline-content">
+        <div class="timeline">
+          <div class="timeline-card">
+            <div class="timeline-top">
+              <span class="step-num">LANGKAH 01</span>
+              <span class="status-chip chip-done">Selesai</span>
+            </div>
             <h4>Dasar Logika & Struktur Komputasi</h4>
-            <p>Memahami alur algoritma dasar, struktur data pemula, serta problem solving terarah.</p>
+            <p>Memahami konsep dasar alur logika, variabel, tipe data, serta problem solving terarah.</p>
           </div>
-          <span class="status-badge badge-done">SELESAI</span>
-        </div>
 
-        <div class="timeline-item">
-          <span class="timeline-step">STEP 02</span>
-          <div class="timeline-content">
+          <div class="timeline-card">
+            <div class="timeline-top">
+              <span class="step-num">LANGKAH 02</span>
+              <span class="status-chip chip-progress">Sedang Berjalan</span>
+            </div>
             <h4>Penguasaan Semantic HTML & Modern CSS</h4>
-            <p>Flexbox, CSS Grid, responsivitas mobile-first, sistem warna, dan tipografi yang nyaman dibaca.</p>
-          </div>
-          <span class="status-badge badge-progress">SEDANG BERJALAN</span>
-        </div>
-
-        <div class="timeline-item">
-          <span class="timeline-step">STEP 03</span>
-          <div class="timeline-content">
-            <h4>Interaktivitas JavaScript Modern</h4>
-            <p>DOM manipulation, event handling, fetch API, dan integrasi dinamis pada antarmuka web.</p>
-          </div>
-          <span class="status-badge badge-progress">SEDANG BERJALAN</span>
-        </div>
-
-        <div class="timeline-item">
-          <span class="timeline-step">STEP 04</span>
-          <div class="timeline-content">
-            <h4>Version Control (Git & GitHub Workflow)</h4>
-            <p>Manajemen repositori kode, branch, pull request, dan otomatisasi deployment ke domain publik.</p>
-          </div>
-          <span class="status-badge badge-next">TAHAP LANJUT</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- Skills & Mindset -->
-    <section class="section" id="keahlian">
-      <div class="section-header">
-        <span class="section-tag">Keahlian & Mindset</span>
-        <h2 class="section-title">Fondasi Teknis & Prinsip Kerja</h2>
-        <p class="section-desc">Transparan terhadap progres kemampuan saat ini dan berpegang teguh pada etos kerja belajar yang sehat.</p>
-      </div>
-
-      <!-- Tab Switcher (Bisa Digeser / Diklik) -->
-      <div class="skills-tabs">
-        <button class="tab-btn active" onclick="switchSkillTab('tools')">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-          Tools yang Dipakai
-        </button>
-        <button class="tab-btn" onclick="switchSkillTab('principles')">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-          Prinsip Belajar
-        </button>
-      </div>
-
-      <!-- Tab 1: Tools (List Rapi Anti-Keluar Garis) -->
-      <div class="tab-content active" id="tab-tools">
-        <div class="skill-panel">
-          <div>
-            <h3>Tools yang Dipakai Sehari-hari</h3>
-            <p class="skill-panel-sub">Yang saya pakai untuk membangun semua proyek di halaman ini.</p>
+            <p>Mendalami Flexbox, CSS Grid, responsivitas mobile-first, sistem warna, dan tipografi nyaman dibaca.</p>
           </div>
 
-          <div class="skill-list">
-            <div class="skill-card-item">
-              <div class="skill-item-info">
-                <span class="skill-name">HTML5</span>
-                <span class="skill-use">menyusun struktur & konten halaman web</span>
-              </div>
+          <div class="timeline-card">
+            <div class="timeline-top">
+              <span class="step-num">LANGKAH 03</span>
+              <span class="status-chip chip-progress">Sedang Berjalan</span>
             </div>
-
-            <div class="skill-card-item">
-              <div class="skill-item-info">
-                <span class="skill-name">CSS3</span>
-                <span class="skill-use">layout responsif & tema neo-brutalism di situs ini</span>
-              </div>
-            </div>
-
-            <div class="skill-card-item">
-              <div class="skill-item-info">
-                <span class="skill-name">JavaScript</span>
-                <span class="skill-use">interaksi dasar: tab, menu navigasi, fetch API</span>
-              </div>
-            </div>
-
-            <div class="skill-card-item">
-              <div class="skill-item-info">
-                <span class="skill-name">Git & GitHub</span>
-                <span class="skill-use">menyimpan & mengelola kode tiap proyek</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Tab 2: Principles -->
-      <div class="tab-content" id="tab-principles">
-        <div class="skill-panel">
-          <div>
-            <h3>Prinsip Belajar Berkelanjutan</h3>
-            <p class="skill-panel-sub">Pedoman harian agar tidak burnout dan terus berkembang.</p>
+            <h4>JavaScript Modern & Animasi 3D WebGL</h4>
+            <p>Manipulasi DOM, event handling, fetch data asinkron, dan pembuatan grafis 3D interaktif menggunakan Three.js.</p>
           </div>
 
-          <div>
-            <div class="principle-item">
-              <div class="principle-num">01</div>
-              <div>
-                <strong>Konsistensi di Atas Intensitas</strong>
-                <span>Belajar teratur 1 jam setiap hari terbukti jauh lebih efektif daripada maraton 10 jam dalam sehari.</span>
-              </div>
+          <div class="timeline-card">
+            <div class="timeline-top">
+              <span class="step-num">LANGKAH 04</span>
+              <span class="status-chip chip-next">Tahap Lanjut</span>
             </div>
-
-            <div class="principle-item">
-              <div class="principle-num">02</div>
-              <div>
-                <strong>Ketik Ulang & Pahami Alur Kode</strong>
-                <span>Tidak sekadar menyalin solusi, tetapi menelusuri logika di balik setiap baris fungsi.</span>
-              </div>
-            </div>
-
-            <div class="principle-item">
-              <div class="principle-num">03</div>
-              <div>
-                <strong>Fokus ke Proyek Nyata</strong>
-                <span>Mengeksekusi ide menjadi web fungsional seperti tool aktivasi dan layanan email sementara.</span>
-              </div>
-            </div>
+            <h4>Version Control & Deployment Otomatis</h4>
+            <p>Manajemen repositori Git di GitHub, pengujian alur branch, dan deployment langsung ke server Vercel.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Contact CTA -->
+    <!-- SECTION: Kontak & Kolaborasi -->
     <section class="section" id="kontak">
-      <div class="contact-card">
-        <div class="contact-inner">
-          <h2>Mari Terhubung & Berdiskusi</h2>
-          <p>Apakah Anda membutuhkan landing page sederhana, kolaborasi proyek, atau sekadar ingin menyapa sesama rekan developer? Pintu komunikasi selalu terbuka.</p>
-          <div class="contact-buttons">
-            <a href="https://t.me/storenizam" target="_blank" rel="noopener noreferrer" class="btn btn-light">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.64 8.56l-1.98 9.35c-.15.66-.55.82-1.11.51l-3.08-2.27-1.49 1.43c-.17.17-.31.31-.63.31l.22-3.18 5.79-5.24c.25-.22-.06-.35-.39-.13l-7.16 4.51-3.08-.96c-.67-.21-.69-.67.14-.99l12.04-4.64c.56-.2 1.04.13.73.81z"/></svg>
-              <span>Chat Telegram (@storenizam)</span>
-            </a>
-            <a href="https://github.com/nizam169" target="_blank" rel="noopener noreferrer" class="btn btn-ghost-light">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.04c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.75.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.5.99.11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 016 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.65.24 2.87.12 3.17.77.84 1.23 1.91 1.23 3.22 0 4.61-2.8 5.63-5.47 5.93.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.82.58C20.56 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
-              <span>GitHub Profile</span>
-            </a>
+      <div class="container">
+        <div class="contact-box">
+          <div class="contact-inner">
+            <span class="section-chip chip-amber">Komunikasi Terbuka</span>
+            <h2 class="contact-title">Mari Terhubung & Berdiskusi</h2>
+            <p class="contact-sub">
+              Apakah Anda membutuhkan pembuatan landing page, ingin berkolaborasi proyek web, atau sekadar menyapa sesama rekan pembelajar? Silakan hubungi saya melalui jalur resmi di bawah ini.
+            </p>
+            <div class="contact-buttons">
+              <a href="https://t.me/storenizam" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.64 8.56l-1.98 9.35c-.15.66-.55.82-1.11.51l-3.08-2.27-1.49 1.43c-.17.17-.31.31-.63.31l.22-3.18 5.79-5.24c.25-.22-.06-.35-.39-.13l-7.16 4.51-3.08-.96c-.67-.21-.69-.67.14-.99l12.04-4.64c.56-.2 1.04.13.73.81z"/></svg>
+                <span>Telegram (@storenizam)</span>
+              </a>
+              <a href="https://github.com/nizam169" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.04c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.75.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.5.99.11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 016 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.65.24 2.87.12 3.17.77.84 1.23 1.91 1.23 3.22 0 4.61-2.8 5.63-5.47 5.93.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.82.58C20.56 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
+                <span>GitHub (nizam169)</span>
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -1703,338 +543,34 @@
   </main>
 
   <!-- Footer -->
-  <footer>
-    <div class="container footer-wrapper">
-      <div class="footer-left">
-        <p class="footer-copy">© 2026 <strong>Nizam</strong> (zamm.my.id) — Hak cipta dilindungi.</p>
-        <span class="footer-sub">Satu file HTML, tanpa build step, tanpa animasi berlebihan.</span>
+  <footer class="page-footer">
+    <div class="container footer-content">
+      <div class="footer-brand-info">
+        <div class="footer-logo">
+          <span class="brand-symbol">Z</span>
+          <span class="footer-title">zamm.my.id</span>
+        </div>
+        <p class="footer-desc">
+          Portfolio resmi Nizam : Dibuat dengan Semantic HTML5, Modern CSS3, dan Three.js tanpa build step yang rumit.
+        </p>
       </div>
-      <div class="footer-links">
-        <a href="https://github.com/nizam169" target="_blank" rel="noopener noreferrer">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.04c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.75.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.5.99.11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 016 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.65.24 2.87.12 3.17.77.84 1.23 1.91 1.23 3.22 0 4.61-2.8 5.63-5.47 5.93.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.82.58C20.56 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
-          GitHub
-        </a>
-        <a href="https://t.me/storenizam" target="_blank" rel="noopener noreferrer">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.64 8.56l-1.98 9.35c-.15.66-.55.82-1.11.51l-3.08-2.27-1.49 1.43c-.17.17-.31.31-.63.31l.22-3.18 5.79-5.24c.25-.22-.06-.35-.39-.13l-7.16 4.51-3.08-.96c-.67-.21-.69-.67.14-.99l12.04-4.64c.56-.2 1.04.13.73.81z"/></svg>
-          Telegram
-        </a>
+
+      <div class="footer-links-wrap">
+        <a href="#hero" class="f-link">Beranda</a>
+        <a href="#bahasa" class="f-link">Bahasa</a>
+        <a href="#proyek" class="f-link">Web Saya</a>
+        <a href="https://github.com/nizam169" target="_blank" rel="noopener noreferrer" class="f-link">GitHub</a>
+        <a href="https://t.me/storenizam" target="_blank" rel="noopener noreferrer" class="f-link">Telegram</a>
       </div>
+    </div>
+    <div class="container footer-bottom">
+      <p>&copy; 2026 Nizam (zamm.my.id). Hak cipta dilindungi.</p>
+      <p class="footer-credit">Hutan 3D & Hewan Game ditenagai oleh WebGL Three.js</p>
     </div>
   </footer>
 
-  <script>
-    const toggle = document.getElementById('menuToggle');
-    const nav = document.getElementById('mainNav');
-    if (toggle && nav) {
-      toggle.addEventListener('click', () => {
-        toggle.classList.toggle('open');
-        nav.classList.toggle('active');
-      });
-      nav.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-          toggle.classList.remove('open');
-          nav.classList.remove('active');
-        });
-      });
-    }
-
-    function switchSkillTab(tab) {
-      const btnTools = document.querySelectorAll('.tab-btn')[0];
-      const btnPrinciples = document.querySelectorAll('.tab-btn')[1];
-      const contentTools = document.getElementById('tab-tools');
-      const contentPrinciples = document.getElementById('tab-principles');
-
-      if (tab === 'tools') {
-        btnTools.classList.add('active');
-        btnPrinciples.classList.remove('active');
-        contentTools.classList.add('active');
-        contentPrinciples.classList.remove('active');
-      } else {
-        btnPrinciples.classList.add('active');
-        btnTools.classList.remove('active');
-        contentPrinciples.classList.add('active');
-        contentTools.classList.remove('active');
-      }
-    }
-  </script>
-
-  <script>
-    window.__visOK = false;
-    function showVisualFallback() {
-      var box = document.getElementById('heroVisual');
-      var fb = document.getElementById('visualFallback');
-      if (box && fb) { box.classList.add('no3d'); fb.hidden = false; }
-    }
-    window.setTimeout(function () {
-      if (!window.__visOK) { showVisualFallback(); }
-    }, 8000);
-  </script>
-
-  <script type="module">
-    import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.module.js';
-
-    const canvas = document.getElementById('scene3d');
-    const container = document.getElementById('heroVisual');
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    function fail() {
-      window.__visOK = false;
-      showVisualFallback();
-    }
-
-    function init() {
-      if (!container || !canvas) throw new Error('missing hero visual elements');
-      if (!(canvas.getContext('webgl2') || canvas.getContext('webgl'))) {
-        throw new Error('webgl is not available');
-      }
-
-      const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
-
-      const scene = new THREE.Scene();
-      const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 50);
-      camera.position.set(0, 0.12, 6.6);
-      camera.lookAt(0, 0, 0);
-
-      scene.add(new THREE.HemisphereLight(0xffffff, 0xdbeafe, 1.25));
-      const keyLight = new THREE.DirectionalLight(0xffffff, 1.7);
-      keyLight.position.set(3.5, 4, 4.5);
-      scene.add(keyLight);
-      const rimLight = new THREE.DirectionalLight(0xffffff, 0.55);
-      rimLight.position.set(-4, -2.5, -3);
-      scene.add(rimLight);
-
-      const shadeSteps = new Uint8Array([90, 170, 255]);
-      const gradientMap = new THREE.DataTexture(shadeSteps, shadeSteps.length, 1, THREE.RedFormat);
-      gradientMap.minFilter = THREE.NearestFilter;
-      gradientMap.magFilter = THREE.NearestFilter;
-      gradientMap.needsUpdate = true;
-
-      const toon = (hex) => new THREE.MeshToonMaterial({ color: hex, gradientMap });
-      const outlineMaterial = new THREE.MeshBasicMaterial({ color: 0x0f172a, side: THREE.BackSide });
-      const edgeMaterial = new THREE.LineBasicMaterial({ color: 0x0f172a });
-
-      function chunky(geometry, hex, options) {
-        const opts = options || {};
-        const group = new THREE.Group();
-        group.add(new THREE.Mesh(geometry, toon(hex)));
-        if (opts.edge) {
-          group.add(new THREE.LineSegments(new THREE.EdgesGeometry(geometry, opts.angle || 24), edgeMaterial));
-        } else {
-          const hull = new THREE.Mesh(geometry, outlineMaterial);
-          hull.scale.setScalar(opts.hull || 1.055);
-          group.add(hull);
-        }
-        return group;
-      }
-
-      const nShape = new THREE.Shape();
-      nShape.moveTo(-0.62, 0.78);
-      nShape.lineTo(-0.22, 0.78);
-      nShape.lineTo(0.22, -0.04);
-      nShape.lineTo(0.22, 0.78);
-      nShape.lineTo(0.62, 0.78);
-      nShape.lineTo(0.62, -0.78);
-      nShape.lineTo(0.22, -0.78);
-      nShape.lineTo(-0.22, 0.04);
-      nShape.lineTo(-0.22, -0.78);
-      nShape.lineTo(-0.62, -0.78);
-      nShape.closePath();
-
-      const geoN = new THREE.ExtrudeGeometry(nShape, {
-        depth: 0.55,
-        bevelEnabled: true,
-        bevelThickness: 0.07,
-        bevelSize: 0.06,
-        bevelSegments: 3,
-        curveSegments: 1
-      });
-      geoN.center();
-
-      const stage = new THREE.Group();
-      const nGroup = chunky(geoN, 0x2563eb, { edge: true, angle: 32 });
-      nGroup.scale.setScalar(1.28);
-      nGroup.userData = { sel: '#kontak', baseY: 0, phase: 0, amp: 0.05, speed: 0.7 };
-      stage.add(nGroup);
-
-      const torus = chunky(new THREE.TorusGeometry(0.46, 0.2, 20, 36), 0xbfdbfe, { hull: 1.06 });
-      torus.position.set(-1.95, 1.05, -0.35);
-      torus.rotation.set(1.15, -0.25, 0.2);
-      torus.userData = { sel: '#proyek', baseY: 1.05, phase: 0.8, amp: 0.09, speed: 0.9 };
-      stage.add(torus);
-
-      const box = chunky(new THREE.BoxGeometry(0.72, 0.72, 0.72), 0xffffff, { edge: true, angle: 24 });
-      box.position.set(2.05, 0.95, -0.55);
-      box.rotation.set(0.5, 0.7, 0);
-      box.userData = { sel: '#roadmap', baseY: 0.95, phase: 2.1, amp: 0.08, speed: 0.75 };
-      stage.add(box);
-
-      const ico = chunky(new THREE.IcosahedronGeometry(0.5, 0), 0x2563eb, { edge: true, angle: 8 });
-      ico.position.set(1.7, -1.2, 0.25);
-      ico.rotation.set(0.4, 0.3, 0.15);
-      ico.userData = { sel: '#keahlian', baseY: -1.2, phase: 4.0, amp: 0.09, speed: 1.05 };
-      stage.add(ico);
-
-      const capsule = chunky(new THREE.CapsuleGeometry(0.26, 0.62, 6, 18), 0xbfdbfe, { hull: 1.08 });
-      capsule.position.set(-1.8, -1.25, 0.35);
-      capsule.rotation.set(0, 0, 0.55);
-      capsule.userData = { sel: '#ai-stack', baseY: -1.25, phase: 5.1, amp: 0.08, speed: 0.85 };
-      stage.add(capsule);
-
-      const ball = chunky(new THREE.SphereGeometry(0.24, 24, 18), 0x334155, { hull: 1.09 });
-      ball.position.set(1.0, 1.95, -0.3);
-      ball.userData = { sel: '#fokus', baseY: 1.95, phase: 1.4, amp: 0.07, speed: 1.15 };
-      stage.add(ball);
-
-      const actors = [nGroup, torus, box, ico, capsule, ball];
-      scene.add(stage);
-
-      function resize() {
-        const w = container.clientWidth || 1;
-        const h = container.clientHeight || 1;
-        renderer.setSize(w, h, false);
-        camera.aspect = w / h;
-        camera.updateProjectionMatrix();
-      }
-      if ('ResizeObserver' in window) {
-        new ResizeObserver(resize).observe(container);
-      }
-      window.addEventListener('resize', resize);
-      resize();
-
-      const raycaster = new THREE.Raycaster();
-      raycaster.params.Line.threshold = 0;
-      const pointer = new THREE.Vector2(-10, -10);
-      let hovered = null;
-      let dragging = false;
-      let movedFar = false;
-      let lastX = 0;
-      let lastY = 0;
-      let targetRY = 0;
-      let targetRX = 0;
-      let curRY = 0;
-      let curRX = 0;
-      let lastInteract = 0;
-      let visible = true;
-
-      new IntersectionObserver((entries) => {
-        visible = entries[0].isIntersecting;
-      }, { threshold: 0.02 }).observe(container);
-
-      function pickAt(e) {
-        const rect = canvas.getBoundingClientRect();
-        pointer.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-        pointer.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
-        raycaster.setFromCamera(pointer, camera);
-        const hits = raycaster.intersectObjects(actors, true);
-        for (const hit of hits) {
-          let o = hit.object;
-          while (o && !(o.userData && o.userData.sel)) o = o.parent;
-          if (o) return o;
-        }
-        return null;
-      }
-
-      canvas.addEventListener('pointerdown', (e) => {
-        dragging = true;
-        movedFar = false;
-        lastX = e.clientX;
-        lastY = e.clientY;
-        lastInteract = performance.now();
-        canvas.classList.add('grabbing');
-        canvas.setPointerCapture(e.pointerId);
-      });
-
-      canvas.addEventListener('pointermove', (e) => {
-        if (dragging) {
-          const dx = e.clientX - lastX;
-          const dy = e.clientY - lastY;
-          if (Math.abs(dx) + Math.abs(dy) > 4) movedFar = true;
-          targetRY += dx * 0.0045;
-          targetRX = Math.max(-0.5, Math.min(0.5, targetRX + dy * 0.0028));
-          lastX = e.clientX;
-          lastY = e.clientY;
-        } else if (e.pointerType !== 'touch') {
-          const hit = pickAt(e);
-          if (hit !== hovered) {
-            hovered = hit;
-            canvas.classList.toggle('point', !!hovered);
-          }
-        }
-        lastInteract = performance.now();
-      });
-
-      function releasePointer(e) {
-        hovered = null;
-        canvas.classList.remove('point');
-        if (!dragging) return;
-        dragging = false;
-        canvas.classList.remove('grabbing');
-        if (!movedFar && e && e.clientX !== undefined) {
-          const hit = pickAt(e);
-          if (hit) {
-            hit.userData.popAt = performance.now();
-            const target = document.querySelector(hit.userData.sel);
-            if (target) target.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'start' });
-          }
-        }
-        lastInteract = performance.now();
-      }
-      canvas.addEventListener('pointerup', releasePointer);
-      canvas.addEventListener('pointercancel', () => {
-        dragging = false;
-        canvas.classList.remove('grabbing');
-      });
-      canvas.addEventListener('pointerleave', () => {
-        hovered = null;
-        canvas.classList.remove('point');
-      });
-
-      const clock = new THREE.Clock();
-      let lastT = 0;
-
-      function animate() {
-        requestAnimationFrame(animate);
-        if (!visible || document.hidden) return;
-        const now = performance.now();
-        const t = clock.getElapsedTime();
-        const dt = Math.min(t - lastT, 0.05);
-        lastT = t;
-
-        if (!dragging && !hovered && !reducedMotion && now - lastInteract > 4000) {
-          targetRY += dt * 0.12;
-        }
-
-        curRY += (targetRY - curRY) * 0.08;
-        curRX += (targetRX - curRX) * 0.08;
-        stage.rotation.y = curRY;
-        stage.rotation.x = curRX;
-
-        for (const actor of actors) {
-          const u = actor.userData;
-          actor.position.y = u.baseY + (reducedMotion ? 0 : Math.sin(t * u.speed + u.phase) * u.amp);
-          let s = 1;
-          if (actor === hovered) s *= 1.07;
-          if (u.popAt) {
-            const p = (now - u.popAt) / 380;
-            if (p < 1) s *= 1 + 0.2 * Math.sin(Math.PI * p);
-            else u.popAt = 0;
-          }
-          actor.scale.setScalar(actor === nGroup ? 1.28 * s : s);
-        }
-
-        renderer.render(scene, camera);
-        if (!window.__visOK) window.__visOK = true;
-      }
-
-      animate();
-    }
-
-    try {
-      init();
-    } catch (err) {
-      fail();
-    }
-  </script>
+  <!-- App logic & Three.js 3D Forest module -->
+  <script type="module" src="forest3d.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
